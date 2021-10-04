@@ -27,7 +27,7 @@ linter:
     ## ERROR rules
     avoid_empty_else: true
     avoid_types_as_parameter_names: true
-    prefer_relative_imports: true
+    prefer_relative_imports: false
     prefer_void_to_null: true
     use_key_in_widget_constructors: true
 
