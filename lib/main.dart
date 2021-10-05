@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/routes.dart';
+import 'package:hackathon_supporterz/screens/404/not_found.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/screens/home/home_screen.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'screens/my_page/mypage_screen.dart';
 import 'package:url_strategy/url_strategy.dart';
 
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         // Material Colorは以下の関数を用いて設定できる
         primarySwatch: Config.createMaterialColor(
-          const Color(0xFFFFFFFF),
+          HexColor('#71D1D3'),
         ),
         backgroundColor: AppTheme.background,
         fontFamily: Config.themeFont,
@@ -50,8 +52,12 @@ class MyApp extends StatelessWidget {
         //   );
         // }
 
-        assert(false, 'Need to implement ${setting.name}');
-        return null;
+        // return 404 page
+        return MaterialPageRoute(
+          builder: (BuildContext context) {
+            return const NotFoundScreen();
+          },
+        );
       },
     );
   }
