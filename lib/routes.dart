@@ -10,5 +10,5 @@ import 'package:hackathon_supporterz/screens/home/home_screen.dart';
 /// 但し引数を渡す時はここには登録せず、onGenerateRoute内に
 /// ページ遷移の処理を書く。
 final Map<String, WidgetBuilder> routes = {
-  HomeScreen.routeName: (context) => const HomeScreen(),
+  HomeScreen.routeName: (context) => HomeScreen(),
 };

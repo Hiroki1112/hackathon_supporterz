@@ -5,5 +5,5 @@ class AppTheme {
   AppTheme._();
 
   // カラー系
-  static const Color background = Color(0xFFF2F3F8);
+  static const Color background = Color(0xFFFAF3FC);
 }

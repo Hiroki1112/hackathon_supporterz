@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         // Material Colorは以下の関数を用いて設定できる
         primarySwatch: Config.createMaterialColor(
-          const Color(0xFFD3E1F7),
+          const Color(0xFFFFFFFF),
         ),
         backgroundColor: AppTheme.background,
         fontFamily: Config.themeFont,

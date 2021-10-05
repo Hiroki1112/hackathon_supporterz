@@ -12,7 +12,7 @@ AppBar myAppBar() {
         onPressed: () {},
         child: const Padding(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-          child: Text("ろぐいん"),
+          child: Text('ろぐいん'),
         ),
       ),
     ],
