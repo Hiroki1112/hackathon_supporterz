@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/screens/home/home_screen.dart';
 
