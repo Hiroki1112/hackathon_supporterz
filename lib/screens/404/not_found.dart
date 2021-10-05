@@ -22,7 +22,7 @@ class NotFoundScreen extends StatelessWidget {
             child: Container(
               width: 600,
               height: MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
               ),
               child: Column(
@@ -53,8 +53,36 @@ class NotFoundScreen extends StatelessWidget {
             ),
           );
         }
-        // モバイル用のレイアウト
-        return Container();
+        // モバイル用のレイアウト( 使うことはおそらくない)
+        return Column(
+          children: [
+            Column(
+              children: [
+                const Text(
+                  'お探しのページは見つかりませんでした。',
+                  style: Config.h1,
+                ),
+                Image.asset(
+                  'images/undraw_page_not_found.png',
+                  width: 600,
+                ),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context)
+                          .popAndPushNamed(HomeScreen.routeName);
+                    },
+                    child: const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                      child: Text('ホームに戻る'),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ],
+        );
       }),
     );
   }
