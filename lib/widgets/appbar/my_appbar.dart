@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hackathon_supporterz/screens/my_page/mypage_screen.dart';
 
-AppBar myAppBar() {
+AppBar myAppBar(BuildContext context) {
   return AppBar(
     title: const Text('Supporterz'),
     actions: [
@@ -9,7 +10,9 @@ AppBar myAppBar() {
         icon: const Icon(Icons.search),
       ),
       ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, MyPageScreen.routeName);
+        },
         child: const Padding(
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: Text('ろぐいん'),

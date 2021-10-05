@@ -36,19 +36,19 @@ class MyApp extends StatelessWidget {
         // 引数を格納するモデルを作成しておき、setting.argumentsで得られる値を
         // 作成したモデルにキャストして使用する。
         // 参考　：　https://flutter.dev/docs/cookbook/navigation/navigate-with-arguments
-        if (setting.name == MyPageScreen.routeName) {
-          debugPrint(setting.name);
-          final args = setting.arguments as MyPageScreenArgs;
-          return MaterialPageRoute(
-            // ここでsettingを渡さないと遷移した時にURLが遷移しない
-            settings: setting,
-            builder: (BuildContext context) {
-              return MyPageScreen(
-                title: args.title,
-              );
-            },
-          );
-        }
+        // if (setting.name == MyPageScreen.routeName) {
+        //   debugPrint(setting.name);
+        //   final args = setting.arguments as MyPageScreenArgs;
+        //   return MaterialPageRoute(
+        //     // ここでsettingを渡さないと遷移した時にURLが遷移しない
+        //     settings: setting,
+        //     builder: (BuildContext context) {
+        //       return MyPageScreen(
+        //         title: args.title,
+        //       );
+        //     },
+        //   );
+        // }
 
         assert(false, 'Need to implement ${setting.name}');
         return null;
