@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/screens/home/home_screen.dart';
 import 'package:hackathon_supporterz/util/config.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 /// アクセスしたページが見つからなかった時に返却するクラス
 class NotFoundScreen extends StatelessWidget {
@@ -12,6 +13,8 @@ class NotFoundScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // モバイルの場合は表示(true)にする
+        automaticallyImplyLeading: !kIsWeb,
         title: const Text('Supporterz'),
       ),
       body: LayoutBuilder(

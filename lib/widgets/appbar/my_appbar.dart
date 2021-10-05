@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/screens/my_page/mypage_screen.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 AppBar myAppBar(BuildContext context) {
   return AppBar(
+    // モバイルの場合は表示(true)にする
+    automaticallyImplyLeading: !kIsWeb,
     title: const Text('Supporterz'),
     actions: [
       IconButton(

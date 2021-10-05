@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/screens/post_screen/post_screen.dart';
 import 'package:hackathon_supporterz/widgets/tiles/post_tile.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class MyPageScreen extends StatelessWidget {
   static String routeName = '/mypage';
@@ -14,6 +15,8 @@ class MyPageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // モバイルの場合は表示(true)にする
+        automaticallyImplyLeading: !kIsWeb,
         title: const Text('My Page1'),
         actions: [
           ElevatedButton(

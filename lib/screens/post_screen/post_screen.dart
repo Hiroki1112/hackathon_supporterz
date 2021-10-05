@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/models/post.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:markdown/markdown.dart' as markdown;
 
 class PostScreen extends StatefulWidget {
@@ -18,6 +19,8 @@ class _PostScreenState extends State<PostScreen> {
     print(_post.toJson());
     return Scaffold(
       appBar: AppBar(
+        // モバイルの場合は表示(true)にする
+        automaticallyImplyLeading: !kIsWeb,
         title: Text("Post page"),
       ),
       body: ListView(
