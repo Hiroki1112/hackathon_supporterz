@@ -66,7 +66,7 @@ class Post {
   ///  タグは5つまで
   set setTechTag(List<String> tags) {
     // constants内に定義したもののみ追加する
-    if (tags.length > 6) {
+    if (tags.length > 5) {
       tags = tags.sublist(0, 5);
     }
     List<String> result = [];
@@ -80,6 +80,7 @@ class Post {
 
   set setHeaderImageURL(String url) {
     //　TODO: 正規表現をでURLの形式を確認する
+    _headerImageURL = url;
   }
 
   //== method ================
@@ -128,6 +129,7 @@ class Post {
       'headerImageURL': _headerImageURL,
       'postId': _postId,
       'timeCreated': _timeCreated,
+      'timeUpdated': _timeUpdated,
       'userId': userId,
       'goods': _goods,
     };
