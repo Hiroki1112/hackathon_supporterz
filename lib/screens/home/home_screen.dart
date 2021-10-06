@@ -10,98 +10,15 @@ class HomeScreen extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final List<Widget> _widgets = [
-    PostTile(
+  final List<Widget> _widgets = List.generate(
+    10,
+    (index) => PostTile(
       simplePost: SimplePost(
         'JavaScript to Java tte niteruyone',
         'user hogehoge',
       ),
     ),
-    PostTile(
-      simplePost: SimplePost(
-        'JavaScript to Java tte niteruyone',
-        'user hogehoge',
-      ),
-    ),
-    PostTile(
-      simplePost: SimplePost(
-        'JavaScript to Java tte niteruyone',
-        'user hogehoge',
-      ),
-    ),
-    PostTile(
-      simplePost: SimplePost(
-        'JavaScript to Java tte niteruyone',
-        'user hogehoge',
-      ),
-    ),
-    PostTile(
-      simplePost: SimplePost(
-        'JavaScript to Java tte niteruyone',
-        'user hogehoge',
-      ),
-    ),
-    PostTile(
-      simplePost: SimplePost(
-        'JavaScript to Java tte niteruyone',
-        'user hogehoge',
-      ),
-    ),
-    PostTile(
-      simplePost: SimplePost(
-        'JavaScript to Java tte niteruyone',
-        'user hogehoge',
-      ),
-    ),
-    PostTile(
-      simplePost: SimplePost(
-        'JavaScript to Java tte niteruyone',
-        'user hogehoge',
-      ),
-    ),
-    PostTile(
-      simplePost: SimplePost(
-        'JavaScript to Java tte niteruyone',
-        'user hogehoge',
-      ),
-    ),
-    PostTile(
-      simplePost: SimplePost(
-        'JavaScript to Java tte niteruyone',
-        'user hogehoge',
-      ),
-    ),
-    PostTile(
-      simplePost: SimplePost(
-        'JavaScript to Java tte niteruyone',
-        'user hogehoge',
-      ),
-    ),
-    PostTile(
-      simplePost: SimplePost(
-        'JavaScript to Java tte niteruyone',
-        'user hogehoge',
-      ),
-    ),
-    PostTile(
-      simplePost: SimplePost(
-        'JavaScript to Java tte niteruyone',
-        'user hogehoge',
-      ),
-    ),
-    PostTile(
-      simplePost: SimplePost(
-        'JavaScript to Java tte niteruyone',
-        'user hogehoge',
-      ),
-    ),
-    PostTile(
-      simplePost: SimplePost(
-        'JavaScript to Java tte niteruyone',
-        'user hogehoge',
-      ),
-    ),
-  ];
+  );
 
   @override
   Widget build(BuildContext context) {
