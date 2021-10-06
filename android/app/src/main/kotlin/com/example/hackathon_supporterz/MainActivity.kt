@@ -1,4 +1,4 @@
-package com.example.hackathon_supporterz
+package io.github.supporterzapp
 
 import io.flutter.embedding.android.FlutterActivity
 

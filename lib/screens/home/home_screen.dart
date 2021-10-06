@@ -12,55 +12,16 @@ class HomeScreen extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final List<Widget> _widgets = [
-    PostTile(
+  final List<Widget> _widgets = List.generate(
+    10,
+    (index) => PostTile(
       simplePost: SimplePost(
         'JavaScript to Java tte niteruyone',
         'user hogehoge',
         '#Flutter',
       ),
     ),
-    PostTile(
-      simplePost: SimplePost(
-        'JavaScript to Java tte niteruyone',
-        'user hogehoge',
-        '#Flutter',
-      ),
-    ),
-    PostTile(
-      simplePost: SimplePost(
-        'JavaScript to Java tte niteruyone',
-        'user hogehoge',
-        '#Flutter',
-      ),
-    ),
-    PostTile(
-      simplePost: SimplePost(
-        'JavaScript to Java tte niteruyone',
-        'user hogehoge',
-        '#Flutter',
-      ),
-    ),
-  ];
-
-  final List<Widget> _ideaWidgets = [
-    PostTile(
-      simplePost: SimplePost(
-          'JavaScript to Java tte niteruyone', 'user hogehoge', '#Flutter'),
-    ),
-    PostTile(
-      simplePost: SimplePost(
-          'JavaScript to Java tte niteruyone', 'user hogehoge', '#Flutter'),
-    ),
-    PostTile(
-      simplePost: SimplePost(
-          'JavaScript to Java tte niteruyone', 'user hogehoge', '#Flutter'),
-    ),
-    PostTile(
-      simplePost: SimplePost(
-          'JavaScript to Java tte niteruyone', 'user hogehoge', '#Flutter'),
-    ),
-  ];
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +55,7 @@ class HomeScreen extends StatelessWidget {
               'idea',
               style: Config.h1,
             ),
-            ..._ideaWidgets,
+            ..._widgets,
             TextButton(
               onPressed: () {
                 Navigator.pushNamed(context, PostDetailIdea.routeName);
