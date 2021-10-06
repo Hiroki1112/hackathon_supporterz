@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:hackathon_supporterz/provider/auth_provider.dart';
+import 'package:hackathon_supporterz/screens/post_screen/post_screen.dart';
 import 'package:hackathon_supporterz/widgets/dialog/dialog.dart';
 import 'package:hackathon_supporterz/widgets/dialog/sign_in.dart';
 import 'package:provider/provider.dart';
@@ -65,6 +66,9 @@ AppBar myAppBar(BuildContext context) {
                     if (res ?? false) {
                       context.read<AuthenticationProvider>().signOut();
                     }
+                  }
+                  if (val == '記事の投稿') {
+                    Navigator.of(context).pushNamed(PostScreen.routeName);
                   }
                 },
                 itemBuilder: (BuildContext context) {
