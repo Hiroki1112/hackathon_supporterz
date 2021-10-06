@@ -40,25 +40,25 @@ class Post {
 
   /// 文字数が40文字以内である時のみ値をセットする。
   set setTitle(String val) {
-    if (val.length < 40) {
+    if (val.length < 41) {
       _title = val;
     }
   }
 
   set setPlanText(String val) {
-    if (val.length < 50000) {
+    if (val.length < 50001) {
       _planText = val;
     }
   }
 
   set setTechText(String val) {
-    if (val.length < 50000) {
+    if (val.length < 50001) {
       _techText = val;
     }
   }
 
   set setApealText(String val) {
-    if (val.length < 50000) {
+    if (val.length < 50001) {
       _apealText = val;
     }
   }
@@ -66,7 +66,7 @@ class Post {
   ///  タグは5つまで
   set setTechTag(List<String> tags) {
     // constants内に定義したもののみ追加する
-    if (tags.length > 5) {
+    if (tags.length > 6) {
       tags = tags.sublist(0, 5);
     }
     List<String> result = [];
