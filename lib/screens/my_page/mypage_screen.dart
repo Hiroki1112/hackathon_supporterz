@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
 import 'package:hackathon_supporterz/screens/post_screen/post_screen.dart';
 import 'package:hackathon_supporterz/widgets/tiles/post_tile.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -34,14 +35,68 @@ class MyPageScreen extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.pedal_bike),
+                Icon(
+                  Icons.people_outline,
+                  size: 130,
+                ),
                 Column(
-                  children: const [
-                    Text('userName'),
-                    Text('self introduce'),
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 50),
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          'My Follow',
+                          style: TextStyle(
+                            fontSize: 25,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Text(
+                      'userName',
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
+                    ),
                   ],
                 ),
               ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(10),
+            child: Text(
+              '自己紹介',
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                decoration: TextDecoration.underline,
+              ),
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(10),
+            child: Text(
+              '最近flutterの勉強を始めました5歳児です。将来のキャリアプランに繋げたいです',
+              textAlign: TextAlign.start,
+              style: TextStyle(),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(
+              horizontal: 25,
+            ),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, ProfileEdit.routeName);
+              },
+              child: const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 100, vertical: 5),
+                child: Text(
+                  'プロフィール編集',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
             ),
           ),
           const Divider(
@@ -51,18 +106,21 @@ class MyPageScreen extends StatelessWidget {
             simplePost: SimplePost(
               'JavaScript to Java tte niteruyone',
               'user hogehoge',
+              '#Flutter',
             ),
           ),
           PostTile(
             simplePost: SimplePost(
               'JavaScript to Java tte niteruyone',
               'user hogehoge',
+              '#Flutter',
             ),
           ),
           PostTile(
             simplePost: SimplePost(
               'JavaScript to Java tte niteruyone',
               'user hogehoge',
+              '#Flutter',
             ),
           ),
         ],

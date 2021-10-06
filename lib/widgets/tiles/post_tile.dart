@@ -8,29 +8,69 @@ class PostTile extends StatelessWidget {
   }) : super(key: key);
   final SimplePost simplePost;
 
+  get padding => null;
+
+  get margin => null;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 5),
-      padding: const EdgeInsets.symmetric(vertical: 5),
-      width: Config.deviceWidth(context) * 0.9,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: ListTile(
-        onTap: () {
-          debugPrint('list tile tapped');
-        },
-        leading: const Icon(Icons.add),
-        title: Column(
+    return GestureDetector(
+      onTap: () {
+        print("hoge");
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 5),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Column(
           children: [
-            Text(
-              simplePost.title,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
+            Container(
+              width: Config.deviceWidth(context) * 0.9,
+              child: ListTile(
+                leading: const Icon(
+                  Icons.access_alarm_rounded,
+                  size: 50,
+                ),
+                title: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 17.0),
+                          child: const Icon(
+                            Icons.people,
+                          ),
+                        ),
+                        Text(simplePost.userName),
+                      ],
+                    ),
+                    Text(
+                      simplePost.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      simplePost.productTag,
+                      textAlign: TextAlign.start,
+                    )
+                  ],
+                ),
+              ),
             ),
-            Text(simplePost.userName)
+            // ignore: prefer_const_constructors
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Icon(
+                  Icons.thumb_up,
+                ),
+                SizedBox(width: 5),
+                Text("3")
+              ],
+            ),
           ],
         ),
       ),
@@ -39,7 +79,7 @@ class PostTile extends StatelessWidget {
 }
 
 class SimplePost {
-  final String title, userName;
+  final String title, userName, productTag;
 
-  SimplePost(this.title, this.userName);
+  SimplePost(this.title, this.userName, this.productTag);
 }

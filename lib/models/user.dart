@@ -1,6 +1,19 @@
-class User {
-  final String userName, selfIntroduction, twitterLink, githubAccount;
+class MyUser {
+  String userName, selfIntroduction, twitterLink, githubAccount;
 
-  User(this.userName, this.selfIntroduction, this.twitterLink,
-      this.githubAccount);
+  MyUser({
+    this.userName = '',
+    this.selfIntroduction = '',
+    this.twitterLink = '',
+    this.githubAccount = '',
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'userName': userName,
+      'selfIntroduction': selfIntroduction,
+      'twitterLink': twitterLink,
+      'githubAccount': githubAccount
+    };
+  }
 }
