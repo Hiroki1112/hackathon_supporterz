@@ -12,7 +12,7 @@ class PostScreen extends StatefulWidget {
 }
 
 class _PostScreenState extends State<PostScreen> {
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final Post _post = Post();
 
   @override
@@ -48,6 +48,9 @@ class _PostScreenState extends State<PostScreen> {
               const Text('開発人数・期間'),
               TextFormField(
                 maxLines: 1,
+                decoration: const InputDecoration(
+                  hintText: '例）フロント2人、バック2人　開発期間：2週間',
+                ),
                 onChanged: (val) {
                   setState(() {});
                 },
@@ -74,7 +77,7 @@ class _PostScreenState extends State<PostScreen> {
                 maxLines: 10,
                 decoration: InputDecoration(
                   hintText: '例）',
-                  contentPadding: EdgeInsets.all(10),
+                  contentPadding: const EdgeInsets.all(10),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0)),
                 ),
