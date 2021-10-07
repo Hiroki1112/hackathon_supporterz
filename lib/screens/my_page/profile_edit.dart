@@ -20,6 +20,7 @@ class ProfileEdit extends StatefulWidget {
 class _ProfileEditState extends State<ProfileEdit> {
   // ignore: prefer_final_fields
   MyUser _myuser = MyUser();
+  final TextEditingController _controller = TextEditingController();
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +76,7 @@ class _ProfileEditState extends State<ProfileEdit> {
               maxLength: 25,
               onChanged: (val) {
                 setState(() {
-                  _myuser.userName = val;
+                  _myuser.setUserName = val;
                 });
               },
             ),
@@ -91,7 +92,7 @@ class _ProfileEditState extends State<ProfileEdit> {
               maxLength: 150,
               onChanged: (val) {
                 setState(() {
-                  _myuser.selfIntroduction = val;
+                  _myuser.setSelfIntroduction = val;
                 });
               },
             ),
