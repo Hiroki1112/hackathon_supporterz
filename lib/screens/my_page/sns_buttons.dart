@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
-import 'package:hackathon_supporterz/screens/post_screen/post_screen.dart';
-import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
-import 'package:hackathon_supporterz/widgets/tiles/post_tile.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:hexcolor/hexcolor.dart';
 import 'package:url_launcher/url_launcher.dart';
 
