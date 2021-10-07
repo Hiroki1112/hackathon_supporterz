@@ -9,7 +9,6 @@ import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/screens/home/home_screen.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
-import 'screens/my_page/mypage_screen.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 void main() async {

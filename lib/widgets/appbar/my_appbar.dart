@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:hackathon_supporterz/provider/auth_provider.dart';
+import 'package:hackathon_supporterz/screens/my_page/mypage_screen.dart';
+import 'package:hackathon_supporterz/screens/post_screen/post_screen.dart';
 import 'package:hackathon_supporterz/widgets/dialog/dialog.dart';
 import 'package:hackathon_supporterz/widgets/dialog/sign_in.dart';
 import 'package:provider/provider.dart';
@@ -59,6 +61,12 @@ AppBar myAppBar(BuildContext context) {
               child: PopupMenuButton(
                 /// 各選択肢を押したときの処理はここで定義する
                 onSelected: (String val) async {
+                  if (val == 'プロフィール') {
+                    Navigator.of(context).pushNamed(MyPageScreen.routeName);
+                  }
+                  if (val == '記事の投稿') {
+                    Navigator.of(context).pushNamed(PostScreen.routeName);
+                  }
                   if (val == 'サインアウト') {
                     var res = await yesNoDialog(
                         context, '確認', 'サインアウトしますか？', 'サインアウト', '戻る');
