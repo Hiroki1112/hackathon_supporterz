@@ -44,24 +44,14 @@ void main() {
     expect(myPost.planText, 'a' * 50000);
   });
 
-  test('使用した技術のテキスト長についてのテスト', () {
+  test('本文のテキスト長についてのテスト', () {
     // 企画などのテキストは5万文字以内
-    myPost.setTechText = 'a' * 50000;
-    expect(myPost.techText, 'a' * 50000);
+    myPost.setBodyText = 'a' * 50000;
+    expect(myPost.bodyText, 'a' * 50000);
 
     // 50001文字からは追加されない
-    myPost.setTechText = 'a' * 50001;
-    expect(myPost.techText, 'a' * 50000);
-  });
-
-  test('アピールポイントテキスト長についてのテスト', () {
-    // 企画などのテキストは5万文字以内
-    myPost.setApealText = 'a' * 50000;
-    expect(myPost.apealText, 'a' * 50000);
-
-    // 50001文字からは追加されない
-    myPost.setApealText = 'a' * 50001;
-    expect(myPost.apealText, 'a' * 50000);
+    myPost.setBodyText = 'a' * 50001;
+    expect(myPost.bodyText, 'a' * 50000);
   });
 
   test('技術タグについてのテスト', () {

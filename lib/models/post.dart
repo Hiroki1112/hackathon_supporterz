@@ -6,8 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Post {
   String _title = '';
   String _planText = '';
-  String _techText = '';
-  String _apealText = '';
+  String _bodyText = '';
 
   List<String> _techTag = [];
   String _headerImageURL = '';
@@ -25,11 +24,8 @@ class Post {
   /// 企画・構想の文章を格納する変数。最大長は5万文字
   String get planText => _planText;
 
-  /// 使用した技術についての文章を保存する変数。最大長は5万文字
-  String get techText => _techText;
-
   /// プロダクトのアピールポイントを保存する変数。最大長は5万文字
-  String get apealText => _apealText;
+  String get bodyText => _bodyText;
 
   List<String> get techTag => _techTag;
 
@@ -51,15 +47,9 @@ class Post {
     }
   }
 
-  set setTechText(String val) {
+  set setBodyText(String val) {
     if (val.length < 50001) {
-      _techText = val;
-    }
-  }
-
-  set setApealText(String val) {
-    if (val.length < 50001) {
-      _apealText = val;
+      _bodyText = val;
     }
   }
 
@@ -103,8 +93,7 @@ class Post {
   void fromJson(Map<String, Object> json) {
     setTitle = json['title'] as String;
     setPlanText = json['planText'] as String;
-    setTechText = json['techText'] as String;
-    setApealText = json['apealText'] as String;
+    setBodyText = json['bodyText'] as String;
 
     setTechTag = (json['techTag'] as List<String>);
     setHeaderImageURL = json['headerImageURL'] as String;
@@ -122,9 +111,8 @@ class Post {
     return {
       'title': _title,
       'title2gram': title2gram,
-      'apealText': _apealText,
+      'bodyText': _bodyText,
       'planText': _planText,
-      'techText': _techText,
       'techTag': _techTag,
       'headerImageURL': _headerImageURL,
       'postId': _postId,

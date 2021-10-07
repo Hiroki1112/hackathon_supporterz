@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 
 class PostTile extends StatelessWidget {
@@ -19,11 +20,19 @@ class PostTile extends StatelessWidget {
         print("hoge");
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 5),
+        margin: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
+          color: AppTheme.white,
+          borderRadius: BorderRadius.circular(5),
+          boxShadow: [
+            BoxShadow(
+              color: AppTheme.darkShadow,
+              spreadRadius: 1.0,
+              blurRadius: 3.0,
+              offset: const Offset(1, 2),
+            ),
+          ],
         ),
         child: Column(
           children: [

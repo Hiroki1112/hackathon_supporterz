@@ -28,50 +28,47 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppTheme.background,
       appBar: myAppBar(context),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-        child: ListView(
-          children: <Widget>[
-            const Text(
-              'trend',
-              style: Config.h1,
-            ),
-            ..._widgets,
-            TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, PostDetailTrend.routeName);
-              },
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: Text(
-                  'トレンドを全て見る>',
-                  style: TextStyle(
-                    fontSize: 25,
-                  ),
+      body: ListView(
+        children: <Widget>[
+          const Text(
+            'trend',
+            style: Config.h1,
+          ),
+          ..._widgets,
+          TextButton(
+            onPressed: () {
+              Navigator.pushNamed(context, PostDetailTrend.routeName);
+            },
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: Text(
+                'トレンドを全て見る>',
+                style: TextStyle(
+                  fontSize: 25,
                 ),
               ),
             ),
-            const Text(
-              'idea',
-              style: Config.h1,
-            ),
-            ..._widgets,
-            TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, PostDetailIdea.routeName);
-              },
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: Text(
-                  'アイデアを全て見る>',
-                  style: TextStyle(
-                    fontSize: 25,
-                  ),
+          ),
+          const Text(
+            'idea',
+            style: Config.h1,
+          ),
+          ..._widgets,
+          TextButton(
+            onPressed: () {
+              Navigator.pushNamed(context, PostDetailIdea.routeName);
+            },
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              child: Text(
+                'アイデアを全て見る>',
+                style: TextStyle(
+                  fontSize: 25,
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
