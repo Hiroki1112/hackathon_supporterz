@@ -30,7 +30,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User?>();
     var db = FirebaseFirestore.instance;
-    var user = db
+    Query<Map<String, dynamic>> user = db
         .collection('api')
         .doc('v1')
         .collection('user')
@@ -40,8 +40,8 @@ class _MyPageScreenState extends State<MyPageScreen> {
       body: Container(
         child: FutureBuilder(
           future: user.get(),
-          builder:
-              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          builder: (BuildContext context,
+              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
             if (snapshot.hasError) {
               print("ERROR");
               print(snapshot.error.toString());
@@ -50,6 +50,10 @@ class _MyPageScreenState extends State<MyPageScreen> {
 
             if (snapshot.connectionState == ConnectionState.done) {
               MyUser _myUser = MyUser();
+              //print(snapshot.requireData.docs.first.id);//docsのidを指定
+              Map<String, dynamic> map = snapshot.requireData.docs.first.data();
+
+              _myUser.fromJson(map);
 
               return ListView(
                 children: [
@@ -77,7 +81,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
                       right: 15,
                     ),
                     child: Text(
-                      '最近flutterの勉強を始めました5歳児です。将来のキャリアプランに繋げたいです',
+                      _myUser.selfIntroduction,
                       textAlign: TextAlign.start,
                       style: TextStyle(),
                     ),
