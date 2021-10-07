@@ -1,19 +1,66 @@
+import 'dart:core';
+
+import 'package:validators/validators.dart';
+
 class MyUser {
-  String userName, selfIntroduction, twitterLink, githubAccount;
+  String _userName = '',
+      _selfIntroduction = '',
+      _twitterLink = '',
+      _githubAccount = '',
+      _pictureURL = '';
 
-  MyUser({
-    this.userName = '',
-    this.selfIntroduction = '',
-    this.twitterLink = '',
-    this.githubAccount = '',
-  });
+  String get useName => _userName;
+  String get selfIntroduction => _selfIntroduction;
+  String get twitterLink => _twitterLink;
+  String get githubAccount => _githubAccount;
+  String get pictureURL => _pictureURL;
 
-  Map<String, dynamic> toJson() {
+  set setUserName(String userName) {
+    if (userName.length <= 20) {
+      _userName = userName;
+    }
+  }
+
+  set setSelfIntroduction(String selfIntroduction) {
+    if (selfIntroduction.length <= 150) {
+      _selfIntroduction = selfIntroduction;
+    }
+  }
+
+  set setTwitterLink(String twitterLink) {
+    if ((isAlphanumeric(twitterLink)) && (twitterLink.length <= 100)) {
+      _twitterLink = twitterLink;
+    }
+  }
+
+  set setGithubAccount(String githubAccount) {
+    if ((isAlphanumeric(githubAccount)) && (githubAccount.length <= 100)) {
+      _githubAccount = githubAccount;
+    }
+  }
+
+  set setPictureURL(String pictureURL) {
+    if ((isURL(pictureURL)) && (pictureURL.length <= 500)) {
+      _pictureURL = pictureURL;
+    }
+  }
+
+//firebaseからの情報の受け取り
+  void fromJson(Map<String, Object> json) {
+    setUserName = json['userName'] as String;
+    setSelfIntroduction = json['selfIntroduction'] as String;
+    setTwitterLink = json['twitterLink'] as String;
+    setGithubAccount = json['githubAccount'] as String;
+    setPictureURL = json['pictureURL'] as String;
+  }
+
+  Map<String, dynamic> toJson(String userId) {
     return {
-      'userName': userName,
-      'selfIntroduction': selfIntroduction,
-      'twitterLink': twitterLink,
-      'githubAccount': githubAccount
+      'userName': _userName,
+      'selfIntroduction': _selfIntroduction,
+      'twitterLink': _twitterLink,
+      'githubAccount': _githubAccount,
+      'pictureURL': _pictureURL,
     };
   }
 }

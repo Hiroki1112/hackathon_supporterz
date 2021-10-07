@@ -1,71 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hackathon_supporterz/screens/my_page/mypage_top.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
+import 'package:hackathon_supporterz/screens/my_page/sns_buttons.dart';
 import 'package:hackathon_supporterz/screens/post_screen/post_screen.dart';
+import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
 import 'package:hackathon_supporterz/widgets/tiles/post_tile.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:hexcolor/hexcolor.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class MyPageScreen extends StatelessWidget {
+class MyPageScreen extends StatefulWidget {
   static String routeName = '/mypage';
-  const MyPageScreen({
-    Key? key,
-    //this.title,
-  }) : super(key: key);
-  //final String? title;
+  const MyPageScreen({Key? key}) : super(key: key);
 
+  @override
+  _MyPageScreenState createState() => _MyPageScreenState();
+}
+
+class _MyPageScreenState extends State<MyPageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        // モバイルの場合は表示(true)にする
-        automaticallyImplyLeading: !kIsWeb,
-        title: const Text('My Page1'),
-        actions: [
-          ElevatedButton(
-            onPressed: () {
-              // TODO: 投稿画面への遷移
-              Navigator.pushNamed(context, PostScreen.routeName);
-            },
-            child: Text('Add new'),
-          ),
-        ],
+      appBar: myAppBar(
+        context,
       ),
       body: ListView(
         children: [
-          Center(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Icons.people_outline,
-                  size: 130,
-                ),
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 50),
-                      child: TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'My Follow',
-                          style: TextStyle(
-                            fontSize: 25,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Text(
-                      'userName',
-                      style: TextStyle(
-                        fontSize: 25,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+          MypageTop(
+            pictureURL: '',
+            username: 'yamada taro',
           ),
           Container(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.only(
+              left: 20,
+              top: 5,
+            ),
             child: Text(
               '自己紹介',
               textAlign: TextAlign.start,
@@ -75,7 +46,11 @@ class MyPageScreen extends StatelessWidget {
             ),
           ),
           Container(
-            padding: const EdgeInsets.all(10),
+            padding: const EdgeInsets.only(
+              left: 25,
+              top: 10,
+              right: 15,
+            ),
             child: Text(
               '最近flutterの勉強を始めました5歳児です。将来のキャリアプランに繋げたいです',
               textAlign: TextAlign.start,
@@ -84,7 +59,7 @@ class MyPageScreen extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.symmetric(
-              horizontal: 25,
+              horizontal: 23,
             ),
             child: ElevatedButton(
               onPressed: () {
@@ -98,6 +73,10 @@ class MyPageScreen extends StatelessWidget {
                 ),
               ),
             ),
+          ),
+          SNSButtons(
+            twitterLink: "https://twitter.com/taylorswift13",
+            githubLink: "https://github.co.jp/",
           ),
           const Divider(
             thickness: 3,
