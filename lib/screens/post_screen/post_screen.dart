@@ -63,6 +63,7 @@ class _PostScreenState extends State<PostScreen> {
                   });
                 },
                 _planTextController,
+                planIsPreview,
               ),
               planIsPreview
                   ? PreviewCard(rawText: _post.planText)
@@ -84,6 +85,7 @@ class _PostScreenState extends State<PostScreen> {
                   });
                 },
                 _bodyTextController,
+                bodyIsPreview,
               ),
               bodyIsPreview
                   ? PreviewCard(rawText: _post.bodyText)
@@ -120,8 +122,8 @@ class _PostScreenState extends State<PostScreen> {
     );
   }
 
-  Widget _sectionTitle(
-      String title, Function onEyePressed, TextEditingController controller) {
+  Widget _sectionTitle(String title, Function onEyePressed,
+      TextEditingController controller, bool isPreview) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 3, horizontal: 15),
       child: Row(
@@ -132,10 +134,14 @@ class _PostScreenState extends State<PostScreen> {
           ),
           const SizedBox(width: 15),
           IconButton(
-            icon: const Icon(
-              Icons.remove_red_eye,
-              size: 20,
-            ),
+            icon: isPreview
+                ? const Icon(
+                    Icons.skip_previous,
+                  )
+                : const Icon(
+                    Icons.preview,
+                    size: 20,
+                  ),
             onPressed: () {
               onEyePressed();
             },
