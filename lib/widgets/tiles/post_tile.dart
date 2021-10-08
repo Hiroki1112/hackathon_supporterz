@@ -9,10 +9,6 @@ class PostTile extends StatelessWidget {
   }) : super(key: key);
   final SimplePost simplePost;
 
-  get padding => null;
-
-  get margin => null;
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
