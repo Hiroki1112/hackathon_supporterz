@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/provider/auth_provider.dart';
+import 'package:hackathon_supporterz/screens/home/home_screen.dart';
 import 'package:hackathon_supporterz/screens/my_page/mypage_screen.dart';
+import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
 import 'package:hackathon_supporterz/screens/post_screen/post_screen.dart';
 import 'package:hackathon_supporterz/widgets/dialog/dialog.dart';
 import 'package:hackathon_supporterz/widgets/dialog/sign_in.dart';
@@ -62,8 +66,35 @@ AppBar myAppBar(BuildContext context, {String title = 'Supporterz'}) {
                 /// 各選択肢を押したときの処理はここで定義する
                 onSelected: (String val) async {
                   if (val == 'プロフィール') {
-                    Navigator.of(context).pushNamed(MyPageScreen.routeName);
+                    var db = FirebaseFirestore.instance;
+                    DocumentReference<Map<String, dynamic>> user = db
+                        .collection('api')
+                        .doc('v1')
+                        .collection('user')
+                        .doc(firebaseUser.uid);
+
+                    var data = await user.get();
+                    print(data);
+                    MyUser _myUser = MyUser();
+                    Map<String, dynamic>? map = data.data() ?? {};
+
+                    // ignore: unnecessary_null_comparison
+                    bool isNotNull = map != null;
+
+                    print(map.toString());
+                    if (map != {}) {
+                      _myUser.fromJson(map);
+                      Navigator.of(context).pushNamed(
+                        MyPageScreen.routeName,
+                        arguments: _myUser,
+                      );
+                    }
+
+                    Navigator.of(context).pushNamed(
+                      ProfileEdit.routeName,
+                    );
                   }
+
                   if (val == '記事の投稿') {
                     Navigator.of(context).pushNamed(PostScreen.routeName);
                   }
@@ -72,6 +103,10 @@ AppBar myAppBar(BuildContext context, {String title = 'Supporterz'}) {
                         context, '確認', 'サインアウトしますか？', 'サインアウト', '戻る');
                     if (res ?? false) {
                       context.read<AuthenticationProvider>().signOut();
+
+                      Navigator.pop(context);
+                      // Navigator.of(context)
+                      //     .restorablePushReplacementNamed(HomeScreen.routeName);
                     }
                   }
                 },

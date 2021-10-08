@@ -19,7 +19,9 @@ import 'dart:convert';
 
 class MyPageScreen extends StatefulWidget {
   static String routeName = '/mypage';
-  const MyPageScreen({Key? key}) : super(key: key);
+  const MyPageScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _MyPageScreenState createState() => _MyPageScreenState();
@@ -30,128 +32,142 @@ class _MyPageScreenState extends State<MyPageScreen> {
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User?>();
     var db = FirebaseFirestore.instance;
-    Query<Map<String, dynamic>> user = db
+    DocumentReference<Map<String, dynamic>> user = db
         .collection('api')
         .doc('v1')
         .collection('user')
-        .where('userId', isEqualTo: firebaseUser!.uid);
-    return Scaffold(
-      appBar: myAppBar(context),
-      body: Container(
-        child: FutureBuilder(
-          future: user.get(),
-          builder: (BuildContext context,
-              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-            if (snapshot.hasError) {
-              print("ERROR");
-              print(snapshot.error.toString());
-              return Text("Something went wrong");
-            }
+        .doc(firebaseUser!.uid);
 
-            if (snapshot.connectionState == ConnectionState.done) {
-              MyUser _myUser = MyUser();
-              //print(snapshot.requireData.docs.first.id);//docsのidを指定
-              Map<String, dynamic> map = snapshot.requireData.docs.first.data();
+    return FutureBuilder(
+      future: user.get(),
+      builder:
+          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        if (snapshot.hasError) {
+          print("ERROR");
+          print(snapshot.error.toString());
+          return Text("Something went wrong");
+        }
 
-              _myUser.fromJson(map);
+        if (snapshot.connectionState == ConnectionState.done) {
+          MyUser _myUser = MyUser();
+          Map<String, dynamic> map;
+          print(snapshot.hasData);
+          print(snapshot.data);
+          //print(snapshot.requi
+          if (snapshot != null) {
+            map = snapshot.requireData.data() as Map<String, dynamic>;
+          } else {
+            map = {};
+          }
 
-              return ListView(
-                children: [
-                  MypageTop(
-                    pictureURL: '',
-                    username: _myUser.useName,
+          _myUser.fromJson(map);
+
+          return Scaffold(
+            body: ListView(
+              children: [
+                MypageTop(
+                  pictureURL: '',
+                  username: _myUser.useName,
+                ),
+                Container(
+                  padding: const EdgeInsets.only(
+                    left: 20,
+                    top: 5,
                   ),
-                  Container(
-                    padding: const EdgeInsets.only(
-                      left: 20,
-                      top: 5,
+                  child: Text(
+                    '自己紹介',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
                     ),
-                    child: Text(
-                      '自己紹介',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        decoration: TextDecoration.underline,
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(
+                    left: 25,
+                    top: 10,
+                    right: 15,
+                  ),
+                  child: Text(
+                    _myUser.selfIntroduction,
+                    textAlign: TextAlign.start,
+                    style: TextStyle(),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.symmetric(
+                    horizontal: 23,
+                  ),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, ProfileEdit.routeName);
+                    },
+                    child: const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 100, vertical: 5),
+                      child: Text(
+                        'プロフィール編集',
+                        style: TextStyle(color: Colors.white),
                       ),
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.only(
-                      left: 25,
-                      top: 10,
-                      right: 15,
-                    ),
-                    child: Text(
-                      _myUser.selfIntroduction,
-                      textAlign: TextAlign.start,
-                      style: TextStyle(),
-                    ),
+                ),
+                SNSButtons(
+                  twitterLink: _myUser.twitterLink,
+                  githubLink: _myUser.githubAccount,
+                ),
+                const Divider(
+                  thickness: 3,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    color: AppTheme.background,
                   ),
-                  Container(
-                    margin: EdgeInsets.symmetric(
-                      horizontal: 23,
-                    ),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, ProfileEdit.routeName);
-                      },
-                      child: const Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 100, vertical: 5),
-                        child: Text(
-                          'プロフィール編集',
-                          style: TextStyle(color: Colors.white),
+                  child: Column(
+                    children: [
+                      PostTile(
+                        simplePost: SimplePost(
+                          'JavaScript to Java tte niteruyone',
+                          'user hogehoge',
+                          '#Flutter',
                         ),
                       ),
-                    ),
-                  ),
-                  SNSButtons(
-                    twitterLink: _myUser.twitterLink,
-                    githubLink: _myUser.githubAccount,
-                  ),
-                  const Divider(
-                    thickness: 3,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: AppTheme.background,
-                    ),
-                    child: Column(
-                      children: [
-                        PostTile(
-                          simplePost: SimplePost(
-                            'JavaScript to Java tte niteruyone',
-                            'user hogehoge',
-                            '#Flutter',
-                          ),
+                      PostTile(
+                        simplePost: SimplePost(
+                          'JavaScript to Java tte niteruyone',
+                          'user hogehoge',
+                          '#Flutter',
                         ),
-                        PostTile(
-                          simplePost: SimplePost(
-                            'JavaScript to Java tte niteruyone',
-                            'user hogehoge',
-                            '#Flutter',
-                          ),
+                      ),
+                      PostTile(
+                        simplePost: SimplePost(
+                          'JavaScript to Java tte niteruyone',
+                          'user hogehoge',
+                          '#Flutter',
                         ),
-                        PostTile(
-                          simplePost: SimplePost(
-                            'JavaScript to Java tte niteruyone',
-                            'user hogehoge',
-                            '#Flutter',
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                        )
-                      ],
-                    ),
+                      ),
+                      SizedBox(
+                        height: 50,
+                      )
+                    ],
                   ),
-                ],
-              );
-            }
+                ),
+              ],
+            ),
+          );
+        }
 
-            return Text("loading");
-          },
-        ),
-      ),
+        return Scaffold(
+          body: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: const [
+                CircularProgressIndicator(),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

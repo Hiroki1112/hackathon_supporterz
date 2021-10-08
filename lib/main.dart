@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/provider/auth_provider.dart';
 import 'package:hackathon_supporterz/routes.dart';
 import 'package:hackathon_supporterz/screens/404/not_found.dart';
@@ -10,6 +11,8 @@ import 'package:hackathon_supporterz/screens/home/home_screen.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:url_strategy/url_strategy.dart';
+
+import 'screens/my_page/mypage_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

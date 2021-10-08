@@ -41,8 +41,13 @@ class _ProfileEditState extends State<ProfileEdit> {
           IconButton(
             onPressed: () async {
               var db = FirebaseFirestore.instance;
-              await db.collection('api').doc('v1').collection('user').add(
-                    _myuser.toJson(firebaseUser!.uid),
+              await db
+                  .collection('api')
+                  .doc('v1')
+                  .collection('user')
+                  .doc(firebaseUser!.uid)
+                  .set(
+                    _myuser.toJson(firebaseUser.uid),
                   );
               Navigator.pushNamed(context, MyPageScreen.routeName);
             },
