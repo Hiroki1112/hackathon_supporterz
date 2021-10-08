@@ -21,5 +21,4 @@ final Map<String, WidgetBuilder> routes = {
   PostScreen.routeName: (context) => const PostScreen(),
   PostDetailIdea.routeName: (context) => PostDetailIdea(),
   PostDetailTrend.routeName: (context) => PostDetailTrend(),
-  ProfileEdit.routeName: (context) => const ProfileEdit(),
 };

@@ -5,14 +5,13 @@ import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/provider/auth_provider.dart';
 import 'package:hackathon_supporterz/routes.dart';
 import 'package:hackathon_supporterz/screens/404/not_found.dart';
+import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/screens/home/home_screen.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:url_strategy/url_strategy.dart';
-
-import 'screens/my_page/mypage_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -69,6 +68,16 @@ class MyApp extends StatelessWidget {
           //     },
           //   );
           // }
+
+          if (setting.name == ProfileEdit.routeName) {
+            final args = setting.arguments as MyUser;
+
+            return MaterialPageRoute(
+              builder: (BuildContext context) {
+                return ProfileEdit(myUser: args);
+              },
+            );
+          }
 
           // return 404 page
           return MaterialPageRoute(

@@ -102,7 +102,11 @@ class _MyPageScreenState extends State<MyPageScreen> {
                   ),
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, ProfileEdit.routeName);
+                      Navigator.pushNamed(
+                        context,
+                        ProfileEdit.routeName,
+                        arguments: _myUser,
+                      );
                     },
                     child: const Padding(
                       padding:

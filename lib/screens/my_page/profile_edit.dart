@@ -2,12 +2,10 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/models/post.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:markdown/markdown.dart' as markdown;
+// ignore: implementation_imports
 import 'package:provider/src/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -15,7 +13,11 @@ import 'mypage_screen.dart';
 
 class ProfileEdit extends StatefulWidget {
   static String routeName = '/profileedit';
-  const ProfileEdit({Key? key}) : super(key: key);
+  const ProfileEdit({
+    Key? key,
+    required this.myUser,
+  }) : super(key: key);
+  final MyUser myUser;
 
   @override
   _ProfileEditState createState() => _ProfileEditState();
@@ -26,6 +28,13 @@ class _ProfileEditState extends State<ProfileEdit> {
   MyUser _myuser = MyUser();
   final TextEditingController _controller = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+    _myuser = widget.myUser;
+  }
+
+  @override
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User?>();
     return Scaffold(
@@ -41,6 +50,7 @@ class _ProfileEditState extends State<ProfileEdit> {
           IconButton(
             onPressed: () async {
               var db = FirebaseFirestore.instance;
+
               await db
                   .collection('api')
                   .doc('v1')
@@ -54,6 +64,7 @@ class _ProfileEditState extends State<ProfileEdit> {
             icon: const Icon(
               Icons.check,
               size: 30,
+              color: Colors.white,
             ),
           ),
         ],
@@ -86,6 +97,7 @@ class _ProfileEditState extends State<ProfileEdit> {
             child: TextFormField(
               maxLines: 1,
               maxLength: 25,
+              initialValue: _myuser.useName,
               onChanged: (val) {
                 setState(() {
                   _myuser.setUserName = val;
@@ -102,6 +114,7 @@ class _ProfileEditState extends State<ProfileEdit> {
             child: TextFormField(
               maxLines: 1,
               maxLength: 25,
+              initialValue: _myuser.twitterLink,
               onChanged: (val) {
                 setState(() {
                   _myuser.setTwitterLink = val;
@@ -118,6 +131,7 @@ class _ProfileEditState extends State<ProfileEdit> {
             child: TextFormField(
               maxLines: 1,
               maxLength: 25,
+              initialValue: _myuser.githubAccount,
               onChanged: (val) {
                 setState(() {
                   _myuser.setGithubAccount = val;
@@ -146,6 +160,7 @@ class _ProfileEditState extends State<ProfileEdit> {
             ),
             child: TextFormField(
               maxLines: 10,
+              initialValue: _myuser.selfIntroduction,
               decoration: InputDecoration(
                 filled: true,
                 fillColor: AppTheme.white,
