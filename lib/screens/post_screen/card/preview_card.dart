@@ -34,14 +34,19 @@ class _PreviewCardState extends State<PreviewCard> {
         ],
       ),
       child: Container(
-        height: 300,
+        // TextFormFirldは一行あたり25らしい
+        height: 250,
         padding: const EdgeInsets.all(10),
-        child: WebView(
-          javascriptMode: JavascriptMode.unrestricted,
-          onWebViewCreated: (WebViewController webViewController) async {
-            _controller = webViewController;
-            await _loadHTML();
-          },
+        child: Stack(
+          children: [
+            WebView(
+              javascriptMode: JavascriptMode.unrestricted,
+              onWebViewCreated: (WebViewController webViewController) async {
+                _controller = webViewController;
+                await _loadHTML();
+              },
+            ),
+          ],
         ),
       ),
     );

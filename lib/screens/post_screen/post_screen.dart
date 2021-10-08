@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/models/post.dart';
+import 'package:hackathon_supporterz/screens/post_screen/card/text_field_card.dart';
 import 'package:hackathon_supporterz/screens/post_screen/popup/popup_setting.dart';
-import 'package:hackathon_supporterz/screens/post_screen/preview/preview_card.dart';
+import 'package:hackathon_supporterz/screens/post_screen/card/preview_card.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
@@ -17,7 +18,17 @@ class PostScreen extends StatefulWidget {
 class _PostScreenState extends State<PostScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final Post _post = Post();
-  bool isPreview = false;
+  bool planIsPreview = false;
+  bool bodyIsPreview = false;
+
+  final TextEditingController _planTextController = TextEditingController();
+  final TextEditingController _bodyTextController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _bodyTextController.addListener(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,87 +55,51 @@ class _PostScreenState extends State<PostScreen> {
                 },
               ),
               const SizedBox(height: 10),
-              _sectionTitle('# 企画・構想'),
-              isPreview
+              _sectionTitle(
+                '# 企画・構想',
+                () {
+                  setState(() {
+                    planIsPreview = !planIsPreview;
+                  });
+                },
+                _planTextController,
+              ),
+              planIsPreview
                   ? PreviewCard(rawText: _post.planText)
-                  : Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppTheme.darkShadow,
-                            spreadRadius: 1.0,
-                            blurRadius: 3.0,
-                            offset: const Offset(1, 2),
-                          ),
-                        ],
-                      ),
-                      child: TextFormField(
-                        maxLines: 10,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: AppTheme.white,
-                          hintText: 'どのようなプロセスでこの案に辿り着いたのかを書いてみましょう。',
-                          contentPadding: const EdgeInsets.all(10),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide.none,
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                        ),
-                        onChanged: (val) {
-                          setState(() {
-                            _post.setPlanText = val;
-                          });
-                        },
-                      ),
+                  : TextFieldCard(
+                      controller: _planTextController,
+                      onChanged: (String val) {
+                        setState(() {
+                          _post.setPlanText = val;
+                        });
+                      },
+                      hintText: 'どのようなプロセスでこの案に辿り着いたのかを書いてみましょう。',
                     ),
               const SizedBox(height: 10),
-              _sectionTitle('# 本文'),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppTheme.darkShadow,
-                      spreadRadius: 1.0,
-                      blurRadius: 3.0,
-                      offset: const Offset(1, 2),
-                    ),
-                  ],
-                ),
-                child: TextFormField(
-                  maxLines: 10,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: AppTheme.white,
-                    hintText: '制作物に関してMarkdown形式で書きましょう。',
-                    contentPadding: const EdgeInsets.all(10),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                  onChanged: (val) {
-                    setState(() {
-                      _post.setPlanText = val;
-                    });
-                  },
-                ),
+              _sectionTitle(
+                '# 本文',
+                () {
+                  setState(() {
+                    bodyIsPreview = !bodyIsPreview;
+                  });
+                },
+                _bodyTextController,
               ),
+              bodyIsPreview
+                  ? PreviewCard(rawText: _post.bodyText)
+                  : TextFieldCard(
+                      controller: _bodyTextController,
+                      onChanged: (String val) {
+                        setState(() {
+                          _post.setBodyText = val;
+                        });
+                      },
+                      hintText: '制作物に関してMarkdown形式で書きましょう。',
+                    ),
               const SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text(
-                      'プレビュー',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  const SizedBox(width: 20),
                   ElevatedButton(
                     onPressed: () async {
                       await popupSetting(context);
@@ -145,7 +120,8 @@ class _PostScreenState extends State<PostScreen> {
     );
   }
 
-  Widget _sectionTitle(String title) {
+  Widget _sectionTitle(
+      String title, Function onEyePressed, TextEditingController controller) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 3, horizontal: 15),
       child: Row(
@@ -156,29 +132,27 @@ class _PostScreenState extends State<PostScreen> {
           ),
           const SizedBox(width: 15),
           IconButton(
-            onPressed: () {
-              setState(() {
-                isPreview = !isPreview;
-              });
-            },
             icon: const Icon(
               Icons.remove_red_eye,
               size: 20,
             ),
+            onPressed: () {
+              onEyePressed();
+            },
           ),
           IconButton(
-            onPressed: () {},
             icon: const Icon(
-              Icons.picture_in_picture,
+              Icons.photo_size_select_actual_outlined,
               size: 20,
             ),
+            onPressed: () {},
           ),
           IconButton(
-            onPressed: () {},
             icon: const Icon(
               Icons.link,
               size: 20,
             ),
+            onPressed: () {},
           ),
         ],
       ),
