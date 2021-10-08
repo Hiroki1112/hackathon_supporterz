@@ -1,10 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hexcolor/hexcolor.dart';
+// ignore: implementation_imports
 import 'package:provider/src/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class MypageTop extends StatefulWidget {
   const MypageTop({
@@ -29,13 +26,13 @@ class _MypageTopState extends State<MypageTop> {
         mainAxisSize: MainAxisSize.min,
         children: [
           widget.pictureURL != ''
-              ? Icon(
+              ? const Icon(
                   //アイコンのURLを表示できるようにする
                   Icons.people_outline,
                   size: 130,
                 )
               : Container(
-                  padding: EdgeInsetsDirectional.only(
+                  padding: const EdgeInsetsDirectional.only(
                     top: 15,
                   ),
                   width: 100,
@@ -52,7 +49,7 @@ class _MypageTopState extends State<MypageTop> {
                 padding: const EdgeInsets.symmetric(horizontal: 50),
                 child: TextButton(
                   onPressed: () {},
-                  child: Text(
+                  child: const Text(
                     'My Follow',
                     style: TextStyle(
                       fontSize: 25,
@@ -63,11 +60,11 @@ class _MypageTopState extends State<MypageTop> {
               widget.username != ''
                   ? Text(
                       widget.username,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 25,
                       ),
                     )
-                  : Text(
+                  : const Text(
                       'widgednoName',
                       style: TextStyle(
                         fontSize: 25,

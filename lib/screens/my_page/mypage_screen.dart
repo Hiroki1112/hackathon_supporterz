@@ -1,21 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/screens/my_page/mypage_top.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
 import 'package:hackathon_supporterz/screens/my_page/sns_buttons.dart';
-import 'package:hackathon_supporterz/screens/post_screen/post_screen.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
 import 'package:hackathon_supporterz/widgets/tiles/post_tile.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:hexcolor/hexcolor.dart';
+// ignore: implementation_imports
 import 'package:provider/src/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'dart:convert';
 
 class MyPageScreen extends StatefulWidget {
   static String routeName = '/mypage';
@@ -43,19 +37,16 @@ class _MyPageScreenState extends State<MyPageScreen> {
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.hasError) {
-          print("ERROR");
-          print(snapshot.error.toString());
-          return Text("Something went wrong");
+          return const Text('Something went wrong');
         }
 
         if (snapshot.connectionState == ConnectionState.done) {
           MyUser _myUser = MyUser();
+          // ignore: prefer_typing_uninitialized_variables
           var map;
 
-          print(snapshot.data);
-          //print(snapshot.requi
+          // ignore: unnecessary_null_comparison
           if (snapshot != null) {
-            print(snapshot.requireData.data().runtimeType);
             map = snapshot.requireData.data() as Map<String, dynamic>;
           } else {
             map = {};
@@ -76,7 +67,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
                     left: 20,
                     top: 5,
                   ),
-                  child: Text(
+                  child: const Text(
                     '自己紹介',
                     textAlign: TextAlign.start,
                     style: TextStyle(
@@ -93,11 +84,11 @@ class _MyPageScreenState extends State<MyPageScreen> {
                   child: Text(
                     _myUser.selfIntroduction,
                     textAlign: TextAlign.start,
-                    style: TextStyle(),
+                    style: const TextStyle(),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.symmetric(
                     horizontal: 23,
                   ),
                   child: ElevatedButton(
@@ -152,7 +143,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
                           '#Flutter',
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 50,
                       )
                     ],

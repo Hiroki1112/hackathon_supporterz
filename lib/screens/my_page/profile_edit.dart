@@ -42,7 +42,7 @@ class _ProfileEditState extends State<ProfileEdit> {
       appBar: AppBar(
         // モバイルの場合は表示(true)にする
         automaticallyImplyLeading: !kIsWeb,
-        title: Text("プロフィールを編集",
+        title: const Text('プロフィールを編集',
             style: TextStyle(
               color: Colors.white,
             )),
@@ -75,7 +75,7 @@ class _ProfileEditState extends State<ProfileEdit> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                margin: EdgeInsets.only(
+                margin: const EdgeInsets.only(
                   top: 25,
                 ),
                 width: 100,
@@ -89,11 +89,11 @@ class _ProfileEditState extends State<ProfileEdit> {
             ],
           ),
           Container(
-            margin: EdgeInsets.only(left: 15),
-            child: Text('名前'),
+            margin: const EdgeInsets.only(left: 15),
+            child: const Text('名前'),
           ),
           Container(
-            margin: EdgeInsets.only(left: 15),
+            margin: const EdgeInsets.only(left: 15),
             child: TextFormField(
               maxLines: 1,
               maxLength: 25,
@@ -106,11 +106,11 @@ class _ProfileEditState extends State<ProfileEdit> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left: 15),
-            child: Text('Twitter'),
+            margin: const EdgeInsets.only(left: 15),
+            child: const Text('Twitter'),
           ),
           Container(
-            margin: EdgeInsets.only(left: 15),
+            margin: const EdgeInsets.only(left: 15),
             child: TextFormField(
               maxLines: 1,
               maxLength: 25,
@@ -123,11 +123,11 @@ class _ProfileEditState extends State<ProfileEdit> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left: 15),
-            child: Text('github'),
+            margin: const EdgeInsets.only(left: 15),
+            child: const Text('github'),
           ),
           Container(
-            margin: EdgeInsets.only(left: 15),
+            margin: const EdgeInsets.only(left: 15),
             child: TextFormField(
               maxLines: 1,
               maxLength: 25,
@@ -140,11 +140,11 @@ class _ProfileEditState extends State<ProfileEdit> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left: 15),
-            child: Text('自己紹介'),
+            margin: const EdgeInsets.only(left: 15),
+            child: const Text('自己紹介'),
           ),
           Container(
-            margin: EdgeInsets.all(
+            margin: const EdgeInsets.all(
               15,
             ),
             decoration: BoxDecoration(
@@ -178,7 +178,7 @@ class _ProfileEditState extends State<ProfileEdit> {
               },
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 50,
           )
         ],

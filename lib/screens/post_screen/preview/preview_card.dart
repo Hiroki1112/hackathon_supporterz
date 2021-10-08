@@ -35,7 +35,7 @@ class _PreviewCardState extends State<PreviewCard> {
       ),
       child: Container(
         height: 300,
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: WebView(
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController) async {

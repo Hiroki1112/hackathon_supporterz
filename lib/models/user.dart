@@ -47,11 +47,11 @@ class MyUser {
 
 //firebaseからの情報の受け取り
   void fromJson(Map<String, dynamic> json) {
-    setUserName = json['userName'] ?? "";
-    setSelfIntroduction = json['selfIntroduction'] ?? "";
-    setTwitterLink = json['twitterLink'] ?? "";
-    setGithubAccount = json['githubAccount'] ?? "";
-    setPictureURL = json['pictureURL'] ?? "";
+    setUserName = json['userName'] ?? '';
+    setSelfIntroduction = json['selfIntroduction'] ?? '';
+    setTwitterLink = json['twitterLink'] ?? '';
+    setGithubAccount = json['githubAccount'] ?? '';
+    setPictureURL = json['pictureURL'] ?? '';
   }
 
   Map<String, dynamic> toJson(String? userId) {

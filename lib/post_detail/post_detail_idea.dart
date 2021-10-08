@@ -22,7 +22,6 @@ class PostDetailIdea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: dead_code, dead_code
     return Scaffold(
       backgroundColor: AppTheme.background,
       appBar: myAppBar(context),

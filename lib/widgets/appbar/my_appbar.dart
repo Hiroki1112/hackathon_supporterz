@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/provider/auth_provider.dart';
-import 'package:hackathon_supporterz/screens/home/home_screen.dart';
 import 'package:hackathon_supporterz/screens/my_page/mypage_screen.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
 import 'package:hackathon_supporterz/screens/post_screen/post_screen.dart';
@@ -74,12 +73,9 @@ AppBar myAppBar(BuildContext context, {String title = 'Supporterz'}) {
                         .doc(firebaseUser.uid);
 
                     var data = await user.get();
-                    print(data);
+
                     MyUser _myUser = MyUser();
                     Map<String, dynamic>? map = data.data() ?? {};
-
-                    // ignore: unnecessary_null_comparison
-                    bool isNotNull = map != null;
 
                     if (map.isEmpty) {
                       Navigator.of(context).pushNamed(

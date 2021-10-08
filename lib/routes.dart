@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/post_detail/post_detail_trend.dart';
 import 'package:hackathon_supporterz/screens/home/home_screen.dart';
 import 'package:hackathon_supporterz/screens/my_page/mypage_screen.dart';
-import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
 import 'package:hackathon_supporterz/screens/post_screen/post_screen.dart';
 
 import 'post_detail/post_detail_idea.dart';

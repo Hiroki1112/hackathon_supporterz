@@ -13,7 +13,7 @@ class PostTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print("hoge");
+        debugPrint('hoge');
       },
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
@@ -32,7 +32,7 @@ class PostTile extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Container(
+            SizedBox(
               width: Config.deviceWidth(context) * 0.9,
               child: ListTile(
                 leading: const Icon(
@@ -68,12 +68,12 @@ class PostTile extends StatelessWidget {
             // ignore: prefer_const_constructors
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: [
+              children: const [
                 Icon(
                   Icons.thumb_up,
                 ),
                 SizedBox(width: 5),
-                Text("3")
+                Text('3')
               ],
             ),
           ],
