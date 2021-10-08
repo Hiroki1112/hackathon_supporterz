@@ -5,6 +5,7 @@ import 'package:hackathon_supporterz/models/post.dart';
 import 'package:hackathon_supporterz/screens/post_screen/card/text_field_card.dart';
 import 'package:hackathon_supporterz/screens/post_screen/popup/popup_setting.dart';
 import 'package:hackathon_supporterz/screens/post_screen/card/preview_card.dart';
+import 'package:hackathon_supporterz/screens/post_screen/popup/url_embedded.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
@@ -185,7 +186,21 @@ class _PostScreenState extends State<PostScreen> {
               Icons.link,
               size: 20,
             ),
-            onPressed: () {},
+            onPressed: () async {
+              var embed = await urlEmbedPopup(context);
+              if (embed == null) {
+                return;
+              }
+              // urlを取得したら、それを末尾に追加する
+              final _newValue =
+                  controller.text + '[${embed['title']}](${embed['url']})';
+              controller.value = TextEditingValue(
+                text: _newValue,
+                selection: TextSelection.fromPosition(
+                  TextPosition(offset: _newValue.length),
+                ),
+              );
+            },
           ),
         ],
       ),
