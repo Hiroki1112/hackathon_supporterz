@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/models/post.dart';
 import 'package:hackathon_supporterz/screens/post_screen/card/text_field_card.dart';
@@ -6,6 +8,8 @@ import 'package:hackathon_supporterz/screens/post_screen/card/preview_card.dart'
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
+import 'package:hackathon_supporterz/widgets/dialog/dialog.dart';
+import 'package:provider/provider.dart';
 
 class PostScreen extends StatefulWidget {
   static String routeName = '/post';
@@ -27,11 +31,11 @@ class _PostScreenState extends State<PostScreen> {
   @override
   void initState() {
     super.initState();
-    _bodyTextController.addListener(() {});
   }
 
   @override
   Widget build(BuildContext context) {
+    final firebaseUser = context.watch<User?>();
     return Scaffold(
       appBar: myAppBar(context, title: 'Post Page'),
       backgroundColor: AppTheme.background,
@@ -104,8 +108,25 @@ class _PostScreenState extends State<PostScreen> {
                 children: [
                   ElevatedButton(
                     onPressed: () async {
-                      await popupSetting(context);
-                      //Navigator.pop(context);
+                      var res = await yesNoDialog(
+                          context, '確認', '記事を公開しますか？', '公開する', '戻る');
+                      if (res ?? false) {
+                        // 現時点ではダミーデータを一部セットする
+                        _post.setTechTag = ['AWS', 'iOS', 'Go'];
+
+                        // firebaseへ投稿する
+                        var db = FirebaseFirestore.instance;
+                        await db
+                            .collection('api')
+                            .doc('v1')
+                            .collection('posts')
+                            .add(
+                              _post.toJson(firebaseUser!.uid),
+                            );
+
+                        await yesDialog(context, '確認', '投稿しました！');
+                        Navigator.pop(context);
+                      }
                     },
                     child: const Text(
                       '投稿する',
