@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/models/post.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:hackathon_supporterz/screens/post_screen/popup/popup_setting.dart';
+import 'package:hackathon_supporterz/screens/post_screen/preview/preview_card.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
@@ -18,6 +19,7 @@ class PostScreen extends StatefulWidget {
 class _PostScreenState extends State<PostScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final Post _post = Post();
+  bool isPreview = false;
 
   @override
   Widget build(BuildContext context) {
@@ -45,37 +47,39 @@ class _PostScreenState extends State<PostScreen> {
               ),
               const SizedBox(height: 10),
               _sectionTitle('# 企画・構想'),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppTheme.darkShadow,
-                      spreadRadius: 1.0,
-                      blurRadius: 3.0,
-                      offset: const Offset(1, 2),
+              isPreview
+                  ? PreviewCard(rawText: _post.planText)
+                  : Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                            color: AppTheme.darkShadow,
+                            spreadRadius: 1.0,
+                            blurRadius: 3.0,
+                            offset: const Offset(1, 2),
+                          ),
+                        ],
+                      ),
+                      child: TextFormField(
+                        maxLines: 10,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: AppTheme.white,
+                          hintText: 'どのようなプロセスでこの案に辿り着いたのかを書いてみましょう。',
+                          contentPadding: const EdgeInsets.all(10),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                        ),
+                        onChanged: (val) {
+                          setState(() {
+                            _post.setPlanText = val;
+                          });
+                        },
+                      ),
                     ),
-                  ],
-                ),
-                child: TextFormField(
-                  maxLines: 10,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: AppTheme.white,
-                    hintText: 'どのようなプロセスでこの案に辿り着いたのかを書いてみましょう。',
-                    contentPadding: const EdgeInsets.all(10),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                  ),
-                  onChanged: (val) {
-                    setState(() {
-                      _post.setPlanText = val;
-                    });
-                  },
-                ),
-              ),
               const SizedBox(height: 10),
               _sectionTitle('# 本文'),
               Container(
@@ -154,7 +158,11 @@ class _PostScreenState extends State<PostScreen> {
           ),
           SizedBox(width: 15),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                isPreview = !isPreview;
+              });
+            },
             icon: const Icon(
               Icons.remove_red_eye,
               size: 20,
