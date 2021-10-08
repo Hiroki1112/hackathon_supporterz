@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
-import 'package:markdown/markdown.dart';
+import 'package:markdown/markdown.dart' as md;
 import 'package:webview_flutter/webview_flutter.dart';
 
 class PreviewCard extends StatefulWidget {
@@ -46,6 +46,24 @@ class _PreviewCardState extends State<PreviewCard> {
                 await _loadHTML();
               },
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                  decoration: BoxDecoration(
+                    color: AppTheme.purple.withOpacity(0.9),
+                    borderRadius: BorderRadiusDirectional.circular(5),
+                  ),
+                  child: Text(
+                    'Preview',
+                    style: TextStyle(
+                      color: AppTheme.white,
+                    ),
+                  ),
+                )
+              ],
+            )
           ],
         ),
       ),
@@ -53,7 +71,8 @@ class _PreviewCardState extends State<PreviewCard> {
   }
 
   Future _loadHTML() async {
-    String previewHTML = '<body>' + markdownToHtml(widget.rawText) + '</body>';
+    String previewHTML =
+        '<body>' + md.markdownToHtml(widget.rawText) + '</body>';
     // iOSの場合、メタタグを付けないとテキストが小さくなるため、
     // Headerにメタタグを追加する
     String header =
