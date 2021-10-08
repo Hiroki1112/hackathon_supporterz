@@ -47,7 +47,8 @@ class _SNSButtonsState extends State<SNSButtons> {
                     size: 30,
                   ),
                   onPressed: () async {
-                    await _launchInBrowser(widget.twitterLink);
+                    await _launchInBrowser(
+                        'https://twitter.com/' + widget.twitterLink);
                     print("Pressed");
                   },
                 )
@@ -61,7 +62,8 @@ class _SNSButtonsState extends State<SNSButtons> {
                     size: 30,
                   ),
                   onPressed: () async {
-                    await _launchInBrowser(widget.githubLink);
+                    await _launchInBrowser(
+                        'https://github.com/' + widget.githubLink);
                     print("Pressed");
                   },
                 )

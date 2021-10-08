@@ -50,11 +50,12 @@ class _MyPageScreenState extends State<MyPageScreen> {
 
         if (snapshot.connectionState == ConnectionState.done) {
           MyUser _myUser = MyUser();
-          Map<String, dynamic> map;
-          print(snapshot.hasData);
+          var map;
+
           print(snapshot.data);
           //print(snapshot.requi
           if (snapshot != null) {
+            print(snapshot.requireData.data().runtimeType);
             map = snapshot.requireData.data() as Map<String, dynamic>;
           } else {
             map = {};
@@ -63,6 +64,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
           _myUser.fromJson(map);
 
           return Scaffold(
+            appBar: myAppBar(context),
             body: ListView(
               children: [
                 MypageTop(

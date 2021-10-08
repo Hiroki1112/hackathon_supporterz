@@ -81,17 +81,17 @@ AppBar myAppBar(BuildContext context, {String title = 'Supporterz'}) {
                     // ignore: unnecessary_null_comparison
                     bool isNotNull = map != null;
 
-                    print(map.toString());
-                    if (map != {}) {
-                      _myUser.fromJson(map);
+                    if (map.isEmpty) {
                       Navigator.of(context).pushNamed(
-                        MyPageScreen.routeName,
-                        arguments: _myUser,
+                        ProfileEdit.routeName,
                       );
+                      return;
                     }
 
+                    _myUser.fromJson(map);
                     Navigator.of(context).pushNamed(
-                      ProfileEdit.routeName,
+                      MyPageScreen.routeName,
+                      arguments: _myUser,
                     );
                   }
 
@@ -104,7 +104,7 @@ AppBar myAppBar(BuildContext context, {String title = 'Supporterz'}) {
                     if (res ?? false) {
                       context.read<AuthenticationProvider>().signOut();
 
-                      Navigator.pop(context);
+                      //Navigator.pop(context);
                       // Navigator.of(context)
                       //     .restorablePushReplacementNamed(HomeScreen.routeName);
                     }
