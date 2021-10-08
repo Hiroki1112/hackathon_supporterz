@@ -25,6 +25,7 @@ class TextFieldCard extends StatelessWidget {
             offset: const Offset(1, 2),
           ),
         ],
+        color: AppTheme.white,
       ),
       child: TextFormField(
         maxLines: 10,
@@ -41,6 +42,12 @@ class TextFieldCard extends StatelessWidget {
         ),
         onChanged: (val) {
           onChanged(val);
+        },
+        validator: (String? val) {
+          // ここでのバリデーションは空でないことを確認するだけ
+          if (val!.isEmpty) {
+            return '内容を入力してください。';
+          }
         },
       ),
     );

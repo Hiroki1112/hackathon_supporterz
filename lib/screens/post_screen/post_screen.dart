@@ -46,18 +46,22 @@ class _PostScreenState extends State<PostScreen> {
           child: ListView(
             children: [
               TextFormField(
-                maxLines: 1,
-                maxLength: 40,
-                decoration: const InputDecoration(
-                  hintText: 'Title',
-                  fillColor: Colors.white,
-                ),
-                onChanged: (val) {
-                  setState(() {
-                    _post.setTitle = val;
-                  });
-                },
-              ),
+                  maxLines: 1,
+                  maxLength: 40,
+                  decoration: const InputDecoration(
+                    hintText: 'Title',
+                    fillColor: Colors.white,
+                  ),
+                  onChanged: (val) {
+                    setState(() {
+                      _post.setTitle = val;
+                    });
+                  },
+                  validator: (String? val) {
+                    if (val!.isEmpty) {
+                      return 'タイトルを入力してください。';
+                    }
+                  }),
               const SizedBox(height: 10),
               _sectionTitle(
                 '# 企画・構想',
@@ -108,24 +112,26 @@ class _PostScreenState extends State<PostScreen> {
                 children: [
                   ElevatedButton(
                     onPressed: () async {
-                      var res = await yesNoDialog(
-                          context, '確認', '記事を公開しますか？', '公開する', '戻る');
-                      if (res ?? false) {
-                        // 現時点ではダミーデータを一部セットする
-                        _post.setTechTag = ['AWS', 'iOS', 'Go'];
+                      if (_formKey.currentState!.validate()) {
+                        var res = await yesNoDialog(
+                            context, '確認', '記事を公開しますか？', '公開する', '戻る');
+                        if (res ?? false) {
+                          // 現時点ではダミーデータを一部セットする
+                          _post.setTechTag = ['AWS', 'iOS', 'Go'];
 
-                        // firebaseへ投稿する
-                        var db = FirebaseFirestore.instance;
-                        await db
-                            .collection('api')
-                            .doc('v1')
-                            .collection('posts')
-                            .add(
-                              _post.toJson(firebaseUser!.uid),
-                            );
+                          // firebaseへ投稿する
+                          var db = FirebaseFirestore.instance;
+                          await db
+                              .collection('api')
+                              .doc('v1')
+                              .collection('posts')
+                              .add(
+                                _post.toJson(firebaseUser!.uid),
+                              );
 
-                        await yesDialog(context, '確認', '投稿しました！');
-                        Navigator.pop(context);
+                          await yesDialog(context, '確認', '投稿しました！');
+                          Navigator.pop(context);
+                        }
                       }
                     },
                     child: const Text(
