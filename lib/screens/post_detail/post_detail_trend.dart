@@ -80,7 +80,7 @@ class _PostDetailTrendState extends State<PostDetailTrend> {
                             },
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 );

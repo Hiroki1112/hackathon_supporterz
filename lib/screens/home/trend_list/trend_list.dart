@@ -30,23 +30,24 @@ class _TrendListState extends State<TrendList> {
           //print(snapshot.data!.docs[0].data());
 
           return Column(
-              children: List.generate(
-            snapshot.data!.size,
-            (index) {
-              var _post = Post();
-              _post.fromJson(snapshot.data!.docs[index].data());
+            children: List.generate(
+              snapshot.data!.size,
+              (index) {
+                var _post = Post();
+                _post.fromJson(snapshot.data!.docs[index].data());
 
-              return PostTile(
-                simplePost: SimplePost(
-                  _post.title,
-                  'usename',
-                  '',
-                  _post.goods,
-                  _post.postId,
-                ),
-              );
-            },
-          ));
+                return PostTile(
+                  simplePost: SimplePost(
+                    _post.title,
+                    'usename',
+                    '',
+                    _post.goods,
+                    _post.postId,
+                  ),
+                );
+              },
+            ),
+          );
         }
 
         return const Center(

@@ -22,91 +22,107 @@ class _PostTileState extends State<PostTile> {
   @override
   Widget build(BuildContext context) {
     var user = db.collection('api').doc('v1').collection('user');
-    return GestureDetector(
-      onTap: () {
-        Navigator.of(context).pushNamed(
-          PostDetailTrend.routeName,
-          arguments: widget.simplePost.postId,
-        );
-      },
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-        decoration: BoxDecoration(
-          color: AppTheme.white,
-          borderRadius: BorderRadius.circular(5),
-          boxShadow: [
-            BoxShadow(
-              color: AppTheme.darkShadow,
-              spreadRadius: 1.0,
-              blurRadius: 3.0,
-              offset: const Offset(1, 2),
-            ),
-          ],
-        ),
-        child: Column(
-          children: [
-            SizedBox(
-              width: Config.deviceWidth(context) * 0.9,
-              child: ListTile(
-                leading: const Icon(
-                  Icons.access_alarm_rounded,
-                  size: 50,
-                ),
-                title: Column(
-                  children: [
-                    FutureBuilder(
-                        future: user.get(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                                snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.done) {
-                            // ユーザーデータを受け取る
-                            MyUser _user = MyUser();
-                            _user.fromJson(snapshot.data!.docs.first.data());
-
-                            return Row(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 17.0),
-                                  child: const Icon(
-                                    Icons.people,
-                                  ),
-                                ),
-                                Text(_user.useName),
-                              ],
-                            );
-                          }
-                          return const CircularProgressIndicator();
-                        }),
-                    Text(
-                      widget.simplePost.title,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    Text(
-                      widget.simplePost.productTag,
-                      textAlign: TextAlign.start,
-                    )
-                  ],
+    return Container(
+      width: Config.deviceWidth(context) * 0.9,
+      margin: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      decoration: BoxDecoration(
+        color: AppTheme.white,
+        borderRadius: BorderRadius.circular(5),
+        boxShadow: [
+          BoxShadow(
+            color: AppTheme.darkShadow,
+            spreadRadius: 1.0,
+            blurRadius: 3.0,
+            offset: const Offset(1, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          ListTile(
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                PostDetailTrend.routeName,
+                arguments: widget.simplePost.postId,
+              );
+            },
+            leading: Container(
+              height: 75,
+              width: 75,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.asset(
+                  'assets/images/dummy1.jpg',
+                  height: 75,
+                  width: 75,
+                  fit: BoxFit.fill,
                 ),
               ),
             ),
-            // ignore: prefer_const_constructors
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(
-                  Icons.thumb_up,
+                FutureBuilder(
+                    future: user.get(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                            snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        // ユーザーデータを受け取る
+                        MyUser _user = MyUser();
+                        _user.fromJson(snapshot.data!.docs.first.data());
+
+                        return Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 7.0,
+                              ),
+                              child: const Icon(
+                                Icons.people,
+                              ),
+                            ),
+                            Text(
+                              _user.useName,
+                              style: const TextStyle(fontSize: 13),
+                            ),
+                          ],
+                        );
+                      }
+                      return const CircularProgressIndicator();
+                    }),
+                Text(
+                  widget.simplePost.title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 21,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
-                const SizedBox(width: 5),
-                Text(widget.simplePost.good.toString())
+                Text(
+                  widget.simplePost.productTag,
+                  textAlign: TextAlign.start,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    const Icon(
+                      Icons.thumb_up,
+                    ),
+                    const SizedBox(width: 5),
+                    Text(widget.simplePost.good.toString())
+                  ],
+                ),
               ],
             ),
-          ],
-        ),
+          ),
+          // ignore: prefer_const_constructors
+        ],
       ),
     );
   }
