@@ -27,40 +27,40 @@ class HomeScreen extends StatelessWidget {
             style: Config.h1,
           ),
           const TrendList(),
-          TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, PostDetailTrend.routeName);
-            },
-            child: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: Text(
-                'トレンドを全て見る>',
-                style: TextStyle(
-                  fontSize: 25,
-                ),
-              ),
-            ),
-          ),
+          _rignhtTextButton(() {
+            Navigator.pushNamed(context, PostDetailTrend.routeName);
+          }, context, 'トレンドを全て見る>'),
           const Text(
             'idea',
             style: Config.h1,
           ),
-          TextButton(
+          _rignhtTextButton(() {
+            Navigator.pushNamed(context, PostDetailIdea.routeName);
+          }, context, 'アイデアを全て見る>'),
+        ],
+      ),
+    );
+  }
+
+  _rignhtTextButton(Function onPressed, BuildContext context, String text) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, PostDetailIdea.routeName);
+              Navigator.pushNamed(context, PostDetailTrend.routeName);
             },
-            child: const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              child: Text(
-                'アイデアを全て見る>',
-                style: TextStyle(
-                  fontSize: 25,
-                ),
+            child: Text(
+              text,
+              style: const TextStyle(
+                fontSize: 18,
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
