@@ -6,6 +6,7 @@ import 'package:hackathon_supporterz/provider/auth_provider.dart';
 import 'package:hackathon_supporterz/routes.dart';
 import 'package:hackathon_supporterz/screens/404/not_found.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
+import 'package:hackathon_supporterz/screens/post_detail/post_detail_trend.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/screens/home/home_screen.dart';
@@ -75,6 +76,16 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(
               builder: (BuildContext context) {
                 return ProfileEdit(myUser: args);
+              },
+            );
+          }
+
+          if (setting.name == PostDetailTrend.routeName) {
+            final args = setting.arguments as String;
+
+            return MaterialPageRoute(
+              builder: (BuildContext context) {
+                return PostDetailTrend(postId: args);
               },
             );
           }
