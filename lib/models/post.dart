@@ -1,8 +1,6 @@
 import 'package:hackathon_supporterz/util/constants.dart';
 import 'package:uuid/uuid.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:convert';
-import 'dart:math';
 import 'dart:core';
 
 /// 投稿するデータ用モデル。

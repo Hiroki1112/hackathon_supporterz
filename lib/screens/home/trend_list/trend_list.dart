@@ -1,10 +1,7 @@
-import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/models/post.dart';
 import 'package:hackathon_supporterz/widgets/tiles/post_tile.dart';
-import 'package:provider/provider.dart';
 
 class TrendList extends StatefulWidget {
   const TrendList({Key? key}) : super(key: key);
@@ -16,7 +13,6 @@ class TrendList extends StatefulWidget {
 class _TrendListState extends State<TrendList> {
   @override
   Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User?>();
     var db = FirebaseFirestore.instance;
     var trend = db.collection('api').doc('v1').collection('posts').limit(5);
     return FutureBuilder(
@@ -31,7 +27,7 @@ class _TrendListState extends State<TrendList> {
 
         if (snapshot.connectionState == ConnectionState.done) {
           // データの取得ができたらリスト表示する
-          print(snapshot.data!.docs[0].data());
+          //print(snapshot.data!.docs[0].data());
 
           return Column(
               children: List.generate(

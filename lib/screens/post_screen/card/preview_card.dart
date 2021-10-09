@@ -50,7 +50,8 @@ class _PreviewCardState extends State<PreviewCard> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
                   decoration: BoxDecoration(
                     color: AppTheme.purple.withOpacity(0.9),
                     borderRadius: BorderRadiusDirectional.circular(5),

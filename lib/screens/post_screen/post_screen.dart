@@ -1,12 +1,9 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/models/post.dart';
 import 'package:hackathon_supporterz/screens/post_screen/card/text_field_card.dart';
-import 'package:hackathon_supporterz/screens/post_screen/popup/popup_setting.dart';
 import 'package:hackathon_supporterz/screens/post_screen/card/preview_card.dart';
 import 'package:hackathon_supporterz/screens/post_screen/popup/url_embedded.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
@@ -14,7 +11,6 @@ import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
 import 'package:hackathon_supporterz/widgets/dialog/dialog.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class PostScreen extends StatefulWidget {
   static String routeName = '/post';
@@ -218,10 +214,7 @@ class _PostScreenState extends State<PostScreen> {
     FilePickerResult? result = await FilePicker.platform
         .pickFiles(type: FileType.image, withData: true);
 
-    if (result != null) {
-      print(result);
-      print(result.count);
-    }
+    if (result != null) {}
     // fileを選択する
     //File file = File(result.files.single.path!);
     /*
