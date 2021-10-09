@@ -33,6 +33,12 @@ class Post {
   // titleを2-gram分割した変数。
   Map<String, bool> get title2gram => get2gram(title);
 
+  // 記事のID
+  String get postId => _postId;
+
+  // 記事についたいいね数
+  int get goods => _goods;
+
   // == setterの定義 ================
 
   /// 文字数が40文字以内である時のみ値をセットする。

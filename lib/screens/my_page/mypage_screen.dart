@@ -123,29 +123,8 @@ class _MyPageScreenState extends State<MyPageScreen> {
                     color: AppTheme.background,
                   ),
                   child: Column(
-                    children: [
-                      PostTile(
-                        simplePost: SimplePost(
-                          'JavaScript to Java tte niteruyone',
-                          'user hogehoge',
-                          '#Flutter',
-                        ),
-                      ),
-                      PostTile(
-                        simplePost: SimplePost(
-                          'JavaScript to Java tte niteruyone',
-                          'user hogehoge',
-                          '#Flutter',
-                        ),
-                      ),
-                      PostTile(
-                        simplePost: SimplePost(
-                          'JavaScript to Java tte niteruyone',
-                          'user hogehoge',
-                          '#Flutter',
-                        ),
-                      ),
-                      const SizedBox(
+                    children: const [
+                      SizedBox(
                         height: 50,
                       )
                     ],

@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 
-class PostTile extends StatelessWidget {
+class PostTile extends StatefulWidget {
   const PostTile({
     Key? key,
     required this.simplePost,
@@ -10,7 +12,15 @@ class PostTile extends StatelessWidget {
   final SimplePost simplePost;
 
   @override
+  _PostTileState createState() => _PostTileState();
+}
+
+class _PostTileState extends State<PostTile> {
+  var db = FirebaseFirestore.instance;
+
+  @override
   Widget build(BuildContext context) {
+    var user = db.collection('api').doc('v1').collection('user');
     return GestureDetector(
       onTap: () {
         debugPrint('hoge');
@@ -41,24 +51,39 @@ class PostTile extends StatelessWidget {
                 ),
                 title: Column(
                   children: [
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 17.0),
-                          child: const Icon(
-                            Icons.people,
-                          ),
-                        ),
-                        Text(simplePost.userName),
-                      ],
-                    ),
+                    FutureBuilder(
+                        future: user.get(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                                snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            // ユーザーデータを受け取る
+                            MyUser _user = MyUser();
+                            _user.fromJson(snapshot.data!.docs.first.data());
+
+                            return Row(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 17.0),
+                                  child: const Icon(
+                                    Icons.people,
+                                  ),
+                                ),
+                                Text(_user.useName),
+                              ],
+                            );
+                          }
+                          return const CircularProgressIndicator();
+                        }),
                     Text(
-                      simplePost.title,
+                      widget.simplePost.title,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                     Text(
-                      simplePost.productTag,
+                      widget.simplePost.productTag,
                       textAlign: TextAlign.start,
                     )
                   ],
@@ -68,12 +93,12 @@ class PostTile extends StatelessWidget {
             // ignore: prefer_const_constructors
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
-              children: const [
-                Icon(
+              children: [
+                const Icon(
                   Icons.thumb_up,
                 ),
-                SizedBox(width: 5),
-                Text('3')
+                const SizedBox(width: 5),
+                Text(widget.simplePost.good.toString())
               ],
             ),
           ],
@@ -84,7 +109,14 @@ class PostTile extends StatelessWidget {
 }
 
 class SimplePost {
-  final String title, userName, productTag;
+  final String title, userName, productTag, postId;
+  final int good;
 
-  SimplePost(this.title, this.userName, this.productTag);
+  SimplePost(
+    this.title,
+    this.userName,
+    this.productTag,
+    this.good,
+    this.postId,
+  );
 }

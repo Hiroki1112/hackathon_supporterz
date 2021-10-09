@@ -10,16 +10,6 @@ class PostDetailTrend extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final List<Widget> _widgets = [
-    PostTile(
-      simplePost: SimplePost(
-        'JavaScript to Java tte niteruyone',
-        'user hogehoge',
-        '#Flutter',
-      ),
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,18 +18,11 @@ class PostDetailTrend extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
         child: ListView(
-          children: <Widget>[
-            const Text(
+          children: const <Widget>[
+            Text(
               'All Articles',
               style: Config.h1,
             ),
-            ..._widgets,
-            ..._widgets,
-            ..._widgets,
-            ..._widgets,
-            ..._widgets,
-            ..._widgets,
-            ..._widgets,
           ],
         ),
       ),

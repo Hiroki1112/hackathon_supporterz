@@ -13,17 +13,6 @@ class HomeScreen extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final List<Widget> _widgets = List.generate(
-    10,
-    (index) => PostTile(
-      simplePost: SimplePost(
-        'JavaScript to Java tte niteruyone',
-        'user hogehoge',
-        '#Flutter',
-      ),
-    ),
-  );
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +45,6 @@ class HomeScreen extends StatelessWidget {
             'idea',
             style: Config.h1,
           ),
-          ..._widgets,
           TextButton(
             onPressed: () {
               Navigator.pushNamed(context, PostDetailIdea.routeName);

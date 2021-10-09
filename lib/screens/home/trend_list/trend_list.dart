@@ -41,6 +41,8 @@ class _TrendListState extends State<TrendList> {
                   _post.title,
                   'usename',
                   '',
+                  _post.goods,
+                  _post.postId,
                 ),
               );
             },

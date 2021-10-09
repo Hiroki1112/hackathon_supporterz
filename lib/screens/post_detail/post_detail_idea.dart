@@ -10,16 +10,6 @@ class PostDetailIdea extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final List<Widget> _ideaWidgets = [
-    PostTile(
-      simplePost: SimplePost(
-        'JavaScript to Java tte niteruyone',
-        'user hogehoge',
-        '#Flutter',
-      ),
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,12 +18,11 @@ class PostDetailIdea extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
         child: ListView(
-          children: <Widget>[
-            const Text(
+          children: const <Widget>[
+            Text(
               'Idea',
               style: Config.h1,
             ),
-            ..._ideaWidgets,
           ],
         ),
       ),
