@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/models/post.dart';
@@ -11,6 +14,7 @@ import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
 import 'package:hackathon_supporterz/widgets/dialog/dialog.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class PostScreen extends StatefulWidget {
   static String routeName = '/post';
@@ -179,7 +183,9 @@ class _PostScreenState extends State<PostScreen> {
               Icons.photo_size_select_actual_outlined,
               size: 20,
             ),
-            onPressed: () {},
+            onPressed: () async {
+              await _upload();
+            },
           ),
           IconButton(
             icon: const Icon(
@@ -205,5 +211,32 @@ class _PostScreenState extends State<PostScreen> {
         ],
       ),
     );
+  }
+
+  _upload() async {
+    // ファイルを選択する
+    FilePickerResult? result = await FilePicker.platform
+        .pickFiles(type: FileType.image, withData: true);
+
+    if (result != null) {
+      print(result);
+      print(result.count);
+    }
+    // fileを選択する
+    //File file = File(result.files.single.path!);
+    /*
+      try {
+        var task = await firebase_storage.FirebaseStorage.instance
+            .ref('postImage/hgoe.png')
+            .putFile(file);
+
+        print(task.ref);
+      } on firebase_storage.FirebaseException catch (e) {
+        debugPrint(e.message);
+      }
+    } else {
+      // User canceled the picker
+      return;
+    }*/
   }
 }
