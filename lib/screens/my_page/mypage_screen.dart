@@ -57,6 +57,8 @@ class _MyPageScreenState extends State<MyPageScreen> {
           return Scaffold(
             appBar: myAppBar(context),
             body: ListView(
+              // 無駄な読み込みを減らすためにキャッシュ領域を広げる
+              cacheExtent: 250.0 * 3.0,
               children: [
                 MypageTop(
                   pictureURL: '',
