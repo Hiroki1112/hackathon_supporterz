@@ -1,6 +1,9 @@
 import 'package:hackathon_supporterz/util/constants.dart';
 import 'package:uuid/uuid.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:convert';
+import 'dart:math';
+import 'dart:core';
 
 /// 投稿するデータ用モデル。
 class Post {
@@ -90,12 +93,12 @@ class Post {
   }
 
   /// Firebaseから受け取った情報を受け取る
-  void fromJson(Map<String, Object> json) {
+  void fromJson(Map<String, dynamic> json) {
     setTitle = json['title'] as String;
     setPlanText = json['planText'] as String;
     setBodyText = json['bodyText'] as String;
-
-    setTechTag = (json['techTag'] as List<String>);
+    // リスト内をキャストする
+    setTechTag = json['techTag'].cast<String>();
     setHeaderImageURL = json['headerImageURL'] as String;
     _postId = json['postId'] as String;
 
