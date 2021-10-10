@@ -185,7 +185,17 @@ class _PostScreenState extends State<PostScreen> {
               size: 20,
             ),
             onPressed: () async {
-              await _upload();
+              String result = await _upload();
+              print(result);
+
+              // 取得できた場合は文章中に埋め込む
+              final _newValue = controller.text + '![${result}](${result})';
+              controller.value = TextEditingValue(
+                text: _newValue,
+                selection: TextSelection.fromPosition(
+                  TextPosition(offset: _newValue.length),
+                ),
+              );
             },
           ),
           IconButton(
@@ -214,7 +224,7 @@ class _PostScreenState extends State<PostScreen> {
     );
   }
 
-  _upload() async {
+  Future<String> _upload() async {
     // ファイルを選択する
     FilePickerResult? result = await FilePicker.platform
         .pickFiles(type: FileType.image, withData: true);
@@ -229,12 +239,11 @@ class _PostScreenState extends State<PostScreen> {
             .putFile(file);
 
         print(task.ref);
+        return task.ref.fullPath;
       } on firebase_storage.FirebaseException catch (e) {
         debugPrint(e.message);
       }
-    } else {
-      // User canceled the picker
-      return;
     }
+    return 'failed';
   }
 }
