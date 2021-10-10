@@ -22,41 +22,36 @@ class MyPageScreen extends StatefulWidget {
 }
 
 class _MyPageScreenState extends State<MyPageScreen> {
-  @override
-  Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User?>();
+  MyUser _myUser = MyUser();
+  Future<void> fetchData(User? firebaseuser) async {
+    // データ取得
     var db = FirebaseFirestore.instance;
     DocumentReference<Map<String, dynamic>> user = db
         .collection('api')
         .doc('v1')
         .collection('user')
-        .doc(firebaseUser!.uid);
+        .doc(firebaseuser!.uid);
 
-    return FutureBuilder(
-      future: user.get(),
-      builder:
-          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return const Text('Something went wrong');
-        }
+    DocumentSnapshot res = await user.get();
 
-        if (snapshot.connectionState == ConnectionState.done) {
-          MyUser _myUser = MyUser();
-          // ignore: prefer_typing_uninitialized_variables
-          var map;
+    _myUser.fromJson(res.data() as Map<String, dynamic>);
+  }
 
-          // ignore: unnecessary_null_comparison
-          if (snapshot != null) {
-            map = snapshot.requireData.data() as Map<String, dynamic>;
-          } else {
-            map = {};
+  @override
+  Widget build(BuildContext context) {
+    final firebaseUser = context.watch<User?>();
+
+    return Scaffold(
+      appBar: myAppBar(context),
+      body: FutureBuilder(
+        future: fetchData(firebaseUser),
+        builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+          if (snapshot.hasError) {
+            return const Text('Something went wrong');
           }
 
-          _myUser.fromJson(map);
-
-          return Scaffold(
-            appBar: myAppBar(context),
-            body: ListView(
+          if (snapshot.connectionState == ConnectionState.done) {
+            return ListView(
               // 無駄な読み込みを減らすためにキャッシュ領域を広げる
               cacheExtent: 250.0 * 3.0,
               children: [
@@ -93,22 +88,26 @@ class _MyPageScreenState extends State<MyPageScreen> {
                   margin: const EdgeInsets.symmetric(
                     horizontal: 23,
                   ),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(
-                        context,
-                        ProfileEdit.routeName,
-                        arguments: _myUser,
-                      );
-                    },
-                    child: const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 100, vertical: 5),
-                      child: Text(
-                        'プロフィール編集',
-                        style: TextStyle(color: Colors.white),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            await Navigator.pushNamed(
+                              context,
+                              ProfileEdit.routeName,
+                              arguments: _myUser,
+                            );
+                            await fetchData(firebaseUser);
+                            setState(() {});
+                          },
+                          child: const Text(
+                            'プロフィール編集',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                 ),
                 SNSButtons(
@@ -131,21 +130,18 @@ class _MyPageScreenState extends State<MyPageScreen> {
                   ),
                 ),
               ],
-            ),
-          );
-        }
+            );
+          }
 
-        return Scaffold(
-          body: Center(
+          return Center(
             child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: const [
+              children: [
                 CircularProgressIndicator(),
               ],
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
