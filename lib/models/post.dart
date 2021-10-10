@@ -16,6 +16,7 @@ class Post {
   DateTime _timeCreated = DateTime.now();
   DateTime _timeUpdated = DateTime.now();
   int _goods = 0;
+  String _userId = '';
 
   // == getterの定義 ================
 
@@ -80,6 +81,10 @@ class Post {
     _headerImageURL = url;
   }
 
+  set setUserId(String uid) {
+    _userId = uid;
+  }
+
   //== method ================
 
   /// 渡された文章を2-gramに分解し、辞書形式に変換する関数。
@@ -111,6 +116,7 @@ class Post {
     _timeUpdated = (json['timeUpdated'] as Timestamp).toDate();
 
     _goods = (json['goods'] as int);
+    _userId = json['userId'] as String;
   }
 
   /// モデルの持つ情報をjson変換する関数
@@ -125,7 +131,7 @@ class Post {
       'postId': _postId,
       'timeCreated': _timeCreated,
       'timeUpdated': _timeUpdated,
-      'userId': userId,
+      'userId': _userId,
       'goods': _goods,
     };
   }

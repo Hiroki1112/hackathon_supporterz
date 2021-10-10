@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,6 +13,7 @@ import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
 import 'package:hackathon_supporterz/widgets/dialog/dialog.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class PostScreen extends StatefulWidget {
   static String routeName = '/post';
@@ -47,22 +50,23 @@ class _PostScreenState extends State<PostScreen> {
           child: ListView(
             children: [
               TextFormField(
-                  maxLines: 1,
-                  maxLength: 40,
-                  decoration: const InputDecoration(
-                    hintText: 'Title',
-                    fillColor: Colors.white,
-                  ),
-                  onChanged: (val) {
-                    setState(() {
-                      _post.setTitle = val;
-                    });
-                  },
-                  validator: (String? val) {
-                    if (val!.isEmpty) {
-                      return 'タイトルを入力してください。';
-                    }
-                  }),
+                maxLines: 1,
+                maxLength: 40,
+                decoration: const InputDecoration(
+                  hintText: 'Title',
+                  fillColor: Colors.white,
+                ),
+                onChanged: (val) {
+                  setState(() {
+                    _post.setTitle = val;
+                  });
+                },
+                validator: (String? val) {
+                  if (val!.isEmpty) {
+                    return 'タイトルを入力してください。';
+                  }
+                },
+              ),
               const SizedBox(height: 10),
               _sectionTitle(
                 '# 企画・構想',
@@ -119,6 +123,7 @@ class _PostScreenState extends State<PostScreen> {
                         if (res ?? false) {
                           // 現時点ではダミーデータを一部セットする
                           _post.setTechTag = ['AWS', 'iOS', 'Go'];
+                          _post.setUserId = firebaseUser!.uid;
 
                           // firebaseへ投稿する
                           var db = FirebaseFirestore.instance;
@@ -127,7 +132,7 @@ class _PostScreenState extends State<PostScreen> {
                               .doc('v1')
                               .collection('posts')
                               .add(
-                                _post.toJson(firebaseUser!.uid),
+                                _post.toJson(firebaseUser.uid),
                               );
 
                           await yesDialog(context, '確認', '投稿しました！');
@@ -214,10 +219,10 @@ class _PostScreenState extends State<PostScreen> {
     FilePickerResult? result = await FilePicker.platform
         .pickFiles(type: FileType.image, withData: true);
 
-    if (result != null) {}
-    // fileを選択する
-    //File file = File(result.files.single.path!);
-    /*
+    if (result != null) {
+      // fileを選択する
+      File file = File(result.files.single.path!);
+
       try {
         var task = await firebase_storage.FirebaseStorage.instance
             .ref('postImage/hgoe.png')
@@ -230,6 +235,6 @@ class _PostScreenState extends State<PostScreen> {
     } else {
       // User canceled the picker
       return;
-    }*/
+    }
   }
 }
