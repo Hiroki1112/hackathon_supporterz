@@ -40,6 +40,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
   @override
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User?>();
+    print(firebaseUser!.photoURL);
 
     return Scaffold(
       appBar: myAppBar(context),

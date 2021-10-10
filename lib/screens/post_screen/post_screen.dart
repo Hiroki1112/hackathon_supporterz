@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/models/post.dart';
 import 'package:hackathon_supporterz/screens/post_screen/card/text_field_card.dart';
 import 'package:hackathon_supporterz/screens/post_screen/card/preview_card.dart';
+import 'package:hackathon_supporterz/screens/post_screen/popup/popup_setting.dart';
 import 'package:hackathon_supporterz/screens/post_screen/popup/url_embedded.dart';
+import 'package:hackathon_supporterz/screens/post_screen/tag_setting/tag_setting.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
@@ -68,6 +70,8 @@ class _PostScreenState extends State<PostScreen> {
                 },
               ),
               const SizedBox(height: 10),
+              TagSetting(),
+              const SizedBox(height: 10),
               _sectionTitle(
                 '# 企画・構想',
                 () {
@@ -118,6 +122,9 @@ class _PostScreenState extends State<PostScreen> {
                   ElevatedButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
+                        // 必要情報を記入してもらう
+                        var setting = await popupSetting(context);
+
                         var res = await yesNoDialog(
                             context, '確認', '記事を公開しますか？', '公開する', '戻る');
                         if (res ?? false) {
@@ -147,7 +154,7 @@ class _PostScreenState extends State<PostScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 20)
+              const SizedBox(height: 50)
             ],
           ),
         ),
