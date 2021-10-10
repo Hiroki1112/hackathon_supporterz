@@ -6,12 +6,20 @@ Future<dynamic> popupSetting(BuildContext context) {
     context: context,
     builder: (context) {
       return SimpleDialog(
-        title: const Text('タイトル'),
+        title: const Text(
+          'Setting meta Info',
+        ),
         children: <Widget>[
           // コンテンツ領域
           SimpleDialogOption(
             onPressed: () => Navigator.pop(context),
-            child: const Text('項目目'),
+            child: Column(
+              children: const [
+                // ヘッダー画像の入力
+                Text('ヘッダー画像を選択してください。')
+                //画像を選択した場合はプレビュー
+              ],
+            ),
           ),
         ],
       );

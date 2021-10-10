@@ -7,7 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/models/post.dart';
 import 'package:hackathon_supporterz/screens/post_screen/card/text_field_card.dart';
 import 'package:hackathon_supporterz/screens/post_screen/card/preview_card.dart';
+import 'package:hackathon_supporterz/screens/post_screen/popup/popup_setting.dart';
 import 'package:hackathon_supporterz/screens/post_screen/popup/url_embedded.dart';
+import 'package:hackathon_supporterz/screens/post_screen/tag_setting/tag_setting.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
@@ -68,6 +70,8 @@ class _PostScreenState extends State<PostScreen> {
                 },
               ),
               const SizedBox(height: 10),
+              TagSetting(),
+              const SizedBox(height: 10),
               _sectionTitle(
                 '# 企画・構想',
                 () {
@@ -118,6 +122,9 @@ class _PostScreenState extends State<PostScreen> {
                   ElevatedButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
+                        // 必要情報を記入してもらう
+                        var setting = await popupSetting(context);
+
                         var res = await yesNoDialog(
                             context, '確認', '記事を公開しますか？', '公開する', '戻る');
                         if (res ?? false) {
@@ -147,7 +154,7 @@ class _PostScreenState extends State<PostScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 20)
+              const SizedBox(height: 50)
             ],
           ),
         ),
@@ -185,7 +192,17 @@ class _PostScreenState extends State<PostScreen> {
               size: 20,
             ),
             onPressed: () async {
-              await _upload();
+              String result = await _upload();
+              print(result);
+
+              // 取得できた場合は文章中に埋め込む
+              final _newValue = controller.text + '![${result}](${result})';
+              controller.value = TextEditingValue(
+                text: _newValue,
+                selection: TextSelection.fromPosition(
+                  TextPosition(offset: _newValue.length),
+                ),
+              );
             },
           ),
           IconButton(
@@ -214,7 +231,7 @@ class _PostScreenState extends State<PostScreen> {
     );
   }
 
-  _upload() async {
+  Future<String> _upload() async {
     // ファイルを選択する
     FilePickerResult? result = await FilePicker.platform
         .pickFiles(type: FileType.image, withData: true);
@@ -229,12 +246,11 @@ class _PostScreenState extends State<PostScreen> {
             .putFile(file);
 
         print(task.ref);
+        return task.ref.fullPath;
       } on firebase_storage.FirebaseException catch (e) {
         debugPrint(e.message);
       }
-    } else {
-      // User canceled the picker
-      return;
     }
+    return 'failed';
   }
 }
