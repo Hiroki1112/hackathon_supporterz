@@ -214,7 +214,10 @@ class _PostScreenState extends State<PostScreen> {
     FilePickerResult? result = await FilePicker.platform
         .pickFiles(type: FileType.image, withData: true);
 
-    if (result != null) {}
+    if (result != null) {
+      print(result);
+    }
+
     // fileを選択する
     //File file = File(result.files.single.path!);
     /*

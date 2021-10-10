@@ -59,7 +59,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                   .set(
                     _myuser.toJson(firebaseUser.uid),
                   );
-              Navigator.pushNamed(context, MyPageScreen.routeName);
+              Navigator.of(context).pop();
             },
             icon: const Icon(
               Icons.check,
