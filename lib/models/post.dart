@@ -40,6 +40,8 @@ class Post {
   // 記事についたいいね数
   int get goods => _goods;
 
+  String get userId => _userId;
+
   // == setterの定義 ================
 
   /// 文字数が40文字以内である時のみ値をセットする。

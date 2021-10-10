@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/models/post.dart';
 import 'package:hackathon_supporterz/screens/post_detail/cards/body_card.dart';
+import 'package:hackathon_supporterz/screens/post_detail/cards/plan_text.dart';
 import 'package:hackathon_supporterz/screens/post_detail/cards/user_card.dart';
 import 'package:hackathon_supporterz/screens/post_detail/title/title.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
@@ -52,8 +53,12 @@ class _PostDetailTrendState extends State<PostDetailTrend> {
                     children: [
                       DetailTitle(title: _post.title),
                       DetailBodyCard(bodyText: _post.bodyText),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      DetailPlanText(planeText: _post.planText),
                       const SizedBox(height: 15),
-                      const UserCard(userId: 'userid'),
+                      UserCard(userId: _post.userId),
                     ],
                   ),
                 );
