@@ -14,17 +14,17 @@ class MyfollowScreen extends StatefulWidget {
 class _MyfollowScreenState extends State<MyfollowScreen> {
   var contexxt;
 
-  final List<Widget> _widgets = List.generate(
-    //follower_tileを作ってposttileと同様にする
-    10,
-    (index) => PostTile(
-      simplePost: SimplePost(
-        'JavaScript to Java tte niteruyone',
-        'user hogehoge',
-        '#Flutter',
-      ),
-    ),
-  );
+  // final List<Widget> _widgets = List.generate(
+  //   //follower_tileを作ってposttileと同様にする
+  //   10,
+  //   (index) => PostTile(
+  //     simplePost: SimplePost(
+  //       'JavaScript to Java tte niteruyone',
+  //       'user hogehoge',
+  //       '#Flutter',
+  //     ),
+  //   ),
+  // );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +35,7 @@ class _MyfollowScreenState extends State<MyfollowScreen> {
             'すべてのフォロワー',
             style: Config.h1,
           ),
-          ..._widgets,
+          // ..._widgets,
           const Text(
             'idea',
             style: Config.h1,
