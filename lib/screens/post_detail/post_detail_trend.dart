@@ -52,13 +52,21 @@ class _PostDetailTrendState extends State<PostDetailTrend> {
                     children: [
                       DetailTitle(title: _post.title),
                       DetailBodyCard(bodyText: _post.bodyText),
+                      const SizedBox(height: 15),
                       const UserCard(userId: 'userid'),
                     ],
                   ),
                 );
               }
 
-              return const CircularProgressIndicator();
+              return Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    CircularProgressIndicator(),
+                  ],
+                ),
+              );
             }),
       ),
     );

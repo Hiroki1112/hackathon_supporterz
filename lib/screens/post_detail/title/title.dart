@@ -14,7 +14,7 @@ class DetailTitle extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       child: Text(
         title,
-        style: Config.h3,
+        style: Config.h2,
       ),
     );
   }
