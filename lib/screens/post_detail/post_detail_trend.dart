@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,25 @@ class PostDetailTrend extends StatefulWidget {
 }
 
 class _PostDetailTrendState extends State<PostDetailTrend> {
+  Post _post = Post();
+  List<Widget> _page = [
+    Container(
+        // width: 50,
+        // height: 50,
+        // decoration: BoxDecoration(color: Colors.red),
+        ),
+    Container(
+      width: 50,
+      height: 50,
+      decoration: BoxDecoration(color: Colors.blue),
+    ),
+    Container(
+      width: 50,
+      height: 50,
+      decoration: BoxDecoration(color: Colors.purple),
+    ),
+  ];
+  int _selectedIndex = 0;
   late final WebViewController _controller;
   var db = FirebaseFirestore.instance;
   @override
@@ -45,20 +65,80 @@ class _PostDetailTrendState extends State<PostDetailTrend> {
             builder: (BuildContext context,
                 AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                Post _post = Post();
+                //Post _post = Post();
+                _post = Post();
                 _post.fromJson(snapshot.requireData.docs.first.data());
 
                 return SingleChildScrollView(
                   child: Column(
                     children: [
                       DetailTitle(title: _post.title),
-                      DetailBodyCard(bodyText: _post.bodyText),
-                      const SizedBox(
-                        height: 15,
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _selectedIndex = 0;
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(),
+                                ),
+                                child: Text('企画'),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _selectedIndex = 1;
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(),
+                                ),
+                                child: Text('開発'),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _selectedIndex = 2;
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(),
+                                ),
+                                child: Text('制作物'),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      DetailPlanText(planeText: _post.planText),
-                      const SizedBox(height: 15),
-                      UserCard(userId: _post.userId),
+                      //_page[_selectedIndex],
+                      Column(
+                        children: [
+                          //DetailTitle(title: _post.title),
+                          _selectedIndex == 0
+                              ? DetailBodyCard(bodyText: _post.bodyText)
+                              : _selectedIndex == 1
+                                  ? DetailPlanText(planeText: _post.planText)
+                                  : _selectedIndex == 2
+                                      ? UserCard(userId: _post.userId)
+                                      : const SizedBox(height: 15),
+                          UserCard(userId: _post.userId),
+                        ],
+                      ),
                     ],
                   ),
                 );
