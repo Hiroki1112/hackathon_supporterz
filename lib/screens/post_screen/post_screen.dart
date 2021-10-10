@@ -70,7 +70,7 @@ class _PostScreenState extends State<PostScreen> {
                 },
               ),
               const SizedBox(height: 10),
-              TagSetting(),
+              const TagSetting(),
               const SizedBox(height: 10),
               _sectionTitle(
                 '# 企画・構想',

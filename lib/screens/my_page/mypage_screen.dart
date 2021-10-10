@@ -174,7 +174,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
                     height: 50,
                   ),
                   FutureBuilder(
-                    future: fetchMyPostData(firebaseUser!.uid),
+                    future: fetchMyPostData(firebaseUser.uid),
                     builder:
                         (BuildContext context, AsyncSnapshot<void> snapshot) {
                       if (snapshot.hasError) {
