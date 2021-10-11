@@ -69,7 +69,7 @@ class _SearchState extends State<Search> {
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
               child: Text(
-                'キーワード検索',
+                'タグ検索',
                 style: Config.h2,
               ),
             ),
@@ -85,6 +85,7 @@ class _SearchState extends State<Search> {
                           width: MediaQuery.of(context).size.width * 0.3,
                           height: MediaQuery.of(context).size.width * 0.3,
                           decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
                             boxShadow: [
                               BoxShadow(
                                 color: AppTheme.darkShadow,
@@ -97,7 +98,21 @@ class _SearchState extends State<Search> {
                           ),
                           child: Column(
                             children: [
-                              FaIcon(FontAwesomeIcons.terminal),
+                              SizedBox(
+                                height: MediaQuery.of(context).size.width * 0.2,
+                                width: MediaQuery.of(context).size.width * 0.3,
+                                child: Center(
+                                  child: snapshot.data![index].url != ''
+                                      ? Image.network(
+                                          snapshot.data![index].url,
+                                        )
+                                      : const Text(
+                                          '🐣',
+                                          style: TextStyle(fontSize: 50),
+                                        ),
+                                ),
+                              ),
+                              const Divider(thickness: 1.5),
                               Text(snapshot.data![index].tag),
                             ],
                           ),
