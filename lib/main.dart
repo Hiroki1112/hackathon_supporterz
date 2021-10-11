@@ -92,15 +92,14 @@ class MyApp extends StatelessWidget {
           /// /search + keywordクエリ　=> keyword検索の結果を表示
           /// /search + tag => tag検索の結果をte
           if (path == Search.routeName) {
-            if (queryParameters['keyword']!.isNotEmpty) {
-              //
+            /// エラーの原因となるので、!.は使用しない
+            if (queryParameters.containsKey('keyword')) {
               return MaterialPageRoute(
                 builder: (BuildContext context) {
                   return SearchRouter(keyword: queryParameters['keyword']);
                 },
               );
-            } else if (queryParameters['tag']!.isNotEmpty) {
-              //
+            } else if (queryParameters.containsKey('tag')) {
               return MaterialPageRoute(
                 builder: (BuildContext context) {
                   return SearchRouter(tag: queryParameters['tag']);
