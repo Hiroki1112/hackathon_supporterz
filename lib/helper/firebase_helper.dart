@@ -37,7 +37,6 @@ class FirebaseHelper {
 
   ///  タグ追加時に使用する
   static Future<List<Tag>> getTagListByKeyword(String keyword) async {
-    print('called');
     var db = FirebaseFirestore.instance;
     // ignore: prefer_typing_uninitialized_variables
     Query<Map<String, dynamic>> query;

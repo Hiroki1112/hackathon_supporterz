@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/helper/app_helper.dart';
 import 'package:hackathon_supporterz/helper/firebase_helper.dart';
 import 'package:hackathon_supporterz/helper/post_helper.dart';
-import 'package:hackathon_supporterz/screens/search/search/search.dart';
 import 'package:hackathon_supporterz/screens/search/search/tag_search/tag_card.dart';
-import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 
 class TagSearch extends StatefulWidget {
