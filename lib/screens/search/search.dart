@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hackathon_supporterz/screens/search/search_result_keyword.dart';
+import 'package:hackathon_supporterz/screens/search/search_result_tag.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
@@ -16,9 +18,9 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
+  String keyword = '';
   @override
   Widget build(BuildContext context) {
-    String keyword = '';
     return Scaffold(
       appBar: myAppBar(context),
       body: SingleChildScrollView(
@@ -50,7 +52,14 @@ class _SearchState extends State<Search> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      print(keyword);
+                      Map<String, String> queryParams = {'keyword': keyword};
+                      String queryString =
+                          Uri(queryParameters: queryParams).query;
+                      Navigator.of(context)
+                          .pushNamed(Search.routeName + '?keyword=' + keyword);
+                    },
                     icon: const Icon(Icons.search),
                   ),
                 ],
@@ -95,7 +104,7 @@ class _SearchState extends State<Search> {
                       }),
                     );
                   }
-                  return Text("");
+                  return const Text('');
                 })
           ],
         ),
