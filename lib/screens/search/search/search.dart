@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/screens/search/search_result_keyword.dart';
-import 'package:hackathon_supporterz/screens/search/search_result_tag.dart';
+import 'package:hackathon_supporterz/screens/search/search_result/search_result_keyword.dart';
+import 'package:hackathon_supporterz/screens/search/search_result/search_result_tag.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
 import 'package:hackathon_supporterz/helper/post_helper.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+/// クエリパラメターがない場合の遷移先
 class Search extends StatefulWidget {
   static String routeName = '/search';
   const Search({

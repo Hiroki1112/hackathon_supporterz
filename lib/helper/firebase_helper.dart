@@ -2,7 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hackathon_supporterz/helper/app_helper.dart';
 
 class FirebaseHelper {
-  static Future getKeywordSearchResult(String title) async {
+  static Future<QuerySnapshot<Map<String, dynamic>>> getKeywordSearchResult(
+      String title) async {
     var db = FirebaseFirestore.instance;
     // stringを2-gramに変換
     List<String> title2gram = AppHelper.get2gram(title);

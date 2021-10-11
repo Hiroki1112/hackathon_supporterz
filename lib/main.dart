@@ -7,9 +7,9 @@ import 'package:hackathon_supporterz/routes.dart';
 import 'package:hackathon_supporterz/screens/404/not_found.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
 import 'package:hackathon_supporterz/screens/post_detail/post_detail_trend.dart';
-import 'package:hackathon_supporterz/screens/search/search.dart';
-import 'package:hackathon_supporterz/screens/search/search_result_keyword.dart';
-import 'package:hackathon_supporterz/screens/search/search_result_tag.dart';
+import 'package:hackathon_supporterz/screens/search/search/search.dart';
+import 'package:hackathon_supporterz/screens/search/search_result/search_result_keyword.dart';
+import 'package:hackathon_supporterz/screens/search/search_result/search_result_tag.dart';
 import 'package:hackathon_supporterz/screens/search/search_router.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
@@ -62,7 +62,10 @@ class MyApp extends StatelessWidget {
           // 参考　：　https://flutter.dev/docs/cookbook/navigation/navigate-with-arguments
           var paths = setting.name!.split('?');
           var path = paths[0];
-          var queryParameters = Uri.splitQueryString(paths[1]);
+          var queryParameters = {};
+          if (paths.length > 1) {
+            queryParameters = Uri.splitQueryString(paths[1]);
+          }
 
           if (path == ProfileEdit.routeName) {
             final args = setting.arguments as MyUser;
@@ -84,7 +87,10 @@ class MyApp extends StatelessWidget {
             );
           }
 
-          // 検索時に使用するルーティング
+          /// 検索時に使用するルーティング
+          /// /serch => 検索ページ
+          /// /search + keywordクエリ　=> keyword検索の結果を表示
+          /// /search + tag => tag検索の結果をte
           if (path == Search.routeName) {
             if (queryParameters['keyword']!.isNotEmpty) {
               //

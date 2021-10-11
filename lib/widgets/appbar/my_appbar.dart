@@ -6,7 +6,7 @@ import 'package:hackathon_supporterz/provider/auth_provider.dart';
 import 'package:hackathon_supporterz/screens/my_page/mypage_screen.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
 import 'package:hackathon_supporterz/screens/post_screen/post_screen.dart';
-import 'package:hackathon_supporterz/screens/search/search.dart';
+import 'package:hackathon_supporterz/screens/search/search/search.dart';
 import 'package:hackathon_supporterz/widgets/dialog/dialog.dart';
 import 'package:hackathon_supporterz/widgets/dialog/sign_in.dart';
 import 'package:provider/provider.dart';
