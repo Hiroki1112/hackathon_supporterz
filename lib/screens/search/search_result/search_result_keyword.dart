@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/helper/firebase_helper.dart';
 import 'package:hackathon_supporterz/models/post.dart';
+import 'package:hackathon_supporterz/models/simple_post.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
 import 'package:hackathon_supporterz/widgets/tiles/post_tile.dart';
@@ -56,18 +57,10 @@ class _SearchResultKeywordState extends State<SearchResultKeyword> {
                       children: List.generate(
                         snapshot.data!.size,
                         (index) {
-                          var _post = Post();
-                          _post.fromJson(snapshot.data!.docs[index].data());
+                          SimplePost post = SimplePost.fromJson(
+                              snapshot.data!.docs[index].data());
 
-                          return PostTile(
-                            simplePost: SimplePost(
-                              _post.title,
-                              'usename',
-                              '',
-                              _post.goods,
-                              _post.postId,
-                            ),
-                          );
+                          return PostTile(simplePost: post);
                         },
                       ),
                     );
