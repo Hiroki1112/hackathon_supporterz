@@ -105,14 +105,15 @@ class _PostTileState extends State<PostTile> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                /*
-                Text(
-                  widget.simplePost.productTag,
-                  textAlign: TextAlign.start,
-                ),*/
+                // タグを追加する
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    Expanded(
+                        child: Row(
+                      children: widget.simplePost.techTag.map((tag) {
+                        return Text('#' + tag + ', ');
+                      }).toList(),
+                    )),
                     const Icon(
                       Icons.thumb_up,
                     ),
@@ -123,7 +124,6 @@ class _PostTileState extends State<PostTile> {
               ],
             ),
           ),
-          // ignore: prefer_const_constructors
         ],
       ),
     );
