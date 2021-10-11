@@ -57,4 +57,5 @@ List<Tag> targetList = [
   Tag(tag: 'Laravel', url: ''),
   Tag(tag: 'Go', url: ''),
   Tag(tag: 'Python', url: ''),
+  Tag(tag: 'サポーターズハッカソンVol.10', url: '')
 ];

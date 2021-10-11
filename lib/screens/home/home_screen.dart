@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hackathon_supporterz/helper/firebase_helper.dart';
 import 'package:hackathon_supporterz/screens/home/trend_list/trend_list.dart';
 import 'package:hackathon_supporterz/screens/post_detail/post_detail_idea.dart';
 import 'package:hackathon_supporterz/screens/post_detail/post_detail_trend.dart';

@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:hackathon_supporterz/util/constants.dart';
+
 /// アプリケーション内の各所で必要になる関数などをまとめたクラス
 class AppHelper {
   /// 渡された文章を2-gramに分解し、辞書形式に変換する関数。
@@ -26,5 +30,10 @@ class AppHelper {
       _result.add(lowerTitle[i] + lowerTitle[i + 1]);
     }
     return _result;
+  }
+
+  static String oneEmoji() {
+    int _index = Random().nextInt(emoji.length);
+    return emoji[_index];
   }
 }
