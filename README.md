@@ -6,13 +6,15 @@
 
 |  route  |  説明  |query|
 | ---- | ---- | ---- |
-|  /  |  homeページ  | 無し |
-|  /search  |  キーワード、タグで検索するページ  | 無し |
-| /search/result| 検索結果を表示するページ| tag, keyword|
-| /post/:id | idをもとに投稿を取得する画面| 無し |
-| /mypage:id | idを元にしたマイページを表示 | 無し |
-| /mypage/edit/:id | プロフィール編集 | 無し |
-|  |  |  |
+|  /  |  homeページ  |  |
+| /:uid | uidを元にしたマイページを表示 |  |
+| /settings/profile | プロフィール編集 |  |
+| /search |  キーワード、タグで検索するページ  |  |
+| /search | 検索結果を表示するページ| keyword,tag |
+| /tag/:tag | タグに関係する投稿を表示するページ |  |
+| /:uid/post/:id | uid, idをもとに投稿を取得する画面|  |
+| /drafts/new | 新規投稿画面 |  |
+| /drafts/:postId/edit | 下書き編集画面 |  | 
 
 ## 参考
 
