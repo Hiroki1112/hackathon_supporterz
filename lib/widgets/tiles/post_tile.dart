@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/models/simple_post.dart';
 import 'package:hackathon_supporterz/models/user.dart';
-import 'package:hackathon_supporterz/screens/post_detail/post_detail_trend.dart';
+import 'package:hackathon_supporterz/screens/post_detail/post_detail.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 
@@ -44,7 +44,7 @@ class _PostTileState extends State<PostTile> {
           ListTile(
             onTap: () {
               Navigator.of(context).pushNamed(
-                PostDetailTrend.routeName,
+                PostDetail.routeName,
                 arguments: widget.simplePost.postId,
               );
             },

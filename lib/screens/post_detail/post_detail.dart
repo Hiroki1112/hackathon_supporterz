@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/models/post.dart';
@@ -9,23 +6,22 @@ import 'package:hackathon_supporterz/screens/post_detail/cards/plan_text.dart';
 import 'package:hackathon_supporterz/screens/post_detail/cards/user_card.dart';
 import 'package:hackathon_supporterz/screens/post_detail/title/title.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
-import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class PostDetailTrend extends StatefulWidget {
+class PostDetail extends StatefulWidget {
   static String routeName = '/detail';
-  const PostDetailTrend({
+  const PostDetail({
     Key? key,
     required this.postId,
   }) : super(key: key);
   final String postId;
 
   @override
-  _PostDetailTrendState createState() => _PostDetailTrendState();
+  _PostDetailState createState() => _PostDetailState();
 }
 
-class _PostDetailTrendState extends State<PostDetailTrend> {
+class _PostDetailState extends State<PostDetail> {
   Post _post = Post();
 
   int _selectedIndex = 0;

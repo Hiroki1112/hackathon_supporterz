@@ -6,7 +6,7 @@ import 'package:hackathon_supporterz/provider/auth_provider.dart';
 import 'package:hackathon_supporterz/routes.dart';
 import 'package:hackathon_supporterz/screens/404/not_found.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
-import 'package:hackathon_supporterz/screens/post_detail/post_detail_trend.dart';
+import 'package:hackathon_supporterz/screens/post_detail/post_detail.dart';
 import 'package:hackathon_supporterz/screens/search/search/search.dart';
 import 'package:hackathon_supporterz/screens/search/search_result/search_result_keyword.dart';
 import 'package:hackathon_supporterz/screens/search/search_result/search_result_tag.dart';
@@ -77,15 +77,19 @@ class MyApp extends StatelessWidget {
             );
           }
 
-          if (path == PostDetailTrend.routeName) {
+          if (path == PostDetail.routeName) {
             final args = setting.arguments as String;
 
             return MaterialPageRoute(
               builder: (BuildContext context) {
-                return PostDetailTrend(postId: args);
+                return PostDetail(postId: args);
               },
             );
           }
+
+          /// postページを閲覧する際に使用する
+          /// /post/:id の形式。idを使用して記事を取得する
+          if (path == PostDetail.routeName) {}
 
           /// 検索時に使用するルーティング
           /// /serch => 検索ページ
