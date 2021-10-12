@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/models/post.dart';
+import 'package:hackathon_supporterz/models/simple_post.dart';
 import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/screens/my_page/mypage_top.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
@@ -27,7 +28,7 @@ class MyPageScreen extends StatefulWidget {
 class _MyPageScreenState extends State<MyPageScreen> {
   MyUser _myUser = MyUser();
   Post _post = Post();
-  List<Post> posts = <Post>[];
+  List<SimplePost> posts = <SimplePost>[];
 
   get leads => null;
 
@@ -57,9 +58,8 @@ class _MyPageScreenState extends State<MyPageScreen> {
         .where('userId', isEqualTo: userId)
         .get();
 
-    posts = await post.docs.map((p) {
-      Post _post = Post();
-      _post.fromJson(p.data());
+    posts = post.docs.map((p) {
+      SimplePost _post = SimplePost.fromJson(p.data());
       return _post;
     }).toList();
   }
@@ -145,9 +145,6 @@ class _MyPageScreenState extends State<MyPageScreen> {
                         twitterLink: _myUser.twitterLink,
                         githubLink: _myUser.githubAccount,
                       ),
-                      const Divider(
-                        thickness: 3,
-                      ),
                     ],
                   );
                 }
@@ -183,29 +180,19 @@ class _MyPageScreenState extends State<MyPageScreen> {
                       int postLength = posts.length;
 
                       if (snapshot.connectionState == ConnectionState.done) {
-                        //snapshot.connectionState == ConnectionState.done
                         return Column(
                           children: List.generate(
                             posts.length,
                             (index) {
                               var _post = Post();
-                              _post = posts[index];
+                              //_post = posts[index];
 
                               return Column(
                                 children: [
-                                  PostTile(
-                                    simplePost: SimplePost(
-                                      _post.title,
-                                      'usename',
-                                      '',
-                                      _post.goods,
-                                      _post.postId,
-                                    ),
-                                  ),
+                                  PostTile(simplePost: posts[index]),
                                   Container(
                                     child: ElevatedButton(
                                       onPressed: () {
-                                        print("jjjjjj");
                                         Navigator.pushNamed(
                                           context,
                                           PostUpdateScreen.routeName,
@@ -219,16 +206,18 @@ class _MyPageScreenState extends State<MyPageScreen> {
                                   ),
                                 ],
                               );
+
+                              // return PostTile(simplePost: posts[index]);
                             },
                           ),
                         );
                       }
                       if (postLength <= 0) {
-                        return Text('投稿がありません');
+                        return const Text('投稿がありません');
                       }
                       return Center(
                         child: Column(
-                          children: [
+                          children: const [
                             CircularProgressIndicator(),
                           ],
                         ),

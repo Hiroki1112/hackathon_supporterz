@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hackathon_supporterz/models/simple_post.dart';
 import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/screens/post_detail/post_detail_trend.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
@@ -24,8 +25,8 @@ class _PostTileState extends State<PostTile> {
     var user = db.collection('api').doc('v1').collection('user');
     return Container(
       width: Config.deviceWidth(context) * 0.9,
-      margin: const EdgeInsets.symmetric(vertical: 7, horizontal: 15),
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+      margin: const EdgeInsets.symmetric(vertical: 7, horizontal: 5),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
       decoration: BoxDecoration(
         color: AppTheme.white,
         borderRadius: BorderRadius.circular(5),
@@ -104,13 +105,15 @@ class _PostTileState extends State<PostTile> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                Text(
-                  widget.simplePost.productTag,
-                  textAlign: TextAlign.start,
-                ),
+                // タグを追加する
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    Expanded(
+                        child: Row(
+                      children: widget.simplePost.techTag.map((tag) {
+                        return Text('#' + tag + ', ');
+                      }).toList(),
+                    )),
                     const Icon(
                       Icons.thumb_up,
                     ),
@@ -121,22 +124,8 @@ class _PostTileState extends State<PostTile> {
               ],
             ),
           ),
-          // ignore: prefer_const_constructors
         ],
       ),
     );
   }
-}
-
-class SimplePost {
-  final String title, userName, productTag, postId;
-  final int good;
-
-  SimplePost(
-    this.title,
-    this.userName,
-    this.productTag,
-    this.good,
-    this.postId,
-  );
 }

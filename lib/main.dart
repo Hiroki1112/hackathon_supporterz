@@ -9,6 +9,10 @@ import 'package:hackathon_supporterz/screens/404/not_found.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
 import 'package:hackathon_supporterz/screens/post_detail/post_detail_trend.dart';
 import 'package:hackathon_supporterz/screens/post_screen/post_update_screen.dart';
+import 'package:hackathon_supporterz/screens/search/search/search.dart';
+import 'package:hackathon_supporterz/screens/search/search_result/search_result_keyword.dart';
+import 'package:hackathon_supporterz/screens/search/search_result/search_result_tag.dart';
+import 'package:hackathon_supporterz/screens/search/search_router.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/screens/home/home_screen.dart';
@@ -58,21 +62,14 @@ class MyApp extends StatelessWidget {
           // 引数を格納するモデルを作成しておき、setting.argumentsで得られる値を
           // 作成したモデルにキャストして使用する。
           // 参考　：　https://flutter.dev/docs/cookbook/navigation/navigate-with-arguments
-          // if (setting.name == MyPageScreen.routeName) {
-          //   debugPrint(setting.name);
-          //   final args = setting.arguments as MyPageScreenArgs;
-          //   return MaterialPageRoute(
-          //     // ここでsettingを渡さないと遷移した時にURLが遷移しない
-          //     settings: setting,
-          //     builder: (BuildContext context) {
-          //       return MyPageScreen(
-          //         title: args.title,
-          //       );
-          //     },
-          //   );
-          // }
+          var paths = setting.name!.split('?');
+          var path = paths[0];
+          var queryParameters = {};
+          if (paths.length > 1) {
+            queryParameters = Uri.splitQueryString(paths[1]);
+          }
 
-          if (setting.name == ProfileEdit.routeName) {
+          if (path == ProfileEdit.routeName) {
             final args = setting.arguments as MyUser;
 
             return MaterialPageRoute(
@@ -82,7 +79,7 @@ class MyApp extends StatelessWidget {
             );
           }
 
-          if (setting.name == PostDetailTrend.routeName) {
+          if (path == PostDetailTrend.routeName) {
             final args = setting.arguments as String;
 
             return MaterialPageRoute(
@@ -94,12 +91,43 @@ class MyApp extends StatelessWidget {
           if (setting.name == PostUpdateScreen.routeName) {
             final args = setting.arguments as Post;
 
+            /// 検索時に使用するルーティング
+            /// /serch => 検索ページ
+            /// /search + keywordクエリ　=> keyword検索の結果を表示
+            /// /search + tag => tag検索の結果をte
+            if (path == Search.routeName) {
+              /// エラーの原因となるので、!.は使用しない
+              if (queryParameters.containsKey('keyword')) {
+                return MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return SearchRouter(keyword: queryParameters['keyword']);
+                  },
+                );
+              } else if (queryParameters.containsKey('tag')) {
+                return MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return SearchRouter(tag: queryParameters['tag']);
+                  },
+                );
+              }
+
+              // クエリなしの場合
+              return MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return const SearchRouter();
+                },
+              );
+            }
+          }
+          if (setting.name == PostUpdateScreen.routeName) {
+            final args = setting.arguments as Post;
             return MaterialPageRoute(
               builder: (BuildContext context) {
                 return PostUpdateScreen(post: args);
               },
             );
           }
+
           // return 404 page
           return MaterialPageRoute(
             builder: (BuildContext context) {

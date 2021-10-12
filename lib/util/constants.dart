@@ -1,9 +1,18 @@
 /// 絵文字を扱うクラス
-Map<String, String> emoji = {
-  'mobile': '📱',
-  'Web': '🖥',
-  'both': '📱&🖥',
-};
+List<String> emoji = [
+  '🐶',
+  '🐱',
+  '🐭',
+  '🐹',
+  '🐰',
+  '🦊',
+  '🐻',
+  '🐣',
+  '🐥',
+  '🐷',
+  '🦀',
+  '🐙',
+];
 
 /// 投稿で使用するタグをまとめた配列
 List<String> allTechTag = [

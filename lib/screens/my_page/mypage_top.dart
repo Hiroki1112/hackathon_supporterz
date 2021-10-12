@@ -21,7 +21,6 @@ class _MypageTopState extends State<MypageTop> {
   @override
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User?>();
-
     return Center(
       child: Row(
         mainAxisSize: MainAxisSize.min,

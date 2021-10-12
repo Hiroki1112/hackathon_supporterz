@@ -28,23 +28,7 @@ class PostDetailTrend extends StatefulWidget {
 
 class _PostDetailTrendState extends State<PostDetailTrend> {
   Post _post = Post();
-  List<Widget> _page = [
-    Container(
-        // width: 50,
-        // height: 50,
-        // decoration: BoxDecoration(color: Colors.red),
-        ),
-    Container(
-      width: 50,
-      height: 50,
-      decoration: BoxDecoration(color: Colors.blue),
-    ),
-    Container(
-      width: 50,
-      height: 50,
-      decoration: BoxDecoration(color: Colors.purple),
-    ),
-  ];
+
   int _selectedIndex = 0;
   late final WebViewController _controller;
   var db = FirebaseFirestore.instance;

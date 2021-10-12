@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/models/post.dart';
+import 'package:hackathon_supporterz/models/simple_post.dart';
 import 'package:hackathon_supporterz/widgets/tiles/post_tile.dart';
 
 class TrendList extends StatefulWidget {
@@ -27,24 +28,15 @@ class _TrendListState extends State<TrendList> {
 
         if (snapshot.connectionState == ConnectionState.done) {
           // データの取得ができたらリスト表示する
-          //print(snapshot.data!.docs[0].data());
 
           return Column(
             children: List.generate(
               snapshot.data!.size,
               (index) {
-                var _post = Post();
-                _post.fromJson(snapshot.data!.docs[index].data());
+                SimplePost post =
+                    SimplePost.fromJson(snapshot.data!.docs[index].data());
 
-                return PostTile(
-                  simplePost: SimplePost(
-                    _post.title,
-                    'usename',
-                    '',
-                    _post.goods,
-                    _post.postId,
-                  ),
-                );
+                return PostTile(simplePost: post);
               },
             ),
           );

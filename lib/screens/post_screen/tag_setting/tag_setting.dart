@@ -12,10 +12,9 @@ class TagSetting extends StatefulWidget {
 }
 
 class _TagSettingState extends State<TagSetting> {
-  List<Tag> _tags = [];
+  List<Tag> tags = [];
   @override
   Widget build(BuildContext context) {
-    print(_tags);
     return Column(
       children: [
         const Text(
@@ -23,12 +22,6 @@ class _TagSettingState extends State<TagSetting> {
           maxLines: 2,
         ),
         TypeAheadField(
-          textFieldConfiguration: TextFieldConfiguration(
-            autofocus: true,
-            style: DefaultTextStyle.of(context).style.copyWith(
-                  fontStyle: FontStyle.italic,
-                ),
-          ),
           suggestionsCallback: (String pattern) {
             // タグ名と画像を取得する
             List<Tag> output = [];
@@ -44,30 +37,30 @@ class _TagSettingState extends State<TagSetting> {
             return ListTile(
               leading: suggestion.url != ''
                   ? Image.network(suggestion.url)
-                  : Icon(Icons.add),
+                  : const Icon(Icons.add),
               title: Text(suggestion.tag),
             );
           },
           onSuggestionSelected: (Tag suggestion) {
-            if (_tags.length < 5) {
+            if (tags.length < 5 && !tags.contains(suggestion)) {
               setState(() {
-                _tags.add(suggestion);
-                widget.onChanged(_tags);
+                tags.add(suggestion);
+                widget.onChanged(tags);
               });
             }
           },
         ),
         // タグは下に整列させる
-        SizedBox(height: 15),
+        const SizedBox(height: 15),
         Wrap(
           children: List.generate(
-            _tags.length,
+            tags.length,
             (index) => TagIcon(
-              tag: _tags[index],
+              tag: tags[index],
               deleteFunc: () {
-                _tags.removeAt(index);
+                tags.removeAt(index);
                 setState(() {
-                  widget.onChanged(_tags);
+                  widget.onChanged(tags);
                 });
               },
             ),
@@ -90,8 +83,8 @@ class TagIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(5),
-      padding: EdgeInsets.only(left: 5),
+      margin: const EdgeInsets.all(5),
+      padding: const EdgeInsets.only(left: 5),
       decoration: BoxDecoration(
         color: AppTheme.white,
         borderRadius: BorderRadius.circular(10),
