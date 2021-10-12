@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/models/post.dart';
+import 'package:hackathon_supporterz/models/simple_post.dart';
 import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/provider/auth_provider.dart';
 import 'package:hackathon_supporterz/routes.dart';
@@ -88,39 +89,37 @@ class MyApp extends StatelessWidget {
               },
             );
           }
-          if (setting.name == PostUpdateScreen.routeName) {
-            final args = setting.arguments as Post;
 
-            /// 検索時に使用するルーティング
-            /// /serch => 検索ページ
-            /// /search + keywordクエリ　=> keyword検索の結果を表示
-            /// /search + tag => tag検索の結果をte
-            if (path == Search.routeName) {
-              /// エラーの原因となるので、!.は使用しない
-              if (queryParameters.containsKey('keyword')) {
-                return MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return SearchRouter(keyword: queryParameters['keyword']);
-                  },
-                );
-              } else if (queryParameters.containsKey('tag')) {
-                return MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return SearchRouter(tag: queryParameters['tag']);
-                  },
-                );
-              }
-
-              // クエリなしの場合
+          /// 検索時に使用するルーティング
+          /// /serch => 検索ページ
+          /// /search + keywordクエリ　=> keyword検索の結果を表示
+          /// /search + tag => tag検索の結果をte
+          if (path == Search.routeName) {
+            /// エラーの原因となるので、!.は使用しない
+            if (queryParameters.containsKey('keyword')) {
               return MaterialPageRoute(
                 builder: (BuildContext context) {
-                  return const SearchRouter();
+                  return SearchRouter(keyword: queryParameters['keyword']);
+                },
+              );
+            } else if (queryParameters.containsKey('tag')) {
+              return MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return SearchRouter(tag: queryParameters['tag']);
                 },
               );
             }
+
+            // クエリなしの場合
+            return MaterialPageRoute(
+              builder: (BuildContext context) {
+                return const SearchRouter();
+              },
+            );
           }
+
           if (setting.name == PostUpdateScreen.routeName) {
-            final args = setting.arguments as Post;
+            final args = setting.arguments as SimplePost;
             return MaterialPageRoute(
               builder: (BuildContext context) {
                 return PostUpdateScreen(post: args);

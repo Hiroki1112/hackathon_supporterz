@@ -184,9 +184,6 @@ class _MyPageScreenState extends State<MyPageScreen> {
                           children: List.generate(
                             posts.length,
                             (index) {
-                              var _post = Post();
-                              //_post = posts[index];
-
                               return Column(
                                 children: [
                                   PostTile(simplePost: posts[index]),
@@ -196,7 +193,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
                                         Navigator.pushNamed(
                                           context,
                                           PostUpdateScreen.routeName,
-                                          arguments: _post,
+                                          arguments: posts[index],
                                         );
                                       },
                                       child: Text(

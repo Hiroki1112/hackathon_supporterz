@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hackathon_supporterz/helper/app_helper.dart';
 import 'package:hackathon_supporterz/helper/post_helper.dart';
+import 'package:hackathon_supporterz/models/post.dart';
 
 class FirebaseHelper {
   static Future<QuerySnapshot<Map<String, dynamic>>> getKeywordSearchResult(
@@ -67,6 +68,24 @@ class FirebaseHelper {
     }
 
     return recommendTags;
+  }
+
+  /// postIdから投稿を取得する関数
+  static Future<Post> getPost(String postId) async {
+    var db = FirebaseFirestore.instance;
+    // ignore: prefer_typing_uninitialized_variables
+    var query = db
+        .collection('api')
+        .doc('v1')
+        .collection('posts')
+        .where('postId', isEqualTo: postId);
+    var response = await query.get();
+
+    Post post = Post();
+    Map<String, dynamic> data = response.docs.first.data();
+    post.fromJson(data);
+
+    return post;
   }
 
   ///  タグ追加時に使用する

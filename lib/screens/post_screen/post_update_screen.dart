@@ -4,8 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hackathon_supporterz/helper/firebase_helper.dart';
 import 'package:hackathon_supporterz/helper/post_helper.dart';
 import 'package:hackathon_supporterz/models/post.dart';
+import 'package:hackathon_supporterz/models/simple_post.dart';
 import 'package:hackathon_supporterz/screens/post_screen/card/text_field_card.dart';
 import 'package:hackathon_supporterz/screens/post_screen/card/preview_card.dart';
 import 'package:hackathon_supporterz/screens/post_screen/popup/popup_setting.dart';
@@ -25,7 +27,7 @@ class PostUpdateScreen extends StatefulWidget {
     required this.post,
   }) : super(key: key);
 
-  final Post post;
+  final SimplePost post;
   @override
   _PostUpdateScreenState createState() => _PostUpdateScreenState();
 }
@@ -40,12 +42,22 @@ class _PostUpdateScreenState extends State<PostUpdateScreen> {
   final TextEditingController _bodyTextController = TextEditingController();
   List<Tag> tags = [];
 
+  bool isPostGetDone = false;
+  Future<void> getPostData() async {
+    if (isPostGetDone) {
+      return;
+    }
+    Post post = await FirebaseHelper.getPost(widget.post.postId);
+    print(post.toJson(''));
+    _post = post;
+    _bodyTextController.text = _post.bodyText;
+    _planTextController.text = _post.planText;
+    isPostGetDone = true;
+  }
+
   @override
   void initState() {
     super.initState();
-    _post = widget.post;
-    _bodyTextController.text = _post.bodyText;
-    _planTextController.text = _post.planText;
   }
 
   @override
@@ -55,137 +67,146 @@ class _PostUpdateScreenState extends State<PostUpdateScreen> {
       appBar: myAppBar(context, title: 'Post Page'),
       backgroundColor: AppTheme.background,
       body: Form(
-        key: _formKey,
-        child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-          child: ListView(
-            children: [
-              TextFormField(
-                maxLines: 1,
-                maxLength: 40,
-                initialValue: _post.title,
-                decoration: const InputDecoration(
-                  //hintText: 'Title',
-                  fillColor: Colors.white,
-                ),
-                onChanged: (val) {
-                  setState(() {
-                    _post.setTitle = val;
-                  });
-                },
-                validator: (String? val) {
-                  if (val!.isEmpty) {
-                    return 'タイトルを入力してください。';
-                  }
-                },
-              ),
-              const SizedBox(height: 10),
-              TagSetting(
-                onChanged: (List<Tag> newTag) {
-                  setState(() {
-                    tags = newTag;
-                  });
-                },
-              ),
-              const SizedBox(height: 10),
-              _sectionTitle(
-                '# 企画・構想',
-                () {
-                  setState(() {
-                    planIsPreview = !planIsPreview;
-                  });
-                },
-                _planTextController,
-                planIsPreview,
-              ),
-              planIsPreview
-                  ? PreviewCard(rawText: _post.planText)
-                  : TextFieldCard(
-                      controller: _planTextController,
-                      onChanged: (String val) {
-                        setState(() {
-                          _post.setPlanText = val;
-                        });
-                      },
-                      hintText: 'どのようなプロセスでこの案に辿り着いたのかを書いてみましょう。',
-                    ),
-              const SizedBox(height: 10),
-              _sectionTitle(
-                '# 本文',
-                () {
-                  setState(() {
-                    bodyIsPreview = !bodyIsPreview;
-                  });
-                },
-                _bodyTextController,
-                bodyIsPreview,
-              ),
-              bodyIsPreview
-                  ? PreviewCard(rawText: _post.bodyText)
-                  : TextFieldCard(
-                      controller: _bodyTextController,
-                      onChanged: (String val) {
-                        setState(() {
-                          _post.setBodyText = val;
-                        });
-                      },
-                      hintText: '制作物に関してMarkdown形式で書きましょう。',
-                    ),
-              const SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  ElevatedButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        // 必要情報を記入してもらう
-                        var setting = await popupSetting(context);
+          key: _formKey,
+          child: FutureBuilder(
+            future: getPostData(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return Container(
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                  child: ListView(
+                    children: [
+                      TextFormField(
+                        maxLines: 1,
+                        maxLength: 40,
+                        initialValue: _post.title,
+                        decoration: const InputDecoration(
+                          //hintText: 'Title',
+                          fillColor: Colors.white,
+                        ),
+                        onChanged: (val) {
+                          setState(() {
+                            _post.setTitle = val;
+                          });
+                        },
+                        validator: (String? val) {
+                          if (val!.isEmpty) {
+                            return 'タイトルを入力してください。';
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 10),
+                      TagSetting(
+                        onChanged: (List<Tag> newTag) {
+                          setState(() {
+                            tags = newTag;
+                          });
+                        },
+                      ),
+                      const SizedBox(height: 10),
+                      _sectionTitle(
+                        '# 企画・構想',
+                        () {
+                          setState(() {
+                            planIsPreview = !planIsPreview;
+                          });
+                        },
+                        _planTextController,
+                        planIsPreview,
+                      ),
+                      planIsPreview
+                          ? PreviewCard(rawText: _post.planText)
+                          : TextFieldCard(
+                              controller: _planTextController,
+                              onChanged: (String val) {
+                                setState(() {
+                                  _post.setPlanText = val;
+                                });
+                              },
+                              hintText: 'どのようなプロセスでこの案に辿り着いたのかを書いてみましょう。',
+                            ),
+                      const SizedBox(height: 10),
+                      _sectionTitle(
+                        '# 本文',
+                        () {
+                          setState(() {
+                            bodyIsPreview = !bodyIsPreview;
+                          });
+                        },
+                        _bodyTextController,
+                        bodyIsPreview,
+                      ),
+                      bodyIsPreview
+                          ? PreviewCard(rawText: _post.bodyText)
+                          : TextFieldCard(
+                              controller: _bodyTextController,
+                              onChanged: (String val) {
+                                setState(() {
+                                  _post.setBodyText = val;
+                                });
+                              },
+                              hintText: '制作物に関してMarkdown形式で書きましょう。',
+                            ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          ElevatedButton(
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                // 必要情報を記入してもらう
+                                var setting = await popupSetting(context);
 
-                        var res = await yesNoDialog(
-                            context, '確認', '記事を公開しますか？', '公開する', '戻る');
-                        if (res ?? false) {
-                          // 現時点ではダミーデータを一部セットする
-                          _post.setTechTag = ['AWS', 'iOS', 'Go'];
-                          _post.setUserId = firebaseUser!.uid;
+                                var res = await yesNoDialog(
+                                    context, '確認', '記事を公開しますか？', '公開する', '戻る');
+                                if (res ?? false) {
+                                  // 現時点ではダミーデータを一部セットする
+                                  _post.setTechTag = ['AWS', 'iOS', 'Go'];
+                                  _post.setUserId = firebaseUser!.uid;
 
-                          // firebaseへ投稿する
-                          var db = FirebaseFirestore.instance;
-                          QuerySnapshot<Map<String, dynamic>> updatePost =
-                              await db
-                                  .collection('api')
-                                  .doc('v1')
-                                  .collection('posts')
-                                  .where('postId', isEqualTo: _post.postId)
-                                  .get();
-                          // .add(
-                          //     _post.toJson(firebaseUser.uid),
-                          //   );
-                          await db
-                              .collection('api')
-                              .doc('v1')
-                              .collection('posts')
-                              .doc(updatePost.docs.first.id)
-                              .update(_post.toJson(firebaseUser.uid));
-                          //db.collection('api').doc('v1').collection('posts'.toUpperCase())
-                          //if(snapshot.connectionState == ConnectionState.done)
+                                  // firebaseへ投稿する
+                                  var db = FirebaseFirestore.instance;
+                                  QuerySnapshot<Map<String, dynamic>>
+                                      updatePost = await db
+                                          .collection('api')
+                                          .doc('v1')
+                                          .collection('posts')
+                                          .where('postId',
+                                              isEqualTo: _post.postId)
+                                          .get();
+                                  // .add(
+                                  //     _post.toJson(firebaseUser.uid),
+                                  //   );
+                                  await db
+                                      .collection('api')
+                                      .doc('v1')
+                                      .collection('posts')
+                                      .doc(updatePost.docs.first.id)
+                                      .update(_post.toJson(firebaseUser.uid));
+                                  //db.collection('api').doc('v1').collection('posts'.toUpperCase())
+                                  //if(snapshot.connectionState == ConnectionState.done)
 
-                          await yesDialog(context, '確認', '投稿しました！');
-                          Navigator.pop(context);
-                        }
-                      }
-                    },
-                    child: const Text(
-                      '更新する',
-                      style: TextStyle(color: Colors.white),
-                    ),
+                                  await yesDialog(context, '確認', '投稿しました！');
+                                  Navigator.pop(context);
+                                }
+                              }
+                            },
+                            child: const Text(
+                              '更新する',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 50)
+                    ],
                   ),
-                ],
-              ),
-              const SizedBox(height: 50)
-            ],
-          ),
-        ),
-      ),
+                );
+              }
+              return Text("");
+            },
+          )),
     );
   }
 
