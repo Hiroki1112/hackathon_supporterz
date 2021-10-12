@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hackathon_supporterz/models/post.dart';
 import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/provider/auth_provider.dart';
 import 'package:hackathon_supporterz/routes.dart';
 import 'package:hackathon_supporterz/screens/404/not_found.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
 import 'package:hackathon_supporterz/screens/post_detail/post_detail_trend.dart';
+import 'package:hackathon_supporterz/screens/post_screen/post_update_screen.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/screens/home/home_screen.dart';
@@ -89,7 +91,15 @@ class MyApp extends StatelessWidget {
               },
             );
           }
+          if (setting.name == PostUpdateScreen.routeName) {
+            final args = setting.arguments as Post;
 
+            return MaterialPageRoute(
+              builder: (BuildContext context) {
+                return PostUpdateScreen(post: args);
+              },
+            );
+          }
           // return 404 page
           return MaterialPageRoute(
             builder: (BuildContext context) {

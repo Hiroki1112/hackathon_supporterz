@@ -18,26 +18,34 @@ import 'package:hackathon_supporterz/widgets/dialog/dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
-class PostScreen extends StatefulWidget {
-  static String routeName = '/post';
-  const PostScreen({Key? key}) : super(key: key);
+class PostUpdateScreen extends StatefulWidget {
+  static String routeName = '/postupdate';
+  const PostUpdateScreen({
+    Key? key,
+    required this.post,
+  }) : super(key: key);
 
+  final Post post;
   @override
-  _PostScreenState createState() => _PostScreenState();
+  _PostUpdateScreenState createState() => _PostUpdateScreenState();
 }
 
-class _PostScreenState extends State<PostScreen> {
+class _PostUpdateScreenState extends State<PostUpdateScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final Post _post = Post();
+  Post _post = Post();
   bool planIsPreview = false;
   bool bodyIsPreview = false;
 
   final TextEditingController _planTextController = TextEditingController();
   final TextEditingController _bodyTextController = TextEditingController();
   List<Tag> tags = [];
+
   @override
   void initState() {
     super.initState();
+    _post = widget.post;
+    _bodyTextController.text = _post.bodyText;
+    _planTextController.text = _post.planText;
   }
 
   @override
@@ -55,8 +63,9 @@ class _PostScreenState extends State<PostScreen> {
               TextFormField(
                 maxLines: 1,
                 maxLength: 40,
+                initialValue: _post.title,
                 decoration: const InputDecoration(
-                  hintText: 'Title',
+                  //hintText: 'Title',
                   fillColor: Colors.white,
                 ),
                 onChanged: (val) {
@@ -141,13 +150,24 @@ class _PostScreenState extends State<PostScreen> {
 
                           // firebaseへ投稿する
                           var db = FirebaseFirestore.instance;
+                          QuerySnapshot<Map<String, dynamic>> updatePost =
+                              await db
+                                  .collection('api')
+                                  .doc('v1')
+                                  .collection('posts')
+                                  .where('postId', isEqualTo: _post.postId)
+                                  .get();
+                          // .add(
+                          //     _post.toJson(firebaseUser.uid),
+                          //   );
                           await db
                               .collection('api')
                               .doc('v1')
                               .collection('posts')
-                              .add(
-                                _post.toJson(firebaseUser.uid),
-                              );
+                              .doc(updatePost.docs.first.id)
+                              .update(_post.toJson(firebaseUser.uid));
+                          //db.collection('api').doc('v1').collection('posts'.toUpperCase())
+                          //if(snapshot.connectionState == ConnectionState.done)
 
                           await yesDialog(context, '確認', '投稿しました！');
                           Navigator.pop(context);
@@ -155,7 +175,7 @@ class _PostScreenState extends State<PostScreen> {
                       }
                     },
                     child: const Text(
-                      '投稿する',
+                      '更新する',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),

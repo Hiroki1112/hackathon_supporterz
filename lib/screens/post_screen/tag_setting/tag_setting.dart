@@ -4,7 +4,8 @@ import 'package:hackathon_supporterz/helper/post_helper.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 
 class TagSetting extends StatefulWidget {
-  const TagSetting({Key? key}) : super(key: key);
+  const TagSetting({Key? key, required this.onChanged}) : super(key: key);
+  final Function onChanged;
 
   @override
   _TagSettingState createState() => _TagSettingState();
@@ -51,6 +52,7 @@ class _TagSettingState extends State<TagSetting> {
             if (_tags.length < 5) {
               setState(() {
                 _tags.add(suggestion);
+                widget.onChanged(_tags);
               });
             }
           },
@@ -64,7 +66,9 @@ class _TagSettingState extends State<TagSetting> {
               tag: _tags[index],
               deleteFunc: () {
                 _tags.removeAt(index);
-                setState(() {});
+                setState(() {
+                  widget.onChanged(_tags);
+                });
               },
             ),
           ),

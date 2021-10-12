@@ -6,6 +6,7 @@ import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/screens/my_page/mypage_top.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
 import 'package:hackathon_supporterz/screens/my_page/sns_buttons.dart';
+import 'package:hackathon_supporterz/screens/post_screen/post_update_screen.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
 import 'package:hackathon_supporterz/widgets/tiles/post_tile.dart';
@@ -66,7 +67,6 @@ class _MyPageScreenState extends State<MyPageScreen> {
   @override
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User?>();
-    print(firebaseUser!.photoURL);
 
     return Scaffold(
       appBar: myAppBar(context),
@@ -171,7 +171,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
               child: Column(
                 children: [
                   const SizedBox(
-                    height: 50,
+                    height: 10,
                   ),
                   FutureBuilder(
                     future: fetchMyPostData(firebaseUser!.uid),
@@ -191,14 +191,33 @@ class _MyPageScreenState extends State<MyPageScreen> {
                               var _post = Post();
                               _post = posts[index];
 
-                              return PostTile(
-                                simplePost: SimplePost(
-                                  _post.title,
-                                  'usename',
-                                  '',
-                                  _post.goods,
-                                  _post.postId,
-                                ),
+                              return Column(
+                                children: [
+                                  PostTile(
+                                    simplePost: SimplePost(
+                                      _post.title,
+                                      'usename',
+                                      '',
+                                      _post.goods,
+                                      _post.postId,
+                                    ),
+                                  ),
+                                  Container(
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        print("jjjjjj");
+                                        Navigator.pushNamed(
+                                          context,
+                                          PostUpdateScreen.routeName,
+                                          arguments: _post,
+                                        );
+                                      },
+                                      child: Text(
+                                        '記事の更新',
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               );
                             },
                           ),

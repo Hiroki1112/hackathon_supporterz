@@ -30,6 +30,7 @@ class TextFieldCard extends StatelessWidget {
       child: TextFormField(
         maxLines: 10,
         controller: controller,
+        //initialValue: bodyText,
         decoration: InputDecoration(
           filled: true,
           fillColor: AppTheme.white,

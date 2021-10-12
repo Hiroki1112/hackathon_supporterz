@@ -8,6 +8,7 @@ import 'package:hackathon_supporterz/screens/post_detail/cards/body_card.dart';
 import 'package:hackathon_supporterz/screens/post_detail/cards/plan_text.dart';
 import 'package:hackathon_supporterz/screens/post_detail/cards/user_card.dart';
 import 'package:hackathon_supporterz/screens/post_detail/title/title.dart';
+import 'package:hackathon_supporterz/screens/post_screen/post_update_screen.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
@@ -73,6 +74,7 @@ class _PostDetailTrendState extends State<PostDetailTrend> {
                   child: Column(
                     children: [
                       DetailTitle(title: _post.title),
+
                       Row(
                         children: [
                           Expanded(
@@ -130,9 +132,9 @@ class _PostDetailTrendState extends State<PostDetailTrend> {
                         children: [
                           //DetailTitle(title: _post.title),
                           _selectedIndex == 0
-                              ? DetailBodyCard(bodyText: _post.bodyText)
+                              ? DetailPlanText(planeText: _post.planText)
                               : _selectedIndex == 1
-                                  ? DetailPlanText(planeText: _post.planText)
+                                  ? DetailBodyCard(bodyText: _post.bodyText)
                                   : _selectedIndex == 2
                                       ? UserCard(userId: _post.userId)
                                       : const SizedBox(height: 15),
