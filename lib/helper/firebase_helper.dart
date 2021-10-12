@@ -35,6 +35,23 @@ class FirebaseHelper {
     return await query.get();
   }
 
+  /// postIDが一致する投稿を取得する
+  /// FUTURE: SimplePostモデル内に投稿へのドキュメントIDを含めておき
+  /// 検索なしでアクセスできるようにする
+  static Future<QuerySnapshot<Map<String, dynamic>>> getPostByPostId(
+      String postId) async {
+    var db = FirebaseFirestore.instance;
+
+    // postIdで検索
+    var query = db
+        .collection('api')
+        .doc('v1')
+        .collection('posts')
+        .where('postId', isEqualTo: postId);
+
+    return await query.get();
+  }
+
   ///  タグ追加時に使用する
   static Future<List<Tag>> getTagListByKeyword(String keyword) async {
     var db = FirebaseFirestore.instance;

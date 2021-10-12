@@ -77,6 +77,8 @@ class MyApp extends StatelessWidget {
             );
           }
 
+          /// postページを閲覧する際に使用する
+          /// /post/:id の形式。idを使用して記事を取得する
           if (path == PostDetail.routeName) {
             final args = setting.arguments as String;
 
@@ -86,10 +88,6 @@ class MyApp extends StatelessWidget {
               },
             );
           }
-
-          /// postページを閲覧する際に使用する
-          /// /post/:id の形式。idを使用して記事を取得する
-          if (path == PostDetail.routeName) {}
 
           /// 検索時に使用するルーティング
           /// /serch => 検索ページ
