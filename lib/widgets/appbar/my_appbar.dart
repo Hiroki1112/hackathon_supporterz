@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/provider/auth_provider.dart';
+import 'package:hackathon_supporterz/screens/calender/calender_screen.dart';
 import 'package:hackathon_supporterz/screens/my_page/mypage_screen.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
 import 'package:hackathon_supporterz/screens/post_screen/post_screen.dart';
@@ -97,6 +98,9 @@ AppBar myAppBar(BuildContext context, {String title = 'Supporterz'}) {
                   if (val == '記事の投稿') {
                     Navigator.of(context).pushNamed(PostScreen.routeName);
                   }
+                  if (val == 'カレンダー') {
+                    Navigator.of(context).pushNamed(CalenderScreen.routeName);
+                  }
                   if (val == 'サインアウト') {
                     var res = await yesNoDialog(
                         context, '確認', 'サインアウトしますか？', 'サインアウト', '戻る');
@@ -110,7 +114,7 @@ AppBar myAppBar(BuildContext context, {String title = 'Supporterz'}) {
                   }
                 },
                 itemBuilder: (BuildContext context) {
-                  return ['プロフィール', '記事の投稿', 'サインアウト'].map((String s) {
+                  return ['プロフィール', '記事の投稿', 'カレンダー', 'サインアウト'].map((String s) {
                     return PopupMenuItem(
                       child: Text(s),
                       value: s,
