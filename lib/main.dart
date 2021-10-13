@@ -67,6 +67,7 @@ class MyApp extends StatelessWidget {
             queryParameters = Uri.splitQueryString(paths[1]);
           }
 
+          /// /settings/profile
           if (path == ProfileEdit.routeName) {
             final args = setting.arguments as MyUser;
 

@@ -9,10 +9,8 @@ import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:provider/src/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'mypage_screen.dart';
-
 class ProfileEdit extends StatefulWidget {
-  static String routeName = '/profileedit';
+  static String routeName = '/settings/profile';
   const ProfileEdit({
     Key? key,
     required this.myUser,
