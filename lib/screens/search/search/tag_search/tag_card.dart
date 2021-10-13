@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/helper/app_helper.dart';
 import 'package:hackathon_supporterz/helper/post_helper.dart';
-import 'package:hackathon_supporterz/screens/search/search/search.dart';
+import 'package:hackathon_supporterz/screens/search/search_result/search_result_tag.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 
 class TagCard extends StatelessWidget {
@@ -31,8 +31,7 @@ class TagCard extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          String query = '?tag=' + tag.tag;
-          Navigator.of(context).pushNamed(Search.routeName + query);
+          Navigator.of(context).pushNamed(SearchResultTag.routeName + tag.tag);
         },
         child: Column(
           children: [

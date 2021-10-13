@@ -90,6 +90,17 @@ class MyApp extends StatelessWidget {
             );
           }
 
+          /// /tag/:tag
+          if (path.startsWith(SearchResultTag.routeName)) {
+            // 引数は自身のURLから取得する
+            String tag = path.split('/')[2];
+            return MaterialPageRoute(
+              builder: (BuildContext context) {
+                return SearchResultTag(tag: tag);
+              },
+            );
+          }
+
           /// 検索時に使用するルーティング
           /// /serch => 検索ページ
           /// /search + keywordクエリ　=> keyword検索の結果を表示
