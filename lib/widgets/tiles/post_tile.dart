@@ -44,7 +44,7 @@ class _PostTileState extends State<PostTile> {
           ListTile(
             onTap: () {
               Navigator.of(context).pushNamed(
-                PostDetail.routeName,
+                widget.simplePost.userId + PostDetail.routeName,
                 arguments: widget.simplePost.postId,
               );
             },

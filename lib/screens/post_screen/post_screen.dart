@@ -18,7 +18,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class PostScreen extends StatefulWidget {
-  static String routeName = '/post';
+  static String routeName = '/draft/new';
   const PostScreen({Key? key}) : super(key: key);
 
   @override

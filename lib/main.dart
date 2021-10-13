@@ -79,15 +79,18 @@ class MyApp extends StatelessWidget {
           }
 
           /// postページを閲覧する際に使用する
-          /// /post/:id の形式。idを使用して記事を取得する
-          if (path == PostDetail.routeName) {
-            final args = setting.arguments as String;
+          /// :uid/post/:id の形式。idを使用して記事を取得する
+          if (path.contains('/post/')) {
+            // 上の式が真の時、[2]は存在する
+            if (path.split('/')[2] == 'post') {
+              final args = setting.arguments as String;
 
-            return MaterialPageRoute(
-              builder: (BuildContext context) {
-                return PostDetail(postId: args);
-              },
-            );
+              return MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return PostDetail(postId: args);
+                },
+              );
+            }
           }
 
           /// /tag/:tag

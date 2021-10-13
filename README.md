@@ -15,6 +15,8 @@
 | /:uid/post/:id | uid, idをもとに投稿を取得する画面|  |
 | /drafts/new | 新規投稿画面 |  |
 | /drafts/:postId/edit | 下書き編集画面 |  | 
+| /registration | 新規ユーザー登録 |  |
+| /about | このサイトについて |  |
 
 ## 参考
 

@@ -10,7 +10,7 @@ import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
 
 class PostDetail extends StatefulWidget {
-  static String routeName = '/post';
+  static String routeName = '/post/';
   const PostDetail({
     Key? key,
     required this.postId,
