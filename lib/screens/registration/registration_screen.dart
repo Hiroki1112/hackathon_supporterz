@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/helper/firebase_helper.dart';
 import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/screens/registration/registration_field/registration_field.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
+import 'package:provider/src/provider.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static String routeName = '/registration';
@@ -15,10 +17,12 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   MyUser newUser = MyUser();
 
   @override
   Widget build(BuildContext context) {
+    final firebaseUser = context.watch<User?>();
     return Scaffold(
       appBar: myAppBar(context, title: '初回登録'),
       backgroundColor: AppTheme.background,
@@ -64,6 +68,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
+                    newUser.setFirebaseId = firebaseUser!.uid;
                     // 書き込み処理
                     await FirebaseHelper.userRegistration(newUser);
                     // /:uidに遷移する

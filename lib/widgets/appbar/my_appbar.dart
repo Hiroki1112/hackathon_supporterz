@@ -70,29 +70,25 @@ AppBar myAppBar(BuildContext context, {String title = 'Supporterz'}) {
                 onSelected: (String val) async {
                   if (val == 'プロフィール') {
                     var db = FirebaseFirestore.instance;
-                    DocumentReference<Map<String, dynamic>> user = db
+                    var user = db
                         .collection('api')
                         .doc('v1')
-                        .collection('user')
-                        .doc(firebaseUser.uid);
+                        .collection('users')
+                        .where('firebaseId');
 
                     var data = await user.get();
-
-                    MyUser _myUser = MyUser();
-                    Map<String, dynamic>? map = data.data() ?? {};
-
-                    // ユーザー登録していない場合は新規登録画面へ飛ばす
-                    if (map.isEmpty) {
+                    if (data.docs.first.exists) {
+                      // 存在しているユーザーの場合はマイページに遷移する
+                      MyUser user = MyUser();
+                      user.fromJson(data.docs.first.data());
+                      print('/' + user.userId);
                       Navigator.of(context).pushNamed(
-                        RegistrationScreen.routeName,
+                        '/' + user.userId,
                       );
                       return;
                     }
-
-                    _myUser.fromJson(map);
                     Navigator.of(context).pushNamed(
-                      '/',
-                      arguments: _myUser,
+                      RegistrationScreen.routeName,
                     );
                   }
 

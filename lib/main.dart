@@ -5,6 +5,7 @@ import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/provider/auth_provider.dart';
 import 'package:hackathon_supporterz/routes.dart';
 import 'package:hackathon_supporterz/screens/404/not_found.dart';
+import 'package:hackathon_supporterz/screens/my_page/mypage_screen.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
 import 'package:hackathon_supporterz/screens/post_detail/post_detail.dart';
 import 'package:hackathon_supporterz/screens/registration/registration_screen.dart';
@@ -142,12 +143,22 @@ class MyApp extends StatelessWidget {
             );
           }
 
+          /// /:uidの場合にマイページに遷移する
+          String uid = path.split('/')[1];
+          return MaterialPageRoute(
+            builder: (BuildContext context) {
+              return MyPageScreen(userId: uid);
+            },
+          );
+
           // return 404 page
+          // 404は各ページで目的のリソースがない時に遷移させるようにする
+          /*
           return MaterialPageRoute(
             builder: (BuildContext context) {
               return const NotFoundScreen();
             },
-          );
+          );*/
         },
       ),
     );

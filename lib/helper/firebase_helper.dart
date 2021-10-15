@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hackathon_supporterz/helper/app_helper.dart';
 import 'package:hackathon_supporterz/helper/post_helper.dart';
+import 'package:hackathon_supporterz/models/simple_post.dart';
 import 'package:hackathon_supporterz/models/user.dart';
 
 class FirebaseHelper {
@@ -58,7 +59,6 @@ class FirebaseHelper {
     var db = FirebaseFirestore.instance;
     // ignore: prefer_typing_uninitialized_variables
     Query<Map<String, dynamic>> query;
-
     if (keyword == '') {
       query = db.collection('api').doc('v1').collection('tags').limit(9);
     } else {
@@ -89,13 +89,44 @@ class FirebaseHelper {
 
   static Future<void> userRegistration(MyUser user) async {
     var db = FirebaseFirestore.instance;
-    print(user.userId);
     await db
         .collection('api')
         .doc('v1')
         .collection('users')
         .doc(user.userId)
         .set(user.toJson());
+  }
+
+  /// DBから引数で渡されたuidを持つ情報を取得
+  static Future<MyUser> getUserInfo(String uid) async {
+    var db = FirebaseFirestore.instance;
+    var response =
+        await db.collection('api').doc('v1').collection('users').doc(uid).get();
+    MyUser _myUser = MyUser();
+    _myUser.fromJson(response.data() ?? {});
+    return _myUser;
+  }
+
+  /// 指定したユーザーID下のpostsコレクションを取得する
+  /// DBから引数で渡されたuidを持つ情報を取得
+  static Future<List<SimplePost>> getUserPosts(String uid) async {
+    var db = FirebaseFirestore.instance;
+    var response = await db
+        .collection('api')
+        .doc('v1')
+        .collection('users')
+        .doc(uid)
+        .collection('simplePosts')
+        .get();
+
+    List<SimplePost> posts = [];
+    if (response.docs.isNotEmpty) {
+      response.docs.map((post) {
+        posts.add(SimplePost.fromJson(post.data()));
+      });
+    }
+
+    return posts;
   }
 
   ///  タグ追加時に使用する
