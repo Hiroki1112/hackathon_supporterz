@@ -7,6 +7,7 @@ import 'package:hackathon_supporterz/routes.dart';
 import 'package:hackathon_supporterz/screens/404/not_found.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
 import 'package:hackathon_supporterz/screens/post_detail/post_detail.dart';
+import 'package:hackathon_supporterz/screens/registration/registration_screen.dart';
 import 'package:hackathon_supporterz/screens/search/search/search.dart';
 import 'package:hackathon_supporterz/screens/search/search_result/search_result_keyword.dart';
 import 'package:hackathon_supporterz/screens/search/search_result/search_result_tag.dart';
@@ -128,6 +129,15 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(
               builder: (BuildContext context) {
                 return const SearchRouter();
+              },
+            );
+          }
+
+          // /registration
+          if (path == RegistrationScreen.routeName) {
+            return MaterialPageRoute(
+              builder: (BuildContext context) {
+                return const RegistrationScreen();
               },
             );
           }

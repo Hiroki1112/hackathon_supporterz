@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hackathon_supporterz/helper/app_helper.dart';
 import 'package:hackathon_supporterz/helper/post_helper.dart';
+import 'package:hackathon_supporterz/models/user.dart';
 
 class FirebaseHelper {
   static Future<QuerySnapshot<Map<String, dynamic>>> getKeywordSearchResult(
@@ -84,6 +85,17 @@ class FirebaseHelper {
     }
 
     return recommendTags;
+  }
+
+  static Future<void> userRegistration(MyUser user) async {
+    var db = FirebaseFirestore.instance;
+    print(user.userId);
+    await db
+        .collection('api')
+        .doc('v1')
+        .collection('users')
+        .doc(user.userId)
+        .set(user.toJson());
   }
 
   ///  タグ追加時に使用する

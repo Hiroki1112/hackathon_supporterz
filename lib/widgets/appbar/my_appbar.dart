@@ -6,6 +6,7 @@ import 'package:hackathon_supporterz/provider/auth_provider.dart';
 import 'package:hackathon_supporterz/screens/my_page/mypage_screen.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
 import 'package:hackathon_supporterz/screens/post_screen/post_screen.dart';
+import 'package:hackathon_supporterz/screens/registration/registration_screen.dart';
 import 'package:hackathon_supporterz/screens/search/search/search.dart';
 import 'package:hackathon_supporterz/widgets/dialog/dialog.dart';
 import 'package:hackathon_supporterz/widgets/dialog/sign_in.dart';
@@ -80,16 +81,17 @@ AppBar myAppBar(BuildContext context, {String title = 'Supporterz'}) {
                     MyUser _myUser = MyUser();
                     Map<String, dynamic>? map = data.data() ?? {};
 
+                    // ユーザー登録していない場合は新規登録画面へ飛ばす
                     if (map.isEmpty) {
                       Navigator.of(context).pushNamed(
-                        ProfileEdit.routeName,
+                        RegistrationScreen.routeName,
                       );
                       return;
                     }
 
                     _myUser.fromJson(map);
                     Navigator.of(context).pushNamed(
-                      MyPageScreen.routeName,
+                      '/',
                       arguments: _myUser,
                     );
                   }

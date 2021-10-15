@@ -14,8 +14,8 @@ import 'package:markdown/markdown.dart' as md;
 // ignore: implementation_imports
 import 'package:provider/src/provider.dart';
 
+/// /:uidの形式
 class MyPageScreen extends StatefulWidget {
-  static String routeName = '/mypage';
   const MyPageScreen({
     Key? key,
   }) : super(key: key);

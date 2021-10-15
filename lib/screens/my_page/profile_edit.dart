@@ -55,7 +55,7 @@ class _ProfileEditState extends State<ProfileEdit> {
                   .collection('user')
                   .doc(firebaseUser!.uid)
                   .set(
-                    _myuser.toJson(firebaseUser.uid),
+                    _myuser.toJson(),
                   );
               Navigator.of(context).pop();
             },
