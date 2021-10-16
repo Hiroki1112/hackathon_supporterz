@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hackathon_supporterz/models/simple_post.dart';
 import 'package:hackathon_supporterz/models/simple_event.dart';
 import 'package:hackathon_supporterz/models/user.dart';
+import 'package:hackathon_supporterz/models/event.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:date_format/date_format.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EventTile extends StatefulWidget {
   const EventTile({
@@ -98,7 +100,8 @@ class _EventTileState extends State<EventTile> {
                       return const CircularProgressIndicator();
                     }),
                 Text(
-                  '締切' ':' +
+                  '締切' +
+                      ':' +
                       formatDate(widget.simpleEvent.deadline as DateTime,
                           [yyyy, '年', mm, '月', dd, '日']),
                   style: const TextStyle(
@@ -117,14 +120,14 @@ class _EventTileState extends State<EventTile> {
                 Column(
                   children: [
                     Text(
-                      '開始日程'
-                              ':' +
+                      '開始日程' +
+                          ':' +
                           formatDate(widget.simpleEvent.dateStart as DateTime,
                               [yyyy, '年', mm, '月', dd, '日']),
                     ),
                     Text(
-                      '終了日程'
-                              ':' +
+                      '終了日程' +
+                          ':' +
                           formatDate(widget.simpleEvent.dateEnd as DateTime,
                               [yyyy, '年', mm, '月', dd, '日']),
                     ),

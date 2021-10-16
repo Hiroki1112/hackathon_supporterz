@@ -23,8 +23,9 @@ class _PostTileState extends State<PostTile> {
   @override
   Widget build(BuildContext context) {
     var user = db.collection('api').doc('v1').collection('users');
+
     return Container(
-      width: Config.deviceWidth(context) * 0.9,
+      width: 320,
       margin: const EdgeInsets.symmetric(vertical: 7, horizontal: 5),
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
       decoration: BoxDecoration(
