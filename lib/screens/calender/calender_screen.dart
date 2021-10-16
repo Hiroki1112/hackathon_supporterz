@@ -108,8 +108,10 @@ class _CalenderScreenState extends State<CalenderScreen> {
                       (index) {
                         return Column(
                           children: [
-                            EventTile(
-                              simpleEvent: events[index],
+                            Container(
+                              child: EventTile(
+                                simpleEvent: events[index],
+                              ),
                             ),
                             //Text('a'),
                           ],

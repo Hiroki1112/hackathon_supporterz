@@ -8,6 +8,7 @@ import 'package:hackathon_supporterz/screens/post_detail/post_detail_trend.dart'
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 import 'package:date_format/date_format.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EventTile extends StatefulWidget {
   const EventTile({
@@ -22,7 +23,10 @@ class EventTile extends StatefulWidget {
 
 class _EventTileState extends State<EventTile> {
   var db = FirebaseFirestore.instance;
-
+  //final String _url = widget.simpleEvent.eventLink.toString();
+  void _launchURL(String _url) async => await canLaunch(_url)
+      ? await launch(_url)
+      : throw 'Could not launch $_url';
   @override
   Widget build(BuildContext context) {
     var user = db.collection('api').doc('v1').collection('user');
@@ -46,10 +50,7 @@ class _EventTileState extends State<EventTile> {
         children: [
           ListTile(
             onTap: () {
-              // Navigator.of(context).pushNamed(
-              //   PostDetailTrend.routeName,
-              //   arguments: widget.simpleEvent.eventId,
-              // );
+              _launchURL(widget.simpleEvent.eventLink.toString());
             },
             leading: Container(
               height: 75,
