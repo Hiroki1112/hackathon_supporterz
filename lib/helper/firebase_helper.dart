@@ -4,6 +4,11 @@ import 'package:hackathon_supporterz/helper/post_helper.dart';
 import 'package:hackathon_supporterz/models/simple_post.dart';
 import 'package:hackathon_supporterz/models/user.dart';
 
+enum ERROR_CODE {
+  userNotFound,
+  postNotFound,
+}
+
 class FirebaseHelper {
   static Future<QuerySnapshot<Map<String, dynamic>>> getKeywordSearchResult(
       String title) async {
@@ -40,18 +45,23 @@ class FirebaseHelper {
   /// postIDが一致する投稿を取得する
   /// FUTURE: SimplePostモデル内に投稿へのドキュメントIDを含めておき
   /// 検索なしでアクセスできるようにする
-  static Future<QuerySnapshot<Map<String, dynamic>>> getPostByPostId(
-      String postId) async {
+  static Future<DocumentSnapshot<Map<String, dynamic>>> getPost(
+      {required String postId, required String userId}) async {
     var db = FirebaseFirestore.instance;
-
+    print(postId);
+    print(userId);
     // postIdで検索
     var query = db
         .collection('api')
         .doc('v1')
+        .collection('users')
+        .doc(userId)
         .collection('posts')
-        .where('postId', isEqualTo: postId);
+        .doc(postId);
 
-    return await query.get();
+    var response = await query.get();
+
+    return response;
   }
 
   ///  タグ追加時に使用する
@@ -105,6 +115,25 @@ class FirebaseHelper {
     MyUser _myUser = MyUser();
     _myUser.fromJson(response.data() ?? {});
     return _myUser;
+  }
+
+  /// DBから引数で渡されたuidを持つ情報を取得
+  static Future<dynamic> getUserInfoByFirebaseId(String firebaseId) async {
+    var db = FirebaseFirestore.instance;
+    var response = await db
+        .collection('api')
+        .doc('v1')
+        .collection('users')
+        .where('firebaseId', isEqualTo: firebaseId)
+        .get();
+
+    if (response.size > 0) {
+      MyUser _myUser = MyUser();
+      _myUser.fromJson(response.docs.first.data());
+      return _myUser;
+    }
+
+    return ERROR_CODE.userNotFound;
   }
 
   /// 指定したユーザーID下のpostsコレクションを取得する

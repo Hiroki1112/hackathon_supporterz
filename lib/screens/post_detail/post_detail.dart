@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/helper/firebase_helper.dart';
 import 'package:hackathon_supporterz/models/post.dart';
+import 'package:hackathon_supporterz/screens/404/not_found.dart';
 import 'package:hackathon_supporterz/screens/post_detail/cards/body_card.dart';
 import 'package:hackathon_supporterz/screens/post_detail/cards/plan_text.dart';
 import 'package:hackathon_supporterz/screens/post_detail/cards/user_card.dart';
@@ -14,8 +15,10 @@ class PostDetail extends StatefulWidget {
   const PostDetail({
     Key? key,
     required this.postId,
+    this.userId,
   }) : super(key: key);
   final String postId;
+  final String? userId;
 
   @override
   _PostDetailState createState() => _PostDetailState();
@@ -34,13 +37,18 @@ class _PostDetailState extends State<PostDetail> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
         child: FutureBuilder(
-            future: FirebaseHelper.getPostByPostId(widget.postId),
+            future: FirebaseHelper.getPost(
+                userId: widget.userId ?? '', postId: widget.postId),
             builder: (BuildContext context,
-                AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+                AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>>
+                    snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 //Post _post = Post();
+                if (snapshot.data == ERROR_CODE.postNotFound) {
+                  return NotFoundScreen();
+                }
                 _post = Post();
-                _post.fromJson(snapshot.requireData.docs.first.data());
+                _post.fromJson(snapshot.data!.data() ?? {});
 
                 return SingleChildScrollView(
                   child: Column(
