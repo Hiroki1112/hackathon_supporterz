@@ -53,6 +53,9 @@ dependencies:
   flutter_typeahead: ^3.2.1
   font_awesome_flutter: any
 
+  flutter_neat_and_clean_calendar: ^0.2.0+8
+
+  date_format: ^2.0.4
   # google_fonts:
   #   git:
   #     https://github.com/Hiroki1112/google-fonts-flutter
