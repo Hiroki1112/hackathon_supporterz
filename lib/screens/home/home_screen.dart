@@ -13,27 +13,30 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppTheme.background,
-      appBar: myAppBar(context),
-      body: Padding(
-        padding: const EdgeInsets.all(15),
-        child: ListView(
-          // 無駄な読み込みを減らすためにキャッシュ領域を広げる
-          cacheExtent: 250.0 * 2.0,
-          children: const <Widget>[
-            Text(
-              'trend',
-              style: Config.h1,
-            ),
-            TrendList(),
-            //_rignhtTextButton(() {}, context, 'トレンドを全て見る>'),
-            Text(
-              'idea',
-              style: Config.h1,
-            ),
-            //_rignhtTextButton(() {}, context, 'アイデアを全て見る>'),
-          ],
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: Scaffold(
+        backgroundColor: AppTheme.background,
+        appBar: myAppBar(context),
+        body: Padding(
+          padding: const EdgeInsets.all(15),
+          child: ListView(
+            // 無駄な読み込みを減らすためにキャッシュ領域を広げる
+            cacheExtent: 250.0 * 2.0,
+            children: const <Widget>[
+              Text(
+                'trend',
+                style: Config.h1,
+              ),
+              TrendList(),
+              //_rignhtTextButton(() {}, context, 'トレンドを全て見る>'),
+              Text(
+                'idea',
+                style: Config.h1,
+              ),
+              //_rignhtTextButton(() {}, context, 'アイデアを全て見る>'),
+            ],
+          ),
         ),
       ),
     );
