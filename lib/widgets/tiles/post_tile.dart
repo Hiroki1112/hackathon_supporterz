@@ -1,3 +1,4 @@
+import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/models/simple_post.dart';
@@ -18,6 +19,7 @@ class PostTile extends StatefulWidget {
 }
 
 class _PostTileState extends State<PostTile> {
+  AsyncMemoizer<QuerySnapshot<Map<String, dynamic>>> memo = AsyncMemoizer();
   var db = FirebaseFirestore.instance;
 
   @override
@@ -66,6 +68,7 @@ class _PostTileState extends State<PostTile> {
                   ),
                 ),
               ),
+<<<<<<< HEAD
               title: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -78,6 +81,21 @@ class _PostTileState extends State<PostTile> {
                           // ユーザーデータを受け取る
                           MyUser _user = MyUser();
                           _user.fromJson(snapshot.data!.docs.first.data());
+=======
+            ),
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                FutureBuilder(
+                    future: memo.runOnce(() async => await user.get()),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                            snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        // ユーザーデータを受け取る
+                        MyUser _user = MyUser();
+                        _user.fromJson(snapshot.data!.docs.first.data());
+>>>>>>> develop
 
                           return Row(
                             children: [
