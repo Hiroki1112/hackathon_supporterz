@@ -72,12 +72,14 @@ class MyApp extends StatelessWidget {
           if (paths.length > 1) {
             queryParameters = Uri.splitQueryString(paths[1]);
           }
+          print(path);
 
           /// /settings/profile
           if (path == ProfileEdit.routeName) {
             final args = setting.arguments as MyUser;
 
             return MaterialPageRoute(
+              settings: setting,
               builder: (BuildContext context) {
                 return ProfileEdit(myUser: args);
               },
@@ -92,6 +94,7 @@ class MyApp extends StatelessWidget {
               final args = setting.arguments as String;
 
               return MaterialPageRoute(
+                settings: setting,
                 builder: (BuildContext context) {
                   return PostDetail(postId: args);
                 },
@@ -104,6 +107,7 @@ class MyApp extends StatelessWidget {
             // 引数は自身のURLから取得する
             String tag = path.split('/')[2];
             return MaterialPageRoute(
+              settings: setting,
               builder: (BuildContext context) {
                 return SearchResultTag(tag: tag);
               },
@@ -118,12 +122,14 @@ class MyApp extends StatelessWidget {
             /// エラーの原因となるので、!.は使用しない
             if (queryParameters.containsKey('keyword')) {
               return MaterialPageRoute(
+                settings: setting,
                 builder: (BuildContext context) {
                   return SearchRouter(keyword: queryParameters['keyword']);
                 },
               );
             } else if (queryParameters.containsKey('tag')) {
               return MaterialPageRoute(
+                settings: setting,
                 builder: (BuildContext context) {
                   return SearchRouter(tag: queryParameters['tag']);
                 },
@@ -132,6 +138,7 @@ class MyApp extends StatelessWidget {
 
             // クエリなしの場合
             return MaterialPageRoute(
+              settings: setting,
               builder: (BuildContext context) {
                 return const SearchRouter();
               },
@@ -141,6 +148,7 @@ class MyApp extends StatelessWidget {
           // /registration
           if (path == RegistrationScreen.routeName) {
             return MaterialPageRoute(
+              settings: setting,
               builder: (BuildContext context) {
                 return const RegistrationScreen();
               },
@@ -150,6 +158,7 @@ class MyApp extends StatelessWidget {
           /// /:uidの場合にマイページに遷移する
           String uid = path.split('/')[1];
           return MaterialPageRoute(
+            settings: setting,
             builder: (BuildContext context) {
               return MyPageScreen(userId: uid);
             },
