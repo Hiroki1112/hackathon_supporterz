@@ -47,7 +47,8 @@ class _PostUpdateScreenState extends State<PostUpdateScreen> {
     if (isPostGetDone) {
       return;
     }
-    Post post = await FirebaseHelper.getPost(widget.post.postId);
+    Post post =
+        Post(); //await FirebaseHelper.getPostByPostId(widget.post.postId);//getPost(widget.post.postId);
     print(post.toJson(''));
     _post = post;
     _bodyTextController.text = _post.bodyText;
