@@ -59,8 +59,6 @@ class MyApp extends StatelessWidget {
           backgroundColor: AppTheme.background,
           fontFamily: Config.themeFont,
         ),
-        initialRoute: HomeScreen.routeName,
-        routes: routes,
         onGenerateRoute: (RouteSettings setting) {
           // 引数つきの画面遷移の場合の例
           // 引数を格納するモデルを作成しておき、setting.argumentsで得られる値を
@@ -73,6 +71,15 @@ class MyApp extends StatelessWidget {
             queryParameters = Uri.splitQueryString(paths[1]);
           }
           print(path);
+
+          if (path == HomeScreen.routeName) {
+            return MaterialPageRoute(
+              settings: setting,
+              builder: (BuildContext context) {
+                return const HomeScreen();
+              },
+            );
+          }
 
           /// /settings/profile
           if (path == ProfileEdit.routeName) {
@@ -105,6 +112,7 @@ class MyApp extends StatelessWidget {
           /// /tag/:tag
           if (path.startsWith(SearchResultTag.routeName)) {
             // 引数は自身のURLから取得する
+
             String tag = path.split('/')[2];
             return MaterialPageRoute(
               settings: setting,
