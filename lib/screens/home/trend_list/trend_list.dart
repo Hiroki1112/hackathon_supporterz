@@ -28,7 +28,7 @@ class _TrendListState extends State<TrendList> {
 
         if (snapshot.connectionState == ConnectionState.done) {
           // データの取得ができたらリスト表示する
-          if (Config.deviceWidth(context) < 6) {
+          if (Config.deviceWidth(context) < 600) {
             return Column(
               children: List.generate(
                 snapshot.data!.size,
