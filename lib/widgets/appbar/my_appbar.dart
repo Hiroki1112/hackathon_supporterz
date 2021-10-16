@@ -7,6 +7,7 @@ import 'package:hackathon_supporterz/screens/calender/calender_screen.dart';
 import 'package:hackathon_supporterz/screens/my_page/mypage_screen.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
 import 'package:hackathon_supporterz/screens/post_screen/post_screen.dart';
+import 'package:hackathon_supporterz/screens/registration/registration_screen.dart';
 import 'package:hackathon_supporterz/screens/search/search/search.dart';
 import 'package:hackathon_supporterz/widgets/dialog/dialog.dart';
 import 'package:hackathon_supporterz/widgets/dialog/sign_in.dart';
@@ -70,28 +71,25 @@ AppBar myAppBar(BuildContext context, {String title = 'Supporterz'}) {
                 onSelected: (String val) async {
                   if (val == 'プロフィール') {
                     var db = FirebaseFirestore.instance;
-                    DocumentReference<Map<String, dynamic>> user = db
+                    var user = db
                         .collection('api')
                         .doc('v1')
-                        .collection('user')
-                        .doc(firebaseUser.uid);
+                        .collection('users')
+                        .where('firebaseId');
 
                     var data = await user.get();
-
-                    MyUser _myUser = MyUser();
-                    Map<String, dynamic>? map = data.data() ?? {};
-
-                    if (map.isEmpty) {
+                    if (data.docs.first.exists) {
+                      // 存在しているユーザーの場合はマイページに遷移する
+                      MyUser user = MyUser();
+                      user.fromJson(data.docs.first.data());
+                      print('/' + user.userId);
                       Navigator.of(context).pushNamed(
-                        ProfileEdit.routeName,
+                        '/' + user.userId,
                       );
                       return;
                     }
-
-                    _myUser.fromJson(map);
                     Navigator.of(context).pushNamed(
-                      MyPageScreen.routeName,
-                      arguments: _myUser,
+                      RegistrationScreen.routeName,
                     );
                   }
 

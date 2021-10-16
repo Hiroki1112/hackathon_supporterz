@@ -45,6 +45,7 @@ class _MypageTopState extends State<MypageTop> {
                 ),
           Column(
             children: [
+              /*
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50),
                 child: TextButton(
@@ -56,7 +57,7 @@ class _MypageTopState extends State<MypageTop> {
                     ),
                   ),
                 ),
-              ),
+              ),*/
               widget.username != ''
                   ? Text(
                       widget.username,

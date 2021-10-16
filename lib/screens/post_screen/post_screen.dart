@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/helper/post_helper.dart';
+import 'package:hackathon_supporterz/helper/firebase_helper.dart';
 import 'package:hackathon_supporterz/models/post.dart';
 import 'package:hackathon_supporterz/screens/post_screen/card/text_field_card.dart';
 import 'package:hackathon_supporterz/screens/post_screen/card/preview_card.dart';
@@ -19,7 +20,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class PostScreen extends StatefulWidget {
-  static String routeName = '/post';
+  static String routeName = '/draft/new';
   const PostScreen({Key? key}) : super(key: key);
 
   @override
@@ -132,21 +133,25 @@ class _PostScreenState extends State<PostScreen> {
                         // 必要情報を記入してもらう
                         var setting = await popupSetting(context);
 
-                        var res = await yesNoDialog(
-                            context, '確認', '記事を公開しますか？', '公開する', '戻る');
-                        if (res ?? false) {
+                        //var res = await yesNoDialog(context, '確認', '記事を公開しますか？', '公開する', '戻る');
+                        if (true) {
                           // 現時点ではダミーデータを一部セットする
                           _post.setTechTag = ['AWS', 'iOS', 'Go'];
                           _post.setUserId = firebaseUser!.uid;
 
+                          // 自分のユーザーIDを取得する
+                          var userInfo = await FirebaseHelper.getUserInfo(
+                              firebaseUser.uid);
                           // firebaseへ投稿する
                           var db = FirebaseFirestore.instance;
                           await db
                               .collection('api')
                               .doc('v1')
+                              .collection('users')
+                              .doc(userInfo.userId)
                               .collection('posts')
                               .add(
-                                _post.toJson(firebaseUser.uid),
+                                _post.toJson(userInfo.userId),
                               );
 
                           await yesDialog(context, '確認', '投稿しました！');

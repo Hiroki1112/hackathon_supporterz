@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/helper/firebase_helper.dart';
 import 'package:hackathon_supporterz/screens/home/trend_list/trend_list.dart';
-import 'package:hackathon_supporterz/screens/post_detail/post_detail_idea.dart';
-import 'package:hackathon_supporterz/screens/post_detail/post_detail_trend.dart';
+import 'package:hackathon_supporterz/screens/post_detail/post_detail.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
@@ -50,7 +49,7 @@ class HomeScreen extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: TextButton(
             onPressed: () {
-              Navigator.pushNamed(context, PostDetailTrend.routeName);
+              Navigator.pushNamed(context, PostDetail.routeName);
             },
             child: Text(
               text,

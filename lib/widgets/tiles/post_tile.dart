@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/models/simple_post.dart';
 import 'package:hackathon_supporterz/models/user.dart';
-import 'package:hackathon_supporterz/screens/post_detail/post_detail_trend.dart';
+import 'package:hackathon_supporterz/screens/post_detail/post_detail.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 
@@ -22,7 +22,7 @@ class _PostTileState extends State<PostTile> {
 
   @override
   Widget build(BuildContext context) {
-    var user = db.collection('api').doc('v1').collection('user');
+    var user = db.collection('api').doc('v1').collection('users');
     return Container(
       width: Config.deviceWidth(context) * 0.9,
       margin: const EdgeInsets.symmetric(vertical: 7, horizontal: 5),
@@ -44,7 +44,7 @@ class _PostTileState extends State<PostTile> {
           ListTile(
             onTap: () {
               Navigator.of(context).pushNamed(
-                PostDetailTrend.routeName,
+                widget.simplePost.userId + PostDetail.routeName,
                 arguments: widget.simplePost.postId,
               );
             },

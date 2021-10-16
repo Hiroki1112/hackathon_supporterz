@@ -21,6 +21,6 @@ class SimplePost {
         headerImageUrl = (json['headerImageURL'] ?? '') as String,
         postId = (json['postId'] ?? '') as String,
         userId = (json['userId'] ?? '') as String,
-        good = json['goods'] as int,
+        good = json['goodCount'] as int,
         timeCreated = (json['timeCreated'] as Timestamp).toDate();
 }
