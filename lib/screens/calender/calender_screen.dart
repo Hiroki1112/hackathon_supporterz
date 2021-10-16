@@ -5,6 +5,7 @@ import 'package:flutter_neat_and_clean_calendar/flutter_neat_and_clean_calendar.
 import 'package:hackathon_supporterz/models/event.dart';
 import 'package:hackathon_supporterz/models/simple_event.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
+import 'package:hackathon_supporterz/widgets/tiles/event_tile.dart';
 
 class CalenderScreen extends StatefulWidget {
   static String routeName = '/calenderScreen';
@@ -15,7 +16,7 @@ class CalenderScreen extends StatefulWidget {
 }
 
 class _CalenderScreenState extends State<CalenderScreen> {
-  final Map<DateTime, List<NeatCleanCalendarEvent>> _events = {
+  final Map<DateTime, List<NeatCleanCalendarEvent>> _calenderEvents = {
     DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day): [
       NeatCleanCalendarEvent('Event A',
           startTime: DateTime(DateTime.now().year, DateTime.now().month,
@@ -62,7 +63,7 @@ class _CalenderScreenState extends State<CalenderScreen> {
     return Scaffold(
       appBar: myAppBar(context),
       body: SafeArea(
-        child: Column(
+        child: ListView(
           children: [
             SizedBox(
               height: 30,
@@ -70,7 +71,7 @@ class _CalenderScreenState extends State<CalenderScreen> {
             Calendar(
               startOnMonday: true,
               weekDays: ['月', '火', '水', '木', '金', '土', '日'],
-              events: _events,
+              events: _calenderEvents,
               isExpandable: true,
               eventDoneColor: Colors.green,
               selectedColor: Colors.pink,
@@ -80,7 +81,7 @@ class _CalenderScreenState extends State<CalenderScreen> {
               // },
               eventListBuilder: (BuildContext context,
                   List<NeatCleanCalendarEvent> _selectesdEvents) {
-                return new Text("!");
+                return new Text("");
               },
               eventColor: Colors.grey,
               locale: 'ja_JP',
@@ -99,7 +100,7 @@ class _CalenderScreenState extends State<CalenderScreen> {
                   return const Text('データが上手く取得されませんでした');
                 }
                 int eventLength = events.length;
-                print(events.toString());
+
                 if (snapshot.connectionState == ConnectionState.done) {
                   return Column(
                     children: List.generate(
@@ -107,7 +108,10 @@ class _CalenderScreenState extends State<CalenderScreen> {
                       (index) {
                         return Column(
                           children: [
-                            Text('a'),
+                            EventTile(
+                              simpleEvent: events[index],
+                            ),
+                            //Text('a'),
                           ],
                         );
 
