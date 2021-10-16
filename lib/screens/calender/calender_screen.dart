@@ -5,6 +5,7 @@ import 'package:hackathon_supporterz/models/event.dart';
 import 'package:hackathon_supporterz/models/simple_event.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
 import 'package:hackathon_supporterz/widgets/tiles/event_tile.dart';
+import 'package:async/async.dart';
 
 class CalenderScreen extends StatefulWidget {
   static String routeName = '/calenderScreen';
@@ -44,6 +45,7 @@ class _CalenderScreenState extends State<CalenderScreen> {
 
   Event _event = Event();
   List<SimpleEvent> events = <SimpleEvent>[];
+  AsyncMemoizer<void> memo = AsyncMemoizer();
 
   Future<void> fetchEventInfo() async {
     var db = FirebaseFirestore.instance;
@@ -93,7 +95,7 @@ class _CalenderScreenState extends State<CalenderScreen> {
                   fontSize: 11),
             ),
             FutureBuilder(
-              future: fetchEventInfo(),
+              future: memo.runOnce(() async => await fetchEventInfo()),
               builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
                 if (snapshot.hasError) {
                   return const Text('データが上手く取得されませんでした');

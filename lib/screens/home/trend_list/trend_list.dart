@@ -1,3 +1,4 @@
+import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/models/simple_post.dart';
@@ -11,14 +12,14 @@ class TrendList extends StatefulWidget {
 }
 
 class _TrendListState extends State<TrendList> {
+  AsyncMemoizer<QuerySnapshot<Map<String, dynamic>>> memo = AsyncMemoizer();
   @override
   Widget build(BuildContext context) {
     var db = FirebaseFirestore.instance;
     var trend = db.collection('api').doc('v1').collection('allPosts').limit(5);
     return FutureBuilder(
-      future: trend.get(),
-      builder: (BuildContext context,
-          AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+      future: memo.runOnce(() async => await trend.get()),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasError) {
           return const Center(
             child: Text('データの取得に失敗しました'),

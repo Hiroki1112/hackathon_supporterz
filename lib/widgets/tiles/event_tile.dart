@@ -1,3 +1,4 @@
+import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/models/simple_event.dart';
@@ -27,6 +28,7 @@ class _EventTileState extends State<EventTile> {
   @override
   Widget build(BuildContext context) {
     var user = db.collection('api').doc('v1').collection('user');
+    AsyncMemoizer<QuerySnapshot<Map<String, dynamic>>> memo = AsyncMemoizer();
     return Container(
       width: Config.deviceWidth(context) * 0.9,
       margin: const EdgeInsets.symmetric(vertical: 7, horizontal: 5),
@@ -69,7 +71,8 @@ class _EventTileState extends State<EventTile> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 FutureBuilder(
-                    future: user.get(),
+                    future: memo
+                        .runOnce(() async => await user.get()), //user.get(),
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
                             snapshot) {
