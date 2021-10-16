@@ -25,7 +25,9 @@ void main() async {
   await Firebase.initializeApp();
   setPathUrlStrategy();
   runApp(
-    const MyApp(),
+    Scaffold(
+      body: Text('hoge'),
+    ),
   );
 }
 

@@ -52,7 +52,7 @@ class _ProfileEditState extends State<ProfileEdit> {
               await db
                   .collection('api')
                   .doc('v1')
-                  .collection('user')
+                  .collection('users')
                   .doc(firebaseUser!.uid)
                   .set(
                     _myuser.toJson(),

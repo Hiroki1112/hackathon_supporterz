@@ -15,7 +15,7 @@ class Post {
   String _postId = const Uuid().v1();
   DateTime _timeCreated = DateTime.now();
   DateTime _timeUpdated = DateTime.now();
-  int _goods = 0;
+  int _goodCount = 0;
   String _userId = '';
 
   // == getterの定義 ================
@@ -38,7 +38,7 @@ class Post {
   String get postId => _postId;
 
   // 記事についたいいね数
-  int get goods => _goods;
+  int get goodCount => _goodCount;
 
   String get userId => _userId;
 
@@ -117,7 +117,7 @@ class Post {
     _timeCreated = (json['timeCreated'] as Timestamp).toDate();
     _timeUpdated = (json['timeUpdated'] as Timestamp).toDate();
 
-    _goods = (json['goods'] as int);
+    _goodCount = (json['goodCount'] as int);
     _userId = json['userId'] as String;
   }
 
@@ -134,7 +134,7 @@ class Post {
       'timeCreated': _timeCreated,
       'timeUpdated': _timeUpdated,
       'userId': _userId,
-      'goods': _goods,
+      'goodCount': _goodCount,
     };
   }
 }
