@@ -1,10 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/helper/firebase_helper.dart';
 import 'package:hackathon_supporterz/models/simple_post.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/widgets/tiles/post_tile.dart';
-import 'package:provider/src/provider.dart';
 
 class UserPosts extends StatefulWidget {
   const UserPosts({

@@ -9,7 +9,6 @@ import 'package:hackathon_supporterz/helper/firebase_helper.dart';
 import 'package:hackathon_supporterz/models/post.dart';
 import 'package:hackathon_supporterz/screens/post_screen/card/text_field_card.dart';
 import 'package:hackathon_supporterz/screens/post_screen/card/preview_card.dart';
-import 'package:hackathon_supporterz/screens/post_screen/popup/popup_setting.dart';
 import 'package:hackathon_supporterz/screens/post_screen/popup/url_embedded.dart';
 import 'package:hackathon_supporterz/screens/post_screen/tag_setting/tag_setting.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
@@ -131,7 +130,6 @@ class _PostScreenState extends State<PostScreen> {
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         // 必要情報を記入してもらう
-                        var setting = await popupSetting(context);
 
                         //var res = await yesNoDialog(context, '確認', '記事を公開しますか？', '公開する', '戻る');
                         if (true) {
@@ -205,10 +203,9 @@ class _PostScreenState extends State<PostScreen> {
             ),
             onPressed: () async {
               String result = await _upload();
-              print(result);
 
               // 取得できた場合は文章中に埋め込む
-              final _newValue = controller.text + '![${result}](${result})';
+              final _newValue = controller.text + '![$result]($result)';
               controller.value = TextEditingValue(
                 text: _newValue,
                 selection: TextSelection.fromPosition(
@@ -257,7 +254,6 @@ class _PostScreenState extends State<PostScreen> {
             .ref('postImage/hgoe.png')
             .putFile(file);
 
-        print(task.ref);
         return task.ref.fullPath;
       } on firebase_storage.FirebaseException catch (e) {
         debugPrint(e.message);

@@ -5,6 +5,7 @@ import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/screens/registration/registration_field/registration_field.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
+// ignore: implementation_imports
 import 'package:provider/src/provider.dart';
 
 class RegistrationScreen extends StatefulWidget {

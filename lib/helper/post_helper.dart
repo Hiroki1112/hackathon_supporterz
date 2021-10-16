@@ -1,5 +1,3 @@
-import 'package:hackathon_supporterz/util/constants.dart';
-
 class PostHelper {
   /// 渡された単語に近い単語群を返すメソッド
   static List<Tag> getSuggestion(String keyword) {

@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/helper/firebase_helper.dart';
 import 'package:hackathon_supporterz/screens/home/trend_list/trend_list.dart';
 import 'package:hackathon_supporterz/screens/post_detail/post_detail.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
-import 'package:hackathon_supporterz/widgets/tiles/post_tile.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/';
-  HomeScreen({
+  const HomeScreen({
     Key? key,
   }) : super(key: key);
 
@@ -41,7 +39,8 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  _rignhtTextButton(Function onPressed, BuildContext context, String text) {
+  Widget rignhtTextButton(
+      Function onPressed, BuildContext context, String text) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [

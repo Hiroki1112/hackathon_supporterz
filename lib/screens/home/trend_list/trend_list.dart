@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/models/post.dart';
 import 'package:hackathon_supporterz/models/simple_post.dart';
 import 'package:hackathon_supporterz/widgets/tiles/post_tile.dart';
 

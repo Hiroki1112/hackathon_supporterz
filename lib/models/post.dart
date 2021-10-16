@@ -113,11 +113,9 @@ class Post {
     setHeaderImageURL = json['headerImageURL'] as String;
     _postId = json['postId'] as String;
 
-    try {
-      // FirebaseからはTimeStamp型で返されるのでキャストする
-      _timeCreated = (json['timeCreated'] as Timestamp).toDate();
-      _timeUpdated = (json['timeUpdated'] as Timestamp).toDate();
-    } catch (e) {}
+    // FirebaseからはTimeStamp型で返されるのでキャストする
+    _timeCreated = (json['timeCreated'] as Timestamp).toDate();
+    _timeUpdated = (json['timeUpdated'] as Timestamp).toDate();
 
     _goodCount = (json['goodCount'] as int);
     _userId = json['userId'] as String;

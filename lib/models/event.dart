@@ -55,11 +55,9 @@ class Event {
     setEventTitle = json['eventTitle'] as String;
     setEventLink = json['eventLink'] as String;
     _eventId = json['eventId'] as String;
-    try {
-      setDateStart = (json['dateStart'] as Timestamp).toDate();
-      setDateEnd = (json['dateEnd'] as Timestamp).toDate();
-      setDeadline = (json['deadline'] as Timestamp).toDate();
-    } catch (e) {}
+    setDateStart = (json['dateStart'] as Timestamp).toDate();
+    setDateEnd = (json['dateEnd'] as Timestamp).toDate();
+    setDeadline = (json['deadline'] as Timestamp).toDate();
   }
 
   Map<String, dynamic> toJson(String? userId) {

@@ -26,6 +26,6 @@ class _SearchRouterState extends State<SearchRouter> {
       return SearchResultTag(tag: widget.tag);
     }
 
-    return Search();
+    return const Search();
   }
 }

@@ -6,7 +6,6 @@ import 'package:hackathon_supporterz/screens/post_detail/cards/body_card.dart';
 import 'package:hackathon_supporterz/screens/post_detail/cards/plan_text.dart';
 import 'package:hackathon_supporterz/screens/post_detail/cards/user_card.dart';
 import 'package:hackathon_supporterz/screens/post_detail/title/title.dart';
-import 'package:hackathon_supporterz/screens/post_screen/post_update_screen.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
 

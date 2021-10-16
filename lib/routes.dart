@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/screens/calender/calender_screen.dart';
 import 'package:hackathon_supporterz/screens/home/home_screen.dart';
-import 'package:hackathon_supporterz/screens/my_page/mypage_screen.dart';
 import 'package:hackathon_supporterz/screens/post_screen/post_screen.dart';
 import 'package:hackathon_supporterz/screens/registration/registration_screen.dart';
 
@@ -14,7 +12,7 @@ import 'package:hackathon_supporterz/screens/registration/registration_screen.da
 /// 但し引数を渡す時はここには登録せず、onGenerateRoute内に
 /// ページ遷移の処理を書く。
 final Map<String, WidgetBuilder> routes = {
-  HomeScreen.routeName: (context) => HomeScreen(),
+  HomeScreen.routeName: (context) => const HomeScreen(),
   PostScreen.routeName: (context) => const PostScreen(),
   RegistrationScreen.routeName: (context) => const RegistrationScreen(),
 };

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neat_and_clean_calendar/flutter_neat_and_clean_calendar.dart';
 import 'package:hackathon_supporterz/models/event.dart';
@@ -65,12 +64,12 @@ class _CalenderScreenState extends State<CalenderScreen> {
       body: SafeArea(
         child: ListView(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Calendar(
               startOnMonday: true,
-              weekDays: ['月', '火', '水', '木', '金', '土', '日'],
+              weekDays: const ['月', '火', '水', '木', '金', '土', '日'],
               events: _calenderEvents,
               isExpandable: true,
               eventDoneColor: Colors.green,
@@ -81,14 +80,14 @@ class _CalenderScreenState extends State<CalenderScreen> {
               // },
               eventListBuilder: (BuildContext context,
                   List<NeatCleanCalendarEvent> _selectesdEvents) {
-                return new Text("");
+                return const Text('');
               },
               eventColor: Colors.grey,
               locale: 'ja_JP',
               todayButtonText: '今日',
               //expandableDateFormat: 'EEEE, dd. MMMM yyyy',
               expandableDateFormat: 'yyyy年 MMMM dd EEEE',
-              dayOfWeekStyle: TextStyle(
+              dayOfWeekStyle: const TextStyle(
                   color: Colors.black,
                   fontWeight: FontWeight.w800,
                   fontSize: 11),
@@ -108,10 +107,8 @@ class _CalenderScreenState extends State<CalenderScreen> {
                       (index) {
                         return Column(
                           children: [
-                            Container(
-                              child: EventTile(
-                                simpleEvent: events[index],
-                              ),
+                            EventTile(
+                              simpleEvent: events[index],
                             ),
                             //Text('a'),
                           ],

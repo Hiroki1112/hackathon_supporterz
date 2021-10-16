@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hackathon_supporterz/helper/app_helper.dart';
 import 'package:hackathon_supporterz/helper/post_helper.dart';
-import 'package:hackathon_supporterz/models/post.dart';
 import 'package:hackathon_supporterz/models/simple_post.dart';
 import 'package:hackathon_supporterz/models/user.dart';
 
@@ -14,9 +13,9 @@ class FirebaseHelper {
 
     // 変換したものを元にタイトルを検索するクエリを実装
     var query = db.collection('api').doc('v1').collection('posts').limit(20);
-    title2gram.forEach((key) {
+    for (var key in title2gram) {
       query = query.where('title2gram.' + key, isEqualTo: true);
-    });
+    }
 
     // 取得したデータをList<Map<String, dynamic>>型に変換する
 
@@ -64,13 +63,13 @@ class FirebaseHelper {
       query = db.collection('api').doc('v1').collection('tags').limit(9);
     } else {
       List<String> keyword2gram = AppHelper.get2gram(keyword);
-      print(keyword2gram);
+
       // 変換したものを元にタイトルを検索するクエリを実装
       query = db.collection('api').doc('v1').collection('tags').limit(9);
 
-      keyword2gram.forEach((element) {
+      for (var element in keyword2gram) {
         query = query.where('tag2gram.' + element, isEqualTo: true);
-      });
+      }
     }
 
     List<Tag> recommendTags = [];
