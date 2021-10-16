@@ -21,7 +21,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:provider/provider.dart';
 import 'package:url_strategy/url_strategy.dart';
 
-bool USE_FIRESTORE_EMULATOR = true;
+bool USE_FIRESTORE_EMULATOR = false;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
