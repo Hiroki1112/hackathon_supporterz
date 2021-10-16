@@ -1,19 +1,22 @@
 # hackathon_supporterz
 
-A new Flutter project.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+## Routing
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+|  route  |  説明  |query|
+| ---- | ---- | ---- |
+|  /  |  homeページ  |  |
+| /:uid | uidを元にしたマイページを表示 |  |
+| /settings/profile | プロフィール編集 |  |
+| /search |  キーワード、タグで検索するページ  |  |
+| /search | 検索結果を表示するページ| keyword,tag |
+| /tag/:tag | タグに関係する投稿を表示するページ |  |
+| /:uid/post/:id | uid, idをもとに投稿を取得する画面|  |
+| /drafts/new | 新規投稿画面 |  |
+| /drafts/:postId/edit | 下書き編集画面 |  | 
+| /registration | 新規ユーザー登録 |  |
+| /about | このサイトについて |  |
 
 ## 参考
 

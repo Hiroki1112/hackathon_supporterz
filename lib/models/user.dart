@@ -7,13 +7,16 @@ class MyUser {
       _selfIntroduction = '',
       _twitterLink = '',
       _githubAccount = '',
-      _pictureURL = '';
+      _pictureURL = '',
+      _userId = '',
+      _firebaseId = '';
 
   String get useName => _userName;
   String get selfIntroduction => _selfIntroduction;
   String get twitterLink => _twitterLink;
   String get githubAccount => _githubAccount;
   String get pictureURL => _pictureURL;
+  String get userId => _userId;
 
   set setUserName(String userName) {
     if (userName.length <= 20) {
@@ -45,6 +48,16 @@ class MyUser {
     }
   }
 
+  set setUserId(String userId) {
+    if (userId.length < 20) {
+      _userId = userId;
+    }
+  }
+
+  set setFirebaseId(String fId) {
+    _firebaseId = fId;
+  }
+
 //firebaseからの情報の受け取り
   void fromJson(Map<String, dynamic> json) {
     setUserName = json['userName'] ?? '';
@@ -52,16 +65,19 @@ class MyUser {
     setTwitterLink = json['twitterLink'] ?? '';
     setGithubAccount = json['githubAccount'] ?? '';
     setPictureURL = json['pictureURL'] ?? '';
+    setUserId = json['userId'] ?? '';
+    setFirebaseId = json['firebaseId'] ?? '';
   }
 
-  Map<String, dynamic> toJson(String? userId) {
+  Map<String, dynamic> toJson() {
     return {
       'userName': _userName,
       'selfIntroduction': _selfIntroduction,
       'twitterLink': _twitterLink,
       'githubAccount': _githubAccount,
       'pictureURL': _pictureURL,
-      'userId': userId,
+      'userId': _userId,
+      'firebaseId': _firebaseId,
     };
   }
 }

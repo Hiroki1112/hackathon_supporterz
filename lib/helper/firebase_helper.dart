@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hackathon_supporterz/helper/app_helper.dart';
 import 'package:hackathon_supporterz/helper/post_helper.dart';
 import 'package:hackathon_supporterz/models/post.dart';
+import 'package:hackathon_supporterz/models/simple_post.dart';
+import 'package:hackathon_supporterz/models/user.dart';
 
 class FirebaseHelper {
   static Future<QuerySnapshot<Map<String, dynamic>>> getKeywordSearchResult(
@@ -36,12 +38,28 @@ class FirebaseHelper {
     return await query.get();
   }
 
+  /// postIDが一致する投稿を取得する
+  /// FUTURE: SimplePostモデル内に投稿へのドキュメントIDを含めておき
+  /// 検索なしでアクセスできるようにする
+  static Future<QuerySnapshot<Map<String, dynamic>>> getPostByPostId(
+      String postId) async {
+    var db = FirebaseFirestore.instance;
+
+    // postIdで検索
+    var query = db
+        .collection('api')
+        .doc('v1')
+        .collection('posts')
+        .where('postId', isEqualTo: postId);
+
+    return await query.get();
+  }
+
   ///  タグ追加時に使用する
   static Future<List<Tag>> getTagListByKeyword(String keyword) async {
     var db = FirebaseFirestore.instance;
     // ignore: prefer_typing_uninitialized_variables
     Query<Map<String, dynamic>> query;
-
     if (keyword == '') {
       query = db.collection('api').doc('v1').collection('tags').limit(9);
     } else {
@@ -70,22 +88,46 @@ class FirebaseHelper {
     return recommendTags;
   }
 
-  /// postIdから投稿を取得する関数
-  static Future<Post> getPost(String postId) async {
+  static Future<void> userRegistration(MyUser user) async {
     var db = FirebaseFirestore.instance;
-    // ignore: prefer_typing_uninitialized_variables
-    var query = db
+    await db
         .collection('api')
         .doc('v1')
-        .collection('posts')
-        .where('postId', isEqualTo: postId);
-    var response = await query.get();
+        .collection('users')
+        .doc(user.userId)
+        .set(user.toJson());
+  }
 
-    Post post = Post();
-    Map<String, dynamic> data = response.docs.first.data();
-    post.fromJson(data);
+  /// DBから引数で渡されたuidを持つ情報を取得
+  static Future<MyUser> getUserInfo(String uid) async {
+    var db = FirebaseFirestore.instance;
+    var response =
+        await db.collection('api').doc('v1').collection('users').doc(uid).get();
+    MyUser _myUser = MyUser();
+    _myUser.fromJson(response.data() ?? {});
+    return _myUser;
+  }
 
-    return post;
+  /// 指定したユーザーID下のpostsコレクションを取得する
+  /// DBから引数で渡されたuidを持つ情報を取得
+  static Future<List<SimplePost>> getUserPosts(String uid) async {
+    var db = FirebaseFirestore.instance;
+    var response = await db
+        .collection('api')
+        .doc('v1')
+        .collection('users')
+        .doc(uid)
+        .collection('simplePosts')
+        .get();
+
+    List<SimplePost> posts = [];
+    if (response.docs.isNotEmpty) {
+      response.docs.map((post) {
+        posts.add(SimplePost.fromJson(post.data()));
+      });
+    }
+
+    return posts;
   }
 
   ///  タグ追加時に使用する

@@ -9,10 +9,8 @@ import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:provider/src/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'mypage_screen.dart';
-
 class ProfileEdit extends StatefulWidget {
-  static String routeName = '/profileedit';
+  static String routeName = '/settings/profile';
   const ProfileEdit({
     Key? key,
     required this.myUser,
@@ -54,10 +52,10 @@ class _ProfileEditState extends State<ProfileEdit> {
               await db
                   .collection('api')
                   .doc('v1')
-                  .collection('user')
+                  .collection('users')
                   .doc(firebaseUser!.uid)
                   .set(
-                    _myuser.toJson(firebaseUser.uid),
+                    _myuser.toJson(),
                   );
               Navigator.of(context).pop();
             },

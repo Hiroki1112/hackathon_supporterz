@@ -18,7 +18,7 @@ class _UserCardState extends State<UserCard> {
   @override
   Widget build(BuildContext context) {
     var user =
-        db.collection('api').doc('v1').collection('user').doc(widget.userId);
+        db.collection('api').doc('v1').collection('users').doc(widget.userId);
     return Card(
       child: FutureBuilder(
           future: user.get(),
