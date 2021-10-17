@@ -73,7 +73,7 @@ AppBar myAppBar(BuildContext context, {String title = 'Supporterz'}) {
                         .collection('api')
                         .doc('v1')
                         .collection('users')
-                        .where('firebaseId');
+                        .where('firebaseId', isEqualTo: firebaseUser.uid);
 
                     var data = await user.get();
                     if (data.size > 0) {

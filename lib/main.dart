@@ -72,6 +72,7 @@ class MyApp extends StatelessWidget {
             queryParameters = Uri.splitQueryString(paths[1]);
           }
           print(path);
+          print(path.contains('/post'));
 
           if (path == HomeScreen.routeName) {
             return MaterialPageRoute(
@@ -106,21 +107,22 @@ class MyApp extends StatelessWidget {
 
           /// postページを閲覧する際に使用する
           /// :uid/post/:id の形式。idを使用して記事を取得する
-          if (path.contains('/post/')) {
-            // 上の式が真の時、[2]は存在する
-            if (path.split('/')[1] == 'post') {
-              String userId = path.split('/')[0];
-              String postId = path.split('/')[2];
+          if (path.contains('/post')) {
+            if (path.split('/').length > 3) {
+              if (path.split('/')[2] == 'post') {
+                String userId = path.split('/')[1];
+                String postId = path.split('/')[3];
 
-              return MaterialPageRoute(
-                settings: setting,
-                builder: (BuildContext context) {
-                  return PostDetail(
-                    postId: postId,
-                    userId: userId,
-                  );
-                },
-              );
+                return MaterialPageRoute(
+                  settings: setting,
+                  builder: (BuildContext context) {
+                    return PostDetail(
+                      postId: postId,
+                      userId: userId,
+                    );
+                  },
+                );
+              }
             }
           }
 
