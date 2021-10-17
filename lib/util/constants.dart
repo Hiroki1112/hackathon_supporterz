@@ -36,3 +36,5 @@ List<String> allTechTag = [
   'Go',
   'Python',
 ];
+
+const double breakPoint = 720;

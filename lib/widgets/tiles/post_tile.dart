@@ -68,22 +68,8 @@ class _PostTileState extends State<PostTile> {
                   ),
                 ),
               ),
-<<<<<<< HEAD
-              title: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  FutureBuilder(
-                      future: user.get(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                              snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          // ユーザーデータを受け取る
-                          MyUser _user = MyUser();
-                          _user.fromJson(snapshot.data!.docs.first.data());
-=======
             ),
-            title: Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 FutureBuilder(
@@ -95,54 +81,52 @@ class _PostTileState extends State<PostTile> {
                         // ユーザーデータを受け取る
                         MyUser _user = MyUser();
                         _user.fromJson(snapshot.data!.docs.first.data());
->>>>>>> develop
 
-                          return Row(
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 7.0,
-                                ),
-                                child: const Icon(
-                                  Icons.people,
-                                ),
+                        return Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 7.0,
                               ),
-                              Text(
-                                _user.useName,
-                                style: const TextStyle(fontSize: 13),
+                              child: const Icon(
+                                Icons.people,
                               ),
-                            ],
-                          );
-                        }
-                        return const CircularProgressIndicator();
-                      }),
-                  Text(
-                    widget.simplePost.title,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      fontSize: 21,
-                      fontWeight: FontWeight.w600,
+                            ),
+                            Text(
+                              _user.useName,
+                              style: const TextStyle(fontSize: 13),
+                            ),
+                          ],
+                        );
+                      }
+                      return const CircularProgressIndicator();
+                    }),
+                Text(
+                  widget.simplePost.title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 21,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                // タグを追加する
+                Row(
+                  children: [
+                    Expanded(
+                        child: Row(
+                      children: widget.simplePost.techTag.map((tag) {
+                        return Text('#' + tag + ', ');
+                      }).toList(),
+                    )),
+                    const Icon(
+                      Icons.thumb_up,
                     ),
-                  ),
-                  // タグを追加する
-                  Row(
-                    children: [
-                      Expanded(
-                          child: Row(
-                        children: widget.simplePost.techTag.map((tag) {
-                          return Text('#' + tag + ', ');
-                        }).toList(),
-                      )),
-                      const Icon(
-                        Icons.thumb_up,
-                      ),
-                      const SizedBox(width: 5),
-                      Text(widget.simplePost.good.toString())
-                    ],
-                  ),
-                ],
-              ),
+                    const SizedBox(width: 5),
+                    Text(widget.simplePost.good.toString())
+                  ],
+                ),
+              ],
             ),
           ],
         ),
