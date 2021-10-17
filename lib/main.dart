@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/provider/auth_provider.dart';
 import 'package:hackathon_supporterz/routes.dart';
+import 'package:hackathon_supporterz/screens/404/not_found.dart';
 import 'package:hackathon_supporterz/screens/my_page/mypage_screen.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
 import 'package:hackathon_supporterz/screens/post_detail/post_detail.dart';
@@ -107,11 +108,12 @@ class MyApp extends StatelessWidget {
 
           /// postページを閲覧する際に使用する
           /// :uid/post/:id の形式。idを使用して記事を取得する
+
           if (path.contains('/post')) {
-            if (path.split('/').length > 3) {
-              if (path.split('/')[2] == 'post') {
-                String userId = path.split('/')[1];
-                String postId = path.split('/')[3];
+            if (path.split('/').length > 2) {
+              if (path.split('/')[1] == 'post') {
+                String userId = path.split('/')[0];
+                String postId = path.split('/')[2];
 
                 return MaterialPageRoute(
                   settings: setting,
@@ -182,10 +184,20 @@ class MyApp extends StatelessWidget {
 
           /// /:uidの場合にマイページに遷移する
           String uid = path.split('/')[1];
+          print(path.split('/'));
+          if (path.split('/').length < 3) {
+            return MaterialPageRoute(
+              settings: setting,
+              builder: (BuildContext context) {
+                return MyPageScreen(userId: uid);
+              },
+            );
+          }
+
           return MaterialPageRoute(
             settings: setting,
             builder: (BuildContext context) {
-              return MyPageScreen(userId: uid);
+              return const NotFoundScreen();
             },
           );
 

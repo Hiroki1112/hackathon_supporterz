@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// ignore: implementation_imports
-import 'package:provider/src/provider.dart';
+import 'package:hackathon_supporterz/helper/app_helper.dart';
 
 class MypageTop extends StatefulWidget {
   const MypageTop({
@@ -20,16 +18,21 @@ class MypageTop extends StatefulWidget {
 class _MypageTopState extends State<MypageTop> {
   @override
   Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User?>();
     return Center(
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          widget.pictureURL != ''
-              ? const Icon(
-                  //アイコンのURLを表示できるようにする
-                  Icons.people_outline,
-                  size: 130,
+          widget.pictureURL == ''
+              ? Container(
+                  padding: const EdgeInsetsDirectional.only(
+                    top: 15,
+                  ),
+                  width: 100,
+                  height: 100,
+                  child: Text(
+                    AppHelper.oneEmoji(),
+                    style: const TextStyle(fontSize: 50),
+                  ),
                 )
               : Container(
                   padding: const EdgeInsetsDirectional.only(
@@ -39,7 +42,7 @@ class _MypageTopState extends State<MypageTop> {
                   height: 100,
                   child: CircleAvatar(
                     backgroundImage: NetworkImage(
-                      firebaseUser!.photoURL ?? '',
+                      widget.pictureURL,
                     ),
                   ),
                 ),
