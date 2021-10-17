@@ -1,3 +1,5 @@
+import 'package:async/async.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/helper/firebase_helper.dart';
 import 'package:hackathon_supporterz/models/user.dart';
@@ -17,10 +19,13 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
+  AsyncMemoizer<MyUser> memo = AsyncMemoizer();
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: FirebaseHelper.getUserInfo(widget.userId),
+      future:
+          memo.runOnce(() async => FirebaseHelper.getUserInfo(widget.userId)),
       builder: (BuildContext context, AsyncSnapshot<MyUser> snapshot) {
         if (snapshot.hasError) {
           return const Text('Something went wrong');
