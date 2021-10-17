@@ -17,6 +17,7 @@ class MyUser {
   String get githubAccount => _githubAccount;
   String get pictureURL => _pictureURL;
   String get userId => _userId;
+  String get firebaseId => _firebaseId;
 
   set setUserName(String userName) {
     if (userName.length <= 20) {

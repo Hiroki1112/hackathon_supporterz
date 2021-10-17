@@ -135,11 +135,12 @@ class _PostScreenState extends State<PostScreen> {
                         if (true) {
                           // 現時点ではダミーデータを一部セットする
                           _post.setTechTag = ['AWS', 'iOS', 'Go'];
-                          _post.setUserId = firebaseUser!.uid;
 
                           // 自分のユーザーIDを取得する
-                          var userInfo = await FirebaseHelper.getUserInfo(
-                              firebaseUser.uid);
+                          var userInfo =
+                              await FirebaseHelper.getUserInfoByFirebaseId(
+                                  firebaseUser!.uid);
+
                           // firebaseへ投稿する
                           var db = FirebaseFirestore.instance;
                           await db
@@ -148,7 +149,8 @@ class _PostScreenState extends State<PostScreen> {
                               .collection('users')
                               .doc(userInfo.userId)
                               .collection('posts')
-                              .add(
+                              .doc(_post.postId)
+                              .set(
                                 _post.toJson(userInfo.userId),
                               );
 

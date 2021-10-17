@@ -45,19 +45,6 @@ class _MypageTopState extends State<MypageTop> {
                 ),
           Column(
             children: [
-              /*
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50),
-                child: TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'My Follow',
-                    style: TextStyle(
-                      fontSize: 25,
-                    ),
-                  ),
-                ),
-              ),*/
               widget.username != ''
                   ? Text(
                       widget.username,

@@ -73,18 +73,21 @@ AppBar myAppBar(BuildContext context, {String title = 'Supporterz'}) {
                         .collection('api')
                         .doc('v1')
                         .collection('users')
-                        .where('firebaseId');
+                        .where('firebaseId', isEqualTo: firebaseUser.uid);
 
                     var data = await user.get();
-                    if (data.docs.first.exists) {
-                      // 存在しているユーザーの場合はマイページに遷移する
-                      MyUser user = MyUser();
-                      user.fromJson(data.docs.first.data());
-                      Navigator.of(context).pushNamed(
-                        '/' + user.userId,
-                      );
-                      return;
+                    if (data.size > 0) {
+                      if (data.docs.first.exists) {
+                        // 存在しているユーザーの場合はマイページに遷移する
+                        MyUser user = MyUser();
+                        user.fromJson(data.docs.first.data());
+                        Navigator.of(context).pushNamed(
+                          '/' + user.userId,
+                        );
+                        return;
+                      }
                     }
+
                     Navigator.of(context).pushNamed(
                       RegistrationScreen.routeName,
                     );

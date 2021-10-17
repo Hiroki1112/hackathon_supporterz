@@ -30,19 +30,8 @@ class DetailPlanText extends StatelessWidget {
           ),
         ],
       ),
-      child: Container(
-        padding: const EdgeInsets.all(10),
-        child: WebView(
-          javascriptMode: JavascriptMode.unrestricted,
-          onWebViewCreated: (WebViewController webViewController) async {
-            _controller = webViewController;
-            await _loadHTML(
-              planeText,
-              _controller,
-            );
-          },
-        ),
-      ),
+      child:
+          Container(padding: const EdgeInsets.all(10), child: Text(planeText)),
     );
   }
 

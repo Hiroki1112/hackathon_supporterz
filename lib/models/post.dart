@@ -133,7 +133,7 @@ class Post {
       'postId': _postId,
       'timeCreated': _timeCreated,
       'timeUpdated': _timeUpdated,
-      'userId': _userId,
+      'userId': userId,
       'goodCount': _goodCount,
     };
   }

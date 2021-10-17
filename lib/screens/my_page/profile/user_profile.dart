@@ -1,9 +1,12 @@
+import 'package:async/async.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/helper/firebase_helper.dart';
 import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile/mypage_top.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
 import 'package:hackathon_supporterz/screens/my_page/sns_buttons.dart';
+import 'package:provider/src/provider.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({
@@ -17,10 +20,14 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
+  AsyncMemoizer<MyUser> memo = AsyncMemoizer();
+
   @override
   Widget build(BuildContext context) {
+    final firebaseUser = context.watch<User?>();
     return FutureBuilder(
-      future: FirebaseHelper.getUserInfo(widget.userId),
+      future:
+          memo.runOnce(() async => FirebaseHelper.getUserInfo(widget.userId)),
       builder: (BuildContext context, AsyncSnapshot<MyUser> snapshot) {
         if (snapshot.hasError) {
           return const Text('Something went wrong');
@@ -59,32 +66,34 @@ class _UserProfileState extends State<UserProfile> {
                   style: const TextStyle(),
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 23,
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          await Navigator.pushNamed(
-                            context,
-                            ProfileEdit.routeName,
-                            arguments: snapshot.data,
-                          );
-                          //await fetchData(firebaseUser);
-                          setState(() {});
-                        },
-                        child: const Text(
-                          'プロフィール編集',
-                          style: TextStyle(color: Colors.white),
-                        ),
+              firebaseUser!.uid == snapshot.data!.firebaseId
+                  ? Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 23,
                       ),
-                    ),
-                  ],
-                ),
-              ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                await Navigator.pushNamed(
+                                  context,
+                                  ProfileEdit.routeName,
+                                  arguments: snapshot.data,
+                                );
+                                //await fetchData(firebaseUser);
+                                setState(() {});
+                              },
+                              child: const Text(
+                                'プロフィール編集',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : Container(),
               SNSButtons(
                 twitterLink: snapshot.data?.twitterLink ?? '',
                 githubLink: snapshot.data?.githubAccount ?? '',

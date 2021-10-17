@@ -8,6 +8,7 @@ import 'package:hackathon_supporterz/routes.dart';
 import 'package:hackathon_supporterz/screens/my_page/mypage_screen.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
 import 'package:hackathon_supporterz/screens/post_detail/post_detail.dart';
+import 'package:hackathon_supporterz/screens/post_screen/post_screen.dart';
 import 'package:hackathon_supporterz/screens/registration/registration_screen.dart';
 import 'package:hackathon_supporterz/screens/search/search/search.dart';
 import 'package:hackathon_supporterz/screens/search/search_result/search_result_tag.dart';
@@ -71,6 +72,7 @@ class MyApp extends StatelessWidget {
             queryParameters = Uri.splitQueryString(paths[1]);
           }
           print(path);
+          print(path.contains('/post'));
 
           if (path == HomeScreen.routeName) {
             return MaterialPageRoute(
@@ -93,19 +95,34 @@ class MyApp extends StatelessWidget {
             );
           }
 
+          // drafts/new
+          if (path == PostScreen.routeName) {
+            return MaterialPageRoute(
+              settings: setting,
+              builder: (BuildContext context) {
+                return const PostScreen();
+              },
+            );
+          }
+
           /// postページを閲覧する際に使用する
           /// :uid/post/:id の形式。idを使用して記事を取得する
-          if (path.contains('/post/')) {
-            // 上の式が真の時、[2]は存在する
-            if (path.split('/')[2] == 'post') {
-              final args = setting.arguments as String;
+          if (path.contains('/post')) {
+            if (path.split('/').length > 3) {
+              if (path.split('/')[2] == 'post') {
+                String userId = path.split('/')[1];
+                String postId = path.split('/')[3];
 
-              return MaterialPageRoute(
-                settings: setting,
-                builder: (BuildContext context) {
-                  return PostDetail(postId: args);
-                },
-              );
+                return MaterialPageRoute(
+                  settings: setting,
+                  builder: (BuildContext context) {
+                    return PostDetail(
+                      postId: postId,
+                      userId: userId,
+                    );
+                  },
+                );
+              }
             }
           }
 
@@ -172,14 +189,7 @@ class MyApp extends StatelessWidget {
             },
           );
 
-          // return 404 page
           // 404は各ページで目的のリソースがない時に遷移させるようにする
-          /*
-          return MaterialPageRoute(
-            builder: (BuildContext context) {
-              return const NotFoundScreen();
-            },
-          );*/
         },
       ),
     );
