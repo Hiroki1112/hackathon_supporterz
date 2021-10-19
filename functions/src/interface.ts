@@ -8,4 +8,5 @@ export interface SimplePost {
   timeUpdated: Date,
   userId: string,
   goodCount: number,
+  docId: string,
 }
