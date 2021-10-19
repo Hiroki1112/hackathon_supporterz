@@ -108,13 +108,12 @@ class FirebaseHelper {
   }
 
   /// DBから引数で渡されたuidを持つ情報を取得
-  static Future<MyUser> getUserInfo(String uid) async {
+  static Future<DocumentSnapshot<Map<String, dynamic>>> getUserInfo(
+      String uid) async {
     var db = FirebaseFirestore.instance;
     var response =
         await db.collection('api').doc('v1').collection('users').doc(uid).get();
-    MyUser _myUser = MyUser();
-    _myUser.fromJson(response.data() ?? {});
-    return _myUser;
+    return response;
   }
 
   /// DBから引数で渡されたuidを持つ情報を取得

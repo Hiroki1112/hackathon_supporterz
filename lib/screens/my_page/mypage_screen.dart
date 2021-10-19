@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hackathon_supporterz/screens/404/not_found.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile/user_profile.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
 
@@ -17,6 +18,13 @@ class MyPageScreen extends StatefulWidget {
 class _MyPageScreenState extends State<MyPageScreen> {
   @override
   Widget build(BuildContext context) {
+    if (widget.userId == null || widget.userId == '') {
+      debugPrint('MypageScreen class : userId is null or empty.');
+      return Scaffold(
+        appBar: myAppBar(context),
+        body: const NotFoundScreen(),
+      );
+    }
     return Scaffold(
       appBar: myAppBar(context),
       body: ListView(
