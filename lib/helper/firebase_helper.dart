@@ -117,7 +117,8 @@ class FirebaseHelper {
   }
 
   /// DBから引数で渡されたuidを持つ情報を取得
-  static Future<dynamic> getUserInfoByFirebaseId(String firebaseId) async {
+  static Future<QuerySnapshot<Map<String, dynamic>>> getUserInfoByFirebaseId(
+      String firebaseId) async {
     var db = FirebaseFirestore.instance;
     var response = await db
         .collection('api')
@@ -126,13 +127,7 @@ class FirebaseHelper {
         .where('firebaseId', isEqualTo: firebaseId)
         .get();
 
-    if (response.size > 0) {
-      MyUser _myUser = MyUser();
-      _myUser.fromJson(response.docs.first.data());
-      return _myUser;
-    }
-
-    return ERROR_CODE.userNotFound;
+    return response;
   }
 
   /// 指定したユーザーID下のpostsコレクションを取得する

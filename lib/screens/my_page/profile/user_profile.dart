@@ -46,7 +46,7 @@ class _UserProfileState extends State<UserProfile> {
           MyUser _user = MyUser();
           _user.fromJson(snapshot.data!.data() ?? _user.toJson());
           if (firebaseUser != null) {
-            if (firebaseUser.uid == _user.userId) {
+            if (firebaseUser.uid == _user.firebaseId) {
               editButtonPresence = true;
             }
           }

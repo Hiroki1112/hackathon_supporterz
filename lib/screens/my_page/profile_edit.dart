@@ -13,9 +13,7 @@ class ProfileEdit extends StatefulWidget {
   static String routeName = '/settings/profile';
   const ProfileEdit({
     Key? key,
-    required this.myUser,
   }) : super(key: key);
-  final MyUser myUser;
 
   @override
   _ProfileEditState createState() => _ProfileEditState();
@@ -27,14 +25,9 @@ class _ProfileEditState extends State<ProfileEdit> {
   final TextEditingController _controller = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-    _myuser = widget.myUser;
-  }
-
-  @override
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User?>();
+
     return Scaffold(
       backgroundColor: AppTheme.background,
       appBar: AppBar(
