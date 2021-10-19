@@ -53,7 +53,16 @@ exports.deleteSimplePosts = functions.region("asia-northeast1").firestore
                 });
               }
             });
-      // await snap.ref.collection("simplePosts").add(simplePost);
+      await snap.ref.collection("simplePosts")
+          .where("postId", "==", snap.id).get()
+          .then(async (result)=>{
+            if (!result.empty) {
+              result.docs.forEach(async (doc)=> {
+                await snap.ref.collection("simplePosts").doc(doc.id).delete();
+              });
+            }
+          })
+      ;
       return 0;
     });
 

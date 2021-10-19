@@ -8,7 +8,7 @@ admin.initializeApp();
 // // https://firebase.google.com/docs/functions/typescript
 // ユーザーの投稿があった際に他のドキュメントにコピーを作成する関数
 // users/{documentId}/simplePosts, allPosts, tagsに書き込む
-exports.makeSimplePosts = functions.firestore
+exports.makeSimplePosts = functions.region("asia-northeast1").firestore
     .document("/api/v1/users/{userId}/posts/{postId}")
     .onCreate(async (snap, context) => {
     var _a;
@@ -30,7 +30,7 @@ exports.makeSimplePosts = functions.firestore
     await snap.ref.collection("simplePosts").add(simplePost);
     return 0;
 });
-exports.deleteSimplePosts = functions.firestore
+exports.deleteSimplePosts = functions.region("asia-northeast1").firestore
     .document("/api/v1/users/{userId}/posts/{postId}")
     .onDelete(async (snap, context) => {
     var _a;
@@ -44,7 +44,15 @@ exports.deleteSimplePosts = functions.firestore
             });
         }
     }));
-    // await snap.ref.collection("simplePosts").add(simplePost);
+    await snap.ref.collection("simplePosts")
+        .where("postId", "==", snap.id).get()
+        .then(async (result) => {
+        if (!result.empty) {
+            result.docs.forEach(async (doc) => {
+                await snap.ref.collection("simplePosts").doc(doc.id).delete();
+            });
+        }
+    });
     return 0;
 });
 //# sourceMappingURL=index.js.map
