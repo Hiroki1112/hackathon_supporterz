@@ -19,51 +19,55 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: AppTheme.background,
         appBar: myAppBar(context),
-        body: LayoutBuilder(builder: (context, snapshot) {
-          if (Config.deviceWidth(context) > breakPoint) {
-            return Center(
-              //padding: const EdgeInsets.all(15),
-              child: ListView(
-                // 無駄な読み込みを減らすためにキャッシュ領域を広げる
-                cacheExtent: 250.0 * 2.0,
-                children: const <Widget>[
-                  Text(
-                    'trend',
-                    style: Config.h1,
+        body: SingleChildScrollView(
+          child: LayoutBuilder(builder: (context, snapshot) {
+            if (Config.deviceWidth(context) > breakPoint) {
+              return Center(
+                //padding: const EdgeInsets.all(15),
+                child: Container(
+                  width: 990,
+                  decoration: BoxDecoration(color: AppTheme.white),
+                  child: Column(
+                    children: [
+                      Text(
+                        'trend',
+                        style: Config.h1,
+                      ),
+                      TrendList(),
+                      //_rignhtTextButton(() {}, context, 'トレンドを全て見る>'),
+                      Text(
+                        'idea',
+                        style: Config.h1,
+                      ),
+                      // 無駄な読み込みを減らすためにキャッシュ領域を広げる
+                      //cacheExtent: 250.0 * 2.0
+                    ],
                   ),
-                  TrendList(),
-                  //_rignhtTextButton(() {}, context, 'トレンドを全て見る>'),
-                  Text(
-                    'idea',
-                    style: Config.h1,
-                  ),
-                  //_rignhtTextButton(() {}, context, 'アイデアを全て見る>'),
-                ],
-              ),
-            );
-          } else {
-            return Center(
-              //padding: const EdgeInsets.all(15),
-              child: ListView(
-                // 無駄な読み込みを減らすためにキャッシュ領域を広げる
-                cacheExtent: 250.0 * 2.0,
-                children: const <Widget>[
-                  Text(
-                    'trend',
-                    style: Config.h1,
-                  ),
-                  TrendList(),
-                  //_rignhtTextButton(() {}, context, 'トレンドを全て見る>'),
-                  Text(
-                    'idea',
-                    style: Config.h1,
-                  ),
-                  //_rignhtTextButton(() {}, context, 'アイデアを全て見る>'),
-                ],
-              ),
-            );
-          }
-        }),
+                ),
+              );
+            } else {
+              return Center(
+                //padding: const EdgeInsets.all(15),
+                child: Column(
+                  children: [
+                    Text(
+                      'trend',
+                      style: Config.h1,
+                    ),
+                    TrendList(),
+                    //_rignhtTextButton(() {}, context, 'トレンドを全て見る>'),
+                    Text(
+                      'idea',
+                      style: Config.h1,
+                    ),
+                    // 無駄な読み込みを減らすためにキャッシュ領域を広げる
+                    //cacheExtent: 250.0 * 2.0
+                  ],
+                ),
+              );
+            }
+          }),
+        ),
       ),
     );
   }
