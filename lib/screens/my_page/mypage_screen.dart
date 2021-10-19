@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/screens/404/not_found.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile/user_profile.dart';
+import 'package:hackathon_supporterz/util/config.dart';
+import 'package:hackathon_supporterz/util/constants.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
 
 /// URLで渡された文字列をuidとしてfirebaseで検索する
@@ -27,16 +29,36 @@ class _MyPageScreenState extends State<MyPageScreen> {
     }
     return Scaffold(
       appBar: myAppBar(context),
-      body: ListView(
-        // 無駄な読み込みを減らすためにキャッシュ領域を広げる
-        cacheExtent: 250.0 * 3.0,
-        children: [
-          UserProfile(userId: widget.userId ?? ''),
-          const Divider(
-            thickness: 3,
-          ),
-        ],
-      ),
+      body: LayoutBuilder(builder: (context, snapshot) {
+        if (Config.deviceWidth(context) > breakPoint) {
+          return Center(
+            child: Container(
+              width: 650,
+              child: ListView(
+                // 無駄な読み込みを減らすためにキャッシュ領域を広げる
+                cacheExtent: 250.0 * 3.0,
+                children: [
+                  UserProfile(userId: widget.userId ?? ''),
+                  const Divider(
+                    thickness: 3,
+                  ),
+                ],
+              ),
+            ),
+          );
+        } else {
+          return ListView(
+            // 無駄な読み込みを減らすためにキャッシュ領域を広げる
+            cacheExtent: 250.0 * 3.0,
+            children: [
+              UserProfile(userId: widget.userId ?? ''),
+              const Divider(
+                thickness: 3,
+              ),
+            ],
+          );
+        }
+      }),
     );
   }
 }

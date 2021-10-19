@@ -45,6 +45,7 @@ class _PostScreenState extends State<PostScreen> {
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User?>();
     //double margineHorizontalValue = 15.0;
+    bool widrhOver = false;
     return Scaffold(
       appBar: myAppBar(context, title: 'Post Page'),
       backgroundColor: AppTheme.background,
