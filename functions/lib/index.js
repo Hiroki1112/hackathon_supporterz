@@ -11,7 +11,7 @@ admin.initializeApp();
 exports.makeSimplePosts = functions.region("asia-northeast1").firestore
     .document("/api/v1/users/{userId}/posts/{postId}")
     .onCreate(async (snap, context) => {
-    var _a;
+    var _a, _b, _c;
     const v1CollectionRef = (_a = snap.ref.parent.parent) === null || _a === void 0 ? void 0 : _a.parent.parent;
     // 必要情報のみを取得
     const simplePost = {
@@ -23,11 +23,10 @@ exports.makeSimplePosts = functions.region("asia-northeast1").firestore
         goodCount: snap.data().goodCount,
         timeCreated: snap.data().timeCreated,
         timeUpdated: snap.data().timeUpdated,
-        docId: snap.ref.id,
     };
     // 三箇所に書き込む
     await (v1CollectionRef === null || v1CollectionRef === void 0 ? void 0 : v1CollectionRef.collection("allPosts").add(simplePost));
-    await snap.ref.collection("simplePosts").add(simplePost);
+    await ((_c = (_b = snap.ref.parent) === null || _b === void 0 ? void 0 : _b.parent) === null || _c === void 0 ? void 0 : _c.collection("simplePosts").add(simplePost));
     return 0;
 });
 exports.deleteSimplePosts = functions.region("asia-northeast1").firestore

@@ -26,12 +26,11 @@ exports.makeSimplePosts = functions.region("asia-northeast1").firestore
         goodCount: snap.data().goodCount,
         timeCreated: snap.data().timeCreated,
         timeUpdated: snap.data().timeUpdated,
-        docId: snap.ref.id,
       };
 
       // 三箇所に書き込む
       await v1CollectionRef?.collection("allPosts").add(simplePost);
-      await snap.ref.collection("simplePosts").add(simplePost);
+      await snap.ref.parent?.parent?.collection("simplePosts").add(simplePost);
       return 0;
     });
 
