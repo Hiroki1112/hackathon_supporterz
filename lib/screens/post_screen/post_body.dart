@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/helper/firebase_helper.dart';
@@ -33,6 +32,7 @@ class _PostBodyState extends State<PostBody> {
       post: _post,
       child: ListView(
         children: [
+          const SizedBox(height: 10),
           const InputTitle(),
           const TagSetting(),
           const SizedBox(height: 10),
@@ -52,19 +52,19 @@ class _PostBodyState extends State<PostBody> {
                     // 自分のユーザーIDを取得する
                     var userInfo = await FirebaseHelper.getUserInfoByFirebaseId(
                         (firebaseUser?.uid ?? ''));
-                    print('1======================================');
+
                     if (userInfo.size == 0) {
                       //
                       await yesDialog(context, 'ERROR', 'ユーザー情報が存在しません');
                       return;
                     }
-                    print('2======================================');
+
                     MyUser _user = MyUser();
                     _user.fromJson(userInfo.docs.first.data());
                     // firebaseへ投稿する
-                    print('3======================================');
+
                     await FirebaseHelper.save2firebase(_post, _user.userId);
-                    print('4======================================');
+
                     await yesDialog(context, '確認', '投稿しました！');
                     Navigator.pop(context);
                   }

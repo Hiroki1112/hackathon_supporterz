@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:hackathon_supporterz/helper/firebase_helper.dart';
 import 'package:hackathon_supporterz/helper/post_helper.dart';
+import 'package:hackathon_supporterz/screens/post_screen/components/popup/add_tag.dart';
 import 'package:hackathon_supporterz/screens/post_screen/components/post_inherited.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 
@@ -19,21 +21,24 @@ class _TagSettingState extends State<TagSetting> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Text(
-          '制作物に関係するタグを選択してください。(5個以内)',
-          maxLines: 2,
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              '制作物に関係するタグを選択してください。(5個以内)',
+              maxLines: 2,
+            ),
+            TextButton(
+              onPressed: () async {
+                await addTagPopup(context);
+              },
+              child: const Text('（タグを追加する）'),
+            ),
+          ],
         ),
         TypeAheadField(
           suggestionsCallback: (String pattern) {
-            // タグ名と画像を取得する
-            List<Tag> output = [];
-
-            targetList.map((t) {
-              if (t.tag.contains(pattern)) {
-                return output.add(t);
-              }
-            }).toList();
-            return PostHelper.getSuggestion(pattern);
+            return FirebaseHelper.getTagListByKeyword(pattern);
           },
           itemBuilder: (BuildContext context, Tag suggestion) {
             return ListTile(
