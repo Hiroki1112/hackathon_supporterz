@@ -4,7 +4,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/provider/auth_provider.dart';
-import 'package:hackathon_supporterz/routes.dart';
 import 'package:hackathon_supporterz/screens/404/not_found.dart';
 import 'package:hackathon_supporterz/screens/my_page/mypage_screen.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
@@ -72,8 +71,6 @@ class MyApp extends StatelessWidget {
           if (paths.length > 1) {
             queryParameters = Uri.splitQueryString(paths[1]);
           }
-          print(path);
-          print(path.contains('/post'));
 
           if (path == HomeScreen.routeName) {
             return MaterialPageRoute(
@@ -184,7 +181,6 @@ class MyApp extends StatelessWidget {
 
           /// /:uidの場合にマイページに遷移する
           String uid = path.split('/')[1];
-          print(path.split('/'));
           if (path.split('/').length < 3) {
             return MaterialPageRoute(
               settings: setting,

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hackathon_supporterz/helper/app_helper.dart';
 import 'package:hackathon_supporterz/helper/post_helper.dart';
+import 'package:hackathon_supporterz/models/post.dart';
 import 'package:hackathon_supporterz/models/simple_post.dart';
 import 'package:hackathon_supporterz/models/user.dart';
 
@@ -117,7 +118,8 @@ class FirebaseHelper {
   }
 
   /// DBから引数で渡されたuidを持つ情報を取得
-  static Future<dynamic> getUserInfoByFirebaseId(String firebaseId) async {
+  static Future<QuerySnapshot<Map<String, dynamic>>> getUserInfoByFirebaseId(
+      String firebaseId) async {
     var db = FirebaseFirestore.instance;
     var response = await db
         .collection('api')
@@ -126,13 +128,7 @@ class FirebaseHelper {
         .where('firebaseId', isEqualTo: firebaseId)
         .get();
 
-    if (response.size > 0) {
-      MyUser _myUser = MyUser();
-      _myUser.fromJson(response.docs.first.data());
-      return _myUser;
-    }
-
-    return ERROR_CODE.userNotFound;
+    return response;
   }
 
   /// 指定したユーザーID下のpostsコレクションを取得する
@@ -155,6 +151,22 @@ class FirebaseHelper {
     }
 
     return posts;
+  }
+
+  /// 引数で受け取ったPostクラス内の情報を保存する関数
+  static Future<void> save2firebase(Post post, String userId) async {
+    // firebaseへ投稿する
+    var db = FirebaseFirestore.instance;
+    await db
+        .collection('api')
+        .doc('v1')
+        .collection('users')
+        .doc(userId)
+        .collection('posts')
+        .doc(post.postId)
+        .set(
+          post.toJson(userId),
+        );
   }
 
   ///  タグ追加時に使用する

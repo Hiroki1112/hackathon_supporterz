@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/helper/post_helper.dart';
 import 'package:hackathon_supporterz/models/post.dart';
 import 'package:hackathon_supporterz/models/simple_post.dart';
-import 'package:hackathon_supporterz/screens/post_screen/card/text_field_card.dart';
-import 'package:hackathon_supporterz/screens/post_screen/card/preview_card.dart';
-import 'package:hackathon_supporterz/screens/post_screen/popup/url_embedded.dart';
-import 'package:hackathon_supporterz/screens/post_screen/tag_setting/tag_setting.dart';
+import 'package:hackathon_supporterz/screens/post_screen/components/card/text_field_card.dart';
+import 'package:hackathon_supporterz/screens/post_screen/components/card/preview_card.dart';
+import 'package:hackathon_supporterz/screens/post_screen/components/popup/url_embedded.dart';
+import 'package:hackathon_supporterz/screens/post_screen/components/tag_setting.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
@@ -96,13 +96,7 @@ class _PostUpdateScreenState extends State<PostUpdateScreen> {
                         },
                       ),
                       const SizedBox(height: 10),
-                      TagSetting(
-                        onChanged: (List<Tag> newTag) {
-                          setState(() {
-                            tags = newTag;
-                          });
-                        },
-                      ),
+                      TagSetting(),
                       const SizedBox(height: 10),
                       _sectionTitle(
                         '# 企画・構想',

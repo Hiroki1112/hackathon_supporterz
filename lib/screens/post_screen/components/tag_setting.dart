@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:hackathon_supporterz/helper/post_helper.dart';
+import 'package:hackathon_supporterz/screens/post_screen/components/post_inherited.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 
 class TagSetting extends StatefulWidget {
-  const TagSetting({Key? key, required this.onChanged}) : super(key: key);
-  final Function onChanged;
+  const TagSetting({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _TagSettingState createState() => _TagSettingState();
@@ -45,7 +47,8 @@ class _TagSettingState extends State<TagSetting> {
             if (tags.length < 5 && !tags.contains(suggestion)) {
               setState(() {
                 tags.add(suggestion);
-                widget.onChanged(tags);
+                List<String> tag = tags.map((t) => t.tag).toList();
+                PostInherited.of(context, listen: false)!.post.setTechTag = tag;
               });
             }
           },
@@ -59,9 +62,9 @@ class _TagSettingState extends State<TagSetting> {
               tag: tags[index],
               deleteFunc: () {
                 tags.removeAt(index);
-                setState(() {
-                  widget.onChanged(tags);
-                });
+                List<String> tag = tags.map((t) => t.tag).toList();
+                PostInherited.of(context, listen: false)!.post.setTechTag = tag;
+                setState(() {});
               },
             ),
           ),
