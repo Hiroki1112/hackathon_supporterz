@@ -89,7 +89,7 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(
               settings: setting,
               builder: (BuildContext context) {
-                return ProfileEdit();
+                return const ProfileEdit();
               },
             );
           }

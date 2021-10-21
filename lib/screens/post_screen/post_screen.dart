@@ -148,16 +148,16 @@ class _PostScreenState extends State<PostScreen> {
 
                               // firebaseへ投稿する
                               var db = FirebaseFirestore.instance;
-                              await db
-                                  .collection('api')
-                                  .doc('v1')
-                                  .collection('users')
-                                  .doc(userInfo.userId)
-                                  .collection('posts')
-                                  .doc(_post.postId)
-                                  .set(
-                                    _post.toJson(userInfo.userId),
-                                  );
+                              // await db
+                              //     .collection('api')
+                              //     .doc('v1')
+                              //     .collection('users')
+                              //     .doc(userInfo.userId)
+                              //     .collection('posts')
+                              //     .doc(_post.postId)
+                              //     .set(
+                              //       _post.toJson(userInfo.userId),
+                              //     );
 
                               await yesDialog(context, '確認', '投稿しました！');
                               Navigator.pop(context);
@@ -275,16 +275,16 @@ class _PostScreenState extends State<PostScreen> {
 
                             // firebaseへ投稿する
                             var db = FirebaseFirestore.instance;
-                            await db
-                                .collection('api')
-                                .doc('v1')
-                                .collection('users')
-                                .doc(userInfo.userId)
-                                .collection('posts')
-                                .doc(_post.postId)
-                                .set(
-                                  _post.toJson(userInfo.userId),
-                                );
+                            // await db
+                            //     .collection('api')
+                            //     .doc('v1')
+                            //     .collection('users')
+                            //     .doc(userInfo.userId)
+                            //     .collection('posts')
+                            //     .doc(_post.postId)
+                            //     .set(
+                            //       _post.toJson(userInfo.userId),
+                            //     );
 
                             await yesDialog(context, '確認', '投稿しました！');
                             Navigator.pop(context);

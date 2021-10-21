@@ -44,7 +44,7 @@ class MyUser {
   }
 
   set setPictureURL(String pictureURL) {
-    if ((isURL(pictureURL)) && (pictureURL.length <= 500)) {
+    if ((isURL(pictureURL)) && (pictureURL.length <= 1000)) {
       _pictureURL = pictureURL;
     }
   }
