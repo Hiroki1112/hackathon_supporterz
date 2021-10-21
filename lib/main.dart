@@ -83,12 +83,10 @@ class MyApp extends StatelessWidget {
 
           /// /settings/profile
           if (path == ProfileEdit.routeName) {
-            final args = setting.arguments as MyUser;
-
             return MaterialPageRoute(
               settings: setting,
               builder: (BuildContext context) {
-                return ProfileEdit(myUser: args);
+                return const ProfileEdit();
               },
             );
           }

@@ -127,7 +127,7 @@ class FirebaseHelper {
         .collection('users')
         .where('firebaseId', isEqualTo: firebaseId)
         .get();
-
+    print(response.docs.first);
     return response;
   }
 

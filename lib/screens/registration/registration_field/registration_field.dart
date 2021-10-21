@@ -5,11 +5,13 @@ class RegistrationField extends StatefulWidget {
     Key? key,
     required this.headerText,
     required this.onChanged,
+    this.validator,
     this.hintText = '',
   }) : super(key: key);
   final String headerText;
   final String? hintText;
   final Function onChanged;
+  final Function(String?)? validator;
 
   @override
   _RegistrationFieldState createState() => _RegistrationFieldState();
@@ -37,6 +39,7 @@ class _RegistrationFieldState extends State<RegistrationField> {
             onChanged: (val) {
               widget.onChanged(val);
             },
+            validator: (String? val) => widget.validator!(val),
           ),
         ),
       ],

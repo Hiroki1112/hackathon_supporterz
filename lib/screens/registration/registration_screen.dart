@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/helper/firebase_helper.dart';
 import 'package:hackathon_supporterz/models/user.dart';
@@ -9,6 +10,7 @@ import 'package:hackathon_supporterz/util/constants.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
 // ignore: implementation_imports
 import 'package:provider/src/provider.dart';
+import 'package:validators/validators.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static String routeName = '/registration';
@@ -48,36 +50,64 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             newUser.setUserId = newVal;
                           });
                         },
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return "入力してください";
+                          } else if (!isAlphanumeric(val)) {
+                            return "アルファベットで入力してください";
+                          }
+                        },
                         hintText: 'ユーザーIDを入力してください',
                       ),
                       RegistrationField(
-                          headerText: 'ユーザー名',
-                          hintText: 'ユーザー名を入力してください',
-                          onChanged: (String newVal) {
-                            setState(() {
-                              newUser.setUserName = newVal;
-                            });
-                          }),
+                        headerText: 'ユーザー名',
+                        hintText: 'ユーザー名を入力してください',
+                        onChanged: (String newVal) {
+                          setState(() {
+                            newUser.setUserName = newVal;
+                          });
+                        },
+                        validator: (val) {
+                          if (val!.isEmpty) {
+                            return "入力してください";
+                          } else if (!isAlphanumeric(val)) {
+                            return "アルファベットで入力してください";
+                          }
+                        },
+                      ),
                       RegistrationField(
-                          headerText: 'Twitter ID',
-                          hintText: '@を抜いた TwitterIDを入力してください',
-                          onChanged: (String newVal) {
-                            setState(() {
-                              newUser.setTwitterLink = newVal;
-                            });
-                          }),
+                        headerText: 'Twitter ID',
+                        hintText: '@を抜いた TwitterIDを入力してください',
+                        onChanged: (String newVal) {
+                          setState(() {
+                            newUser.setTwitterLink = newVal;
+                          });
+                        },
+                        validator: (val) {
+                          if (!isAlphanumeric(val!)) {
+                            return "アルファベットで入力してください";
+                          }
+                        },
+                      ),
                       RegistrationField(
-                          headerText: 'Github ID',
-                          hintText: 'Github IDを入力してください',
-                          onChanged: (String newVal) {
-                            setState(() {
-                              newUser.setGithubAccount = newVal;
-                            });
-                          }),
+                        headerText: 'Github ID',
+                        hintText: 'Github IDを入力してください',
+                        onChanged: (String newVal) {
+                          setState(() {
+                            newUser.setGithubAccount = newVal;
+                          });
+                        },
+                        validator: (val) {
+                          if (!isAlphanumeric(val!)) {
+                            return "アルファベットで入力してください";
+                          }
+                        },
+                      ),
                       ElevatedButton(
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             newUser.setFirebaseId = firebaseUser!.uid;
+                            newUser.setPictureURL = firebaseUser.photoURL ?? '';
                             // 書き込み処理
                             await FirebaseHelper.userRegistration(newUser);
                             // /:uidに遷移する
@@ -142,6 +172,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             newUser.setFirebaseId = firebaseUser!.uid;
+
+                            newUser.setPictureURL = firebaseUser.photoURL ?? '';
                             // 書き込み処理
                             await FirebaseHelper.userRegistration(newUser);
                             // /:uidに遷移する

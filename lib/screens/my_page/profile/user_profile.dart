@@ -46,7 +46,7 @@ class _UserProfileState extends State<UserProfile> {
           MyUser _user = MyUser();
           _user.fromJson(snapshot.data!.data() ?? _user.toJson());
           if (firebaseUser != null) {
-            if (firebaseUser.uid == _user.userId) {
+            if (firebaseUser.uid == _user.firebaseId) {
               editButtonPresence = true;
             }
           }
@@ -54,7 +54,7 @@ class _UserProfileState extends State<UserProfile> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               MypageTop(
-                pictureURL: '',
+                pictureURL: _user.pictureURL,
                 username: _user.useName,
               ),
               Container(
@@ -95,10 +95,9 @@ class _UserProfileState extends State<UserProfile> {
                                 await Navigator.pushNamed(
                                   context,
                                   ProfileEdit.routeName,
-                                  arguments: snapshot.data,
                                 );
                                 //await fetchData(firebaseUser);
-                                setState(() {});
+                                //setState(() {});
                               },
                               child: const Text(
                                 'プロフィール編集',
