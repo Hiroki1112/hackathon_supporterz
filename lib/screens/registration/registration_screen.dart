@@ -84,9 +84,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           });
                         },
                         validator: (val) {
-                          if (val!.isEmpty) {
-                            return "入力してください";
-                          } else if (!isAlphanumeric(val)) {
+                          if (!isAlphanumeric(val!)) {
                             return "アルファベットで入力してください";
                           }
                         },
@@ -100,9 +98,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           });
                         },
                         validator: (val) {
-                          if (val!.isEmpty) {
-                            return "入力してください";
-                          } else if (!isAlphanumeric(val)) {
+                          if (!isAlphanumeric(val!)) {
                             return "アルファベットで入力してください";
                           }
                         },

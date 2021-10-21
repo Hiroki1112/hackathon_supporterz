@@ -12,6 +12,7 @@ import 'package:hackathon_supporterz/util/constants.dart';
 // ignore: implementation_imports
 import 'package:provider/src/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:validators/validators.dart';
 
 class ProfileEdit extends StatefulWidget {
   static String routeName = '/settings/profile';
@@ -130,6 +131,13 @@ class _ProfileEditState extends State<ProfileEdit> {
                           initialValue: _myuser.useName,
                           onChanged: (val) {
                             _myuser.setUserName = val;
+                          },
+                          validator: (val) {
+                            if (val!.isEmpty) {
+                              return '入力してください';
+                            } else if (!isAlphanumeric(val)) {
+                              return 'アルファベットで入力してください';
+                            }
                           },
                         ),
                       ),
