@@ -37,6 +37,7 @@ class _UserPostsState extends State<UserPosts> {
               }
 
               if (snapshot.connectionState == ConnectionState.done) {
+                print(snapshot.data!.length);
                 return Column(
                   children: snapshot.data!
                       .map((post) => PostTile(simplePost: post))

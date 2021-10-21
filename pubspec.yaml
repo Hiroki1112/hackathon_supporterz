@@ -59,6 +59,9 @@ dependencies:
   flutter_neat_and_clean_calendar: ^0.2.0+8
 
   date_format: ^2.0.4
+
+  webviewx: ^0.2.1
+  flutter_markdown: ^0.6.8
   # google_fonts:
   #   git:
   #     https://github.com/Hiroki1112/google-fonts-flutter

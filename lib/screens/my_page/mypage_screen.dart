@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/screens/404/not_found.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile/user_profile.dart';
+import 'package:hackathon_supporterz/screens/my_page/user_posts/user_posts.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/util/constants.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
@@ -42,6 +43,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
                   const Divider(
                     thickness: 3,
                   ),
+                  UserPosts(uid: widget.userId ?? ''),
                 ],
               ),
             ),
@@ -55,6 +57,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
               const Divider(
                 thickness: 3,
               ),
+              UserPosts(uid: widget.userId ?? ''),
             ],
           );
         }

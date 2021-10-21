@@ -142,14 +142,13 @@ class FirebaseHelper {
         .doc(uid)
         .collection('simplePosts')
         .get();
-
+    print(response.docs.first.data());
+    print(response.metadata);
+    print(response.size);
     List<SimplePost> posts = [];
-    if (response.docs.isNotEmpty) {
-      response.docs.map((post) {
-        posts.add(SimplePost.fromJson(post.data()));
-      });
+    for (var p in response.docs) {
+      posts.add(SimplePost.fromJson(p.data()));
     }
-
     return posts;
   }
 
