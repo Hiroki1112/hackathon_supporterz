@@ -47,13 +47,29 @@ class _TagSettingState extends State<TagSetting> {
           itemBuilder: (BuildContext context, Tag suggestion) {
             return ListTile(
               leading: suggestion.url != ''
-                  ? Image.network(suggestion.url)
+                  ? Container(
+                      padding: const EdgeInsets.all(8.0),
+                      width: 50,
+                      height: 50,
+                      child: Image.network(
+                        suggestion.url,
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.fill,
+                      ),
+                    )
                   : const Icon(Icons.add),
               title: Text(suggestion.tag),
             );
           },
           onSuggestionSelected: (Tag suggestion) {
-            if (tags.length < 5 && !tags.contains(suggestion)) {
+            print(!tags.contains(suggestion));
+            for (var tag in tags) {
+              if (tag.tag == suggestion.tag) {
+                return;
+              }
+            }
+            if (tags.length < 5) {
               setState(() {
                 tags.add(suggestion);
                 List<String> tag = tags.map((t) => t.tag).toList();
@@ -119,8 +135,16 @@ class TagIcon extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 )
-              : Image.asset(
-                  tag.url,
+              : Container(
+                  padding: const EdgeInsets.all(10),
+                  width: 50,
+                  height: 50,
+                  child: Image.network(
+                    tag.url,
+                    width: 50,
+                    height: 50,
+                    fit: BoxFit.fill,
+                  ),
                 ),
           Text(tag.tag),
           IconButton(

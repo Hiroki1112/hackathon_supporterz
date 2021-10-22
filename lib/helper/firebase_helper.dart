@@ -78,7 +78,7 @@ class FirebaseHelper {
     // ignore: prefer_typing_uninitialized_variables
     Query<Map<String, dynamic>> query;
     if (keyword == '') {
-      query = db.collection('api').doc('v1').collection('tags').limit(9);
+      query = db.collection('api').doc('v1').collection('tags').limit(4);
     } else {
       List<String> keyword2gram = AppHelper.get2gram(keyword);
 
