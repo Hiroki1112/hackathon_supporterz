@@ -193,8 +193,12 @@ class FirebaseHelper {
     }
 
     // まずは既に同じタグが保存されていないか確認する
-    var result =
-        await db.collection('api').doc('v1').collection('tags').doc(tag).get();
+    var result = await db
+        .collection('api')
+        .doc('v1')
+        .collection('tags')
+        .doc(tag.toLowerCase())
+        .get();
 
     if (result.data() != null) {
       // 既にデータがある時には保存しない
@@ -211,7 +215,12 @@ class FirebaseHelper {
 
     json['url'] = downloadUrl;
     // 受け取った情報を保存する
-    await db.collection('api').doc('v1').collection('tags').doc(tag).set(json);
+    await db
+        .collection('api')
+        .doc('v1')
+        .collection('tags')
+        .doc(tag.toLowerCase())
+        .set(json);
     return CODE.success;
   }
 }

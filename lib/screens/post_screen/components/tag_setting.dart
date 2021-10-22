@@ -63,7 +63,8 @@ class _TagSettingState extends State<TagSetting> {
             );
           },
           onSuggestionSelected: (Tag suggestion) {
-            print(!tags.contains(suggestion));
+            // 同じタグは追加できないようにする。
+            // .contains()ではうまく判定できなかった。
             for (var tag in tags) {
               if (tag.tag == suggestion.tag) {
                 return;
