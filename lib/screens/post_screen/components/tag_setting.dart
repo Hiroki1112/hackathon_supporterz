@@ -5,6 +5,8 @@ import 'package:hackathon_supporterz/models/tag.dart';
 import 'package:hackathon_supporterz/screens/post_screen/components/popup/add_tag.dart';
 import 'package:hackathon_supporterz/screens/post_screen/components/post_inherited.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
+import 'package:hackathon_supporterz/widgets/dialog/dialog.dart';
+import 'package:hackathon_supporterz/widgets/dialog/success.dart';
 
 class TagSetting extends StatefulWidget {
   const TagSetting({
@@ -34,7 +36,13 @@ class _TagSettingState extends State<TagSetting> {
                 if (data == null) {
                   return;
                 }
-                await FirebaseHelper.addNewTags(data['image'], data['tag']);
+                var result =
+                    await FirebaseHelper.addNewTags(data['image'], data['tag']);
+                if (result == CODE.tagAlreadyExists) {
+                  await yesDialog(context, '通知', 'タグは既に存在しています。');
+                } else if (result == CODE.success) {
+                  await successDialog(context, '通知', 'タグの登録に成功しました！');
+                }
               },
               child: const Text('（タグを追加する）'),
             ),
