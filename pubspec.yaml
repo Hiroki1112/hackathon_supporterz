@@ -55,6 +55,8 @@ dependencies:
   flutter_typeahead: ^3.2.1
   font_awesome_flutter: any
   async: any
+  image_picker_web: any
+  universal_platform: ^1.0.0+1
 
   flutter_neat_and_clean_calendar: ^0.2.0+8
 

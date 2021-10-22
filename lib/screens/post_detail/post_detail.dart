@@ -44,8 +44,8 @@ class _PostDetailState extends State<PostDetail> {
                     snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
                 //Post _post = Post();
-                if (snapshot.data == ERROR_CODE.postNotFound) {
-                  return NotFoundScreen();
+                if (snapshot.data == CODE.postNotFound) {
+                  return const NotFoundScreen();
                 }
                 _post = Post();
                 _post.fromJson(snapshot.data!.data() ?? {});

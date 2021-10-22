@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:hackathon_supporterz/helper/firebase_helper.dart';
-import 'package:hackathon_supporterz/helper/post_helper.dart';
+import 'package:hackathon_supporterz/models/tag.dart';
 import 'package:hackathon_supporterz/screens/post_screen/components/popup/add_tag.dart';
 import 'package:hackathon_supporterz/screens/post_screen/components/post_inherited.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
@@ -30,7 +30,11 @@ class _TagSettingState extends State<TagSetting> {
             ),
             TextButton(
               onPressed: () async {
-                await addTagPopup(context);
+                Map? data = await addTagPopup(context);
+                if (data == null) {
+                  return;
+                }
+                await FirebaseHelper.addNewTags(data['image'], data['tag']);
               },
               child: const Text('（タグを追加する）'),
             ),

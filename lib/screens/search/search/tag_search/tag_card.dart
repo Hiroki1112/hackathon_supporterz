@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/helper/app_helper.dart';
-import 'package:hackathon_supporterz/helper/post_helper.dart';
+import 'package:hackathon_supporterz/models/tag.dart';
 import 'package:hackathon_supporterz/screens/search/search_result/search_result_tag.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 

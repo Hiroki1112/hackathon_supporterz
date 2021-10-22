@@ -1,3 +1,5 @@
+import 'package:hackathon_supporterz/models/tag.dart';
+
 class PostHelper {
   /// 渡された単語に近い単語群を返すメソッド
   static List<Tag> getSuggestion(String keyword) {
@@ -24,15 +26,6 @@ class PostHelper {
     }
     return _result;
   }
-}
-
-class Tag {
-  String tag, url;
-
-  Tag({
-    required this.tag,
-    required this.url,
-  });
 }
 
 List<Tag> targetList = [
