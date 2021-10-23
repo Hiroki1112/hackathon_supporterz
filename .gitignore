@@ -56,3 +56,6 @@ typings/
 
 # Node.js dependency directory
 node_modules/
+
+# firebase files
+.firebase/
