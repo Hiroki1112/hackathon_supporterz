@@ -71,12 +71,13 @@ class _CalenderScreenState extends State<CalenderScreen> {
             const SizedBox(
               height: 30,
             ),
+            /*
             TextButton(
               onPressed: () async {
                 Navigator.pushNamed(context, EventRegister.routeName);
               },
               child: const Text('event登録'),
-            ),
+            ),*/
             FutureBuilder(
               future: memo.runOnce(() async => await fetchEventInfo()),
               builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
