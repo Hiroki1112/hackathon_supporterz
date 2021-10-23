@@ -38,4 +38,4 @@ List<String> allTechTag = [
 ];
 
 const double breakPoint = 720;
-const double webWidth = 650;
+const double webWidth = 750;

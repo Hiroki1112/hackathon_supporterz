@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 
 class TextFieldCard extends StatelessWidget {
@@ -27,29 +28,35 @@ class TextFieldCard extends StatelessWidget {
         ],
         color: AppTheme.white,
       ),
-      child: TextFormField(
-        maxLines: 10,
-        controller: controller,
-        //initialValue: bodyText,
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: AppTheme.white,
-          hintText: hintText ?? '',
-          contentPadding: const EdgeInsets.all(10),
-          border: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(10.0),
-          ),
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(
+          minHeight: 250, // 10行分
         ),
-        onChanged: (val) {
-          onChanged(val);
-        },
-        validator: (String? val) {
-          // ここでのバリデーションは空でないことを確認するだけ
-          if (val!.isEmpty) {
-            return '内容を入力してください。';
-          }
-        },
+        child: TextFormField(
+          // textFieldを可変高にするには以下の二行の設定が必要
+          maxLines: null,
+          keyboardType: TextInputType.multiline,
+          controller: controller,
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: AppTheme.white,
+            hintText: hintText ?? '',
+            contentPadding: const EdgeInsets.all(10),
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+          onChanged: (val) {
+            onChanged(val);
+          },
+          validator: (String? val) {
+            // ここでのバリデーションは空でないことを確認するだけ
+            if (val!.isEmpty) {
+              return '内容を入力してください。';
+            }
+          },
+        ),
       ),
     );
   }

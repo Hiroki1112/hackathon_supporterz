@@ -32,39 +32,40 @@ class _PreviewCardState extends State<PreviewCard> {
           ),
         ],
       ),
-      child: Container(
-        // TextFormFirldは一行あたり25らしい
-        height: 250,
-        padding: const EdgeInsets.all(10),
-        child: Stack(
-          children: [
-            MarkdownBody(
-              data: widget.rawText,
-              selectable: true,
-              onTapLink: (val, val2, val3) {
-                launch(val2 ?? '');
-              },
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
-                  decoration: BoxDecoration(
-                    color: AppTheme.purple.withOpacity(0.9),
-                    borderRadius: BorderRadiusDirectional.circular(5),
-                  ),
-                  child: Text(
-                    'Preview',
-                    style: TextStyle(
-                      color: AppTheme.white,
+      child: SingleChildScrollView(
+        child: Container(
+          // TextFormFirldは一行あたり25らしい
+          padding: const EdgeInsets.all(10),
+          child: Stack(
+            children: [
+              MarkdownBody(
+                data: widget.rawText,
+                selectable: true,
+                onTapLink: (val, val2, val3) {
+                  launch(val2 ?? '');
+                },
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                    decoration: BoxDecoration(
+                      color: AppTheme.purple.withOpacity(0.9),
+                      borderRadius: BorderRadiusDirectional.circular(5),
                     ),
-                  ),
-                )
-              ],
-            )
-          ],
+                    child: Text(
+                      'Preview',
+                      style: TextStyle(
+                        color: AppTheme.white,
+                      ),
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
