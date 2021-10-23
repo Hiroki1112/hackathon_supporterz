@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neat_and_clean_calendar/flutter_neat_and_clean_calendar.dart';
+import 'package:hackathon_supporterz/helper/firebase_helper.dart';
 import 'package:hackathon_supporterz/models/event.dart';
-import 'package:hackathon_supporterz/models/simple_event.dart';
+import 'package:hackathon_supporterz/screens/calender/event_register_screen/event_register.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
 import 'package:hackathon_supporterz/widgets/tiles/event_tile.dart';
 import 'package:async/async.dart';
@@ -43,20 +44,17 @@ class _CalenderScreenState extends State<CalenderScreen> {
     ],
   };
 
-  Event _event = Event();
-  List<SimpleEvent> events = <SimpleEvent>[];
+  List<Event>? events = <Event>[];
   AsyncMemoizer<void> memo = AsyncMemoizer();
 
-  Future<void> fetchEventInfo() async {
-    var db = FirebaseFirestore.instance;
-    QuerySnapshot<Map<String, dynamic>> event =
-        await db.collection('api').doc('v1').collection('event').get();
+  Future<List<Event>?> fetchEventInfo() async {
+    var getEvents = await FirebaseHelper.getEventInfo();
 
-    events = event.docs.map((e) {
-      SimpleEvent _event = SimpleEvent.fromJson(e.data());
-      return _event;
-    }).toList();
-    return;
+    if (getEvents == null) {
+      return null;
+    }
+
+    events = getEvents.docs.map((e) => Event.fromJson(e.data())).toList();
   }
 
   @override
@@ -69,30 +67,11 @@ class _CalenderScreenState extends State<CalenderScreen> {
             const SizedBox(
               height: 30,
             ),
-            Calendar(
-              startOnMonday: true,
-              weekDays: const ['月', '火', '水', '木', '金', '土', '日'],
-              events: _calenderEvents,
-              isExpandable: true,
-              eventDoneColor: Colors.green,
-              selectedColor: Colors.pink,
-              todayColor: Colors.blue,
-              // dayBuilder: (BuildContext context, DateTime day) {
-              //   return new Text("!");
-              // },
-              eventListBuilder: (BuildContext context,
-                  List<NeatCleanCalendarEvent> _selectesdEvents) {
-                return const Text('');
+            TextButton(
+              onPressed: () async {
+                Navigator.pushNamed(context, EventRegister.routeName);
               },
-              eventColor: Colors.grey,
-              locale: 'ja_JP',
-              todayButtonText: '今日',
-              //expandableDateFormat: 'EEEE, dd. MMMM yyyy',
-              expandableDateFormat: 'yyyy年 MMMM dd EEEE',
-              dayOfWeekStyle: const TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 11),
+              child: const Text('event登録'),
             ),
             FutureBuilder(
               future: memo.runOnce(() async => await fetchEventInfo()),
@@ -100,17 +79,20 @@ class _CalenderScreenState extends State<CalenderScreen> {
                 if (snapshot.hasError) {
                   return const Text('データが上手く取得されませんでした');
                 }
-                int eventLength = events.length;
+                int eventLength = events!.length;
 
                 if (snapshot.connectionState == ConnectionState.done) {
+                  if (events == null) {
+                    return Container();
+                  }
                   return Column(
                     children: List.generate(
-                      events.length,
+                      events!.length,
                       (index) {
                         return Column(
                           children: [
                             EventTile(
-                              simpleEvent: events[index],
+                              event: events![index],
                             ),
                             //Text('a'),
                           ],

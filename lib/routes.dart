@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hackathon_supporterz/screens/calender/calender_screen.dart';
 import 'package:hackathon_supporterz/screens/home/home_screen.dart';
 import 'package:hackathon_supporterz/screens/post_screen/post_screen.dart';
 import 'package:hackathon_supporterz/screens/registration/registration_screen.dart';
@@ -15,4 +16,5 @@ final Map<String, WidgetBuilder> routes = {
   HomeScreen.routeName: (context) => const HomeScreen(),
   PostScreen.routeName: (context) => const PostScreen(),
   RegistrationScreen.routeName: (context) => const RegistrationScreen(),
+  CalenderScreen.routeName: (context) => const CalenderScreen(),
 };

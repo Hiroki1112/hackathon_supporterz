@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/helper/firebase_helper.dart';
 import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/screens/404/not_found.dart';
+import 'package:hackathon_supporterz/screens/my_page/mypage_screen.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile/mypage_top.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
 import 'package:hackathon_supporterz/screens/my_page/sns_buttons.dart';
@@ -95,7 +96,12 @@ class _UserProfileState extends State<UserProfile> {
                                 await Navigator.pushNamed(
                                   context,
                                   ProfileEdit.routeName,
-                                );
+                                ).then((value) {
+                                  //value!.reload();
+                                });
+
+                                Navigator.pushReplacementNamed(
+                                    context, '/' + widget.userId);
                                 //await fetchData(firebaseUser);
                                 //setState(() {});
                               },

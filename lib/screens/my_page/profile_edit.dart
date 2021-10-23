@@ -29,7 +29,7 @@ class _ProfileEditState extends State<ProfileEdit> {
   MyUser _myuser = MyUser();
   final TextEditingController _controller = TextEditingController();
   AsyncMemoizer<QuerySnapshot<Map<String, dynamic>>> memo = AsyncMemoizer();
-
+  bool isWebScreen = kIsWeb;
   @override
   void dispose() {
     super.dispose();
@@ -208,6 +208,34 @@ class _ProfileEditState extends State<ProfileEdit> {
                           },
                         ),
                       ),
+                      isWebScreen
+                          ? Center(
+                              child: Container(
+                                margin: const EdgeInsets.all(30),
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    var db = FirebaseFirestore.instance;
+                                    await db
+                                        .collection('api')
+                                        .doc('v1')
+                                        .collection('users')
+                                        .doc(_myuser.userId)
+                                        .set(
+                                          _myuser.toJson(),
+                                        );
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.all(10),
+                                    child: const Text(
+                                      '更新する',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Container(),
                       const SizedBox(
                         height: 50,
                       )

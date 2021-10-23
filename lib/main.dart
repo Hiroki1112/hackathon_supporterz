@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/provider/auth_provider.dart';
 import 'package:hackathon_supporterz/screens/404/not_found.dart';
+import 'package:hackathon_supporterz/screens/calender/calender_screen.dart';
+import 'package:hackathon_supporterz/screens/calender/event_register_screen/event_register.dart';
 import 'package:hackathon_supporterz/screens/my_page/mypage_screen.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
 import 'package:hackathon_supporterz/screens/post_detail/post_detail.dart';
@@ -81,12 +83,30 @@ class MyApp extends StatelessWidget {
             );
           }
 
+          if (path == CalenderScreen.routeName) {
+            return MaterialPageRoute(
+              settings: setting,
+              builder: (BuildContext context) {
+                return const CalenderScreen();
+              },
+            );
+          }
+
           /// /settings/profile
           if (path == ProfileEdit.routeName) {
             return MaterialPageRoute(
               settings: setting,
               builder: (BuildContext context) {
                 return const ProfileEdit();
+              },
+            );
+          }
+
+          if (path == EventRegister.routeName) {
+            return MaterialPageRoute(
+              settings: setting,
+              builder: (BuildContext context) {
+                return const EventRegister();
               },
             );
           }

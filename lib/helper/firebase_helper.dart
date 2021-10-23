@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fbStorage;
 import 'package:hackathon_supporterz/helper/app_helper.dart';
+import 'package:hackathon_supporterz/models/event.dart';
 import 'package:hackathon_supporterz/models/post.dart';
 import 'package:hackathon_supporterz/models/simple_post.dart';
 import 'package:hackathon_supporterz/models/tag.dart';
@@ -138,6 +139,21 @@ class FirebaseHelper {
     return response;
   }
 
+  static Future<QuerySnapshot<Map<String, dynamic>>?> getEventInfo() async {
+    var db = FirebaseFirestore.instance;
+    try {
+      var res = await db
+          .collection('api')
+          .doc('v1')
+          .collection('events')
+          .limit(30)
+          .get();
+      return res;
+    } catch (e) {
+      return null;
+    }
+  }
+
   /// 指定したユーザーID下のpostsコレクションを取得する
   /// DBから引数で渡されたuidを持つ情報を取得
   static Future<List<SimplePost>> getUserPosts(String uid) async {
@@ -237,6 +253,21 @@ class FirebaseHelper {
       var snapshot =
           await ref.child('postImage/' + _fileName + '.png').putData(image);
       return await snapshot.ref.getDownloadURL();
+    } catch (e) {
+      return CODE.failed;
+    }
+  }
+
+  static Future<dynamic> saveEvent(Event events) async {
+    var db = FirebaseFirestore.instance;
+    try {
+      // 受け取った情報を保存する
+      await db
+          .collection('api')
+          .doc('v1')
+          .collection('events')
+          .add(events.toJson());
+      return CODE.success;
     } catch (e) {
       return CODE.failed;
     }

@@ -104,7 +104,7 @@ AppBar myAppBar(BuildContext context, {String title = 'Supporterz'}) {
                   if (val == '記事の投稿') {
                     Navigator.of(context).pushNamed(PostScreen.routeName);
                   }
-                  if (val == 'カレンダー') {
+                  if (val == 'イベント日程') {
                     Navigator.of(context).pushNamed(CalenderScreen.routeName);
                   }
                   if (val == 'サインアウト') {
@@ -120,7 +120,8 @@ AppBar myAppBar(BuildContext context, {String title = 'Supporterz'}) {
                   }
                 },
                 itemBuilder: (BuildContext context) {
-                  return ['プロフィール', '記事の投稿', 'カレンダー', 'サインアウト'].map((String s) {
+                  return ['プロフィール', '記事の投稿', 'イベント日程', 'サインアウト']
+                      .map((String s) {
                     return PopupMenuItem(
                       child: Text(s),
                       value: s,

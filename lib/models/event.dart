@@ -20,6 +20,9 @@ class Event {
   DateTime get dateEnd => _dateEnd;
   DateTime get deadline => _deadline;
 
+  Event() {
+    // this.companyName =
+  }
   set setCompanyName(String companyName) {
     if (companyName.length <= 50) {
       _companyName = companyName;
@@ -50,17 +53,16 @@ class Event {
     _deadline = deadline;
   }
 
-  void fromJson(Map<String, dynamic> json) {
-    setCompanyName = json['companyName'] as String;
-    setEventTitle = json['eventTitle'] as String;
-    setEventLink = json['eventLink'] as String;
-    _eventId = json['eventId'] as String;
-    setDateStart = (json['dateStart'] as Timestamp).toDate();
-    setDateEnd = (json['dateEnd'] as Timestamp).toDate();
-    setDeadline = (json['deadline'] as Timestamp).toDate();
-  }
+  Event.fromJson(Map<String, dynamic> json)
+      : _companyName = json['companyName'] as String,
+        _eventTitle = json['eventTitle'] as String,
+        _eventLink = json['eventLink'] as String,
+        _eventId = json['eventId'] as String,
+        _dateStart = (json['dateStart'] as Timestamp).toDate(),
+        _dateEnd = (json['dateEnd'] as Timestamp).toDate(),
+        _deadline = (json['deadline'] as Timestamp).toDate();
 
-  Map<String, dynamic> toJson(String? userId) {
+  Map<String, dynamic> toJson() {
     return {
       'companyName': _companyName,
       'eventTitle': _eventTitle,

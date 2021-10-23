@@ -1,8 +1,9 @@
 import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hackathon_supporterz/models/event.dart';
+import 'package:hackathon_supporterz/models/event.dart';
 import 'package:hackathon_supporterz/models/simple_post.dart';
-import 'package:hackathon_supporterz/models/simple_event.dart';
 import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/models/event.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
@@ -13,9 +14,9 @@ import 'package:url_launcher/url_launcher.dart';
 class EventTile extends StatefulWidget {
   const EventTile({
     Key? key,
-    required this.simpleEvent,
+    required this.event,
   }) : super(key: key);
-  final SimpleEvent simpleEvent;
+  final Event event;
 
   @override
   _EventTileState createState() => _EventTileState();
@@ -51,7 +52,7 @@ class _EventTileState extends State<EventTile> {
         children: [
           ListTile(
             onTap: () {
-              _launchURL(widget.simpleEvent.eventLink.toString());
+              _launchURL(widget.event.eventLink.toString());
             },
             leading: Container(
               height: 75,
@@ -72,47 +73,47 @@ class _EventTileState extends State<EventTile> {
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                FutureBuilder(
-                    future: memo
-                        .runOnce(() async => await user.get()), //user.get(),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-                            snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done) {
-                        // ユーザーデータを受け取る
-                        MyUser _user = MyUser();
-                        _user.fromJson(snapshot.data!.docs.first.data());
+                // FutureBuilder(
+                //     future: memo
+                //         .runOnce(() async => await user.get()), //user.get(),
+                //     builder: (BuildContext context,
+                //         AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                //             snapshot) {
+                //       if (snapshot.connectionState == ConnectionState.done) {
+                //         // ユーザーデータを受け取る
+                //         MyUser _user = MyUser();
+                //         _user.fromJson(snapshot.data!.docs.first.data());
 
-                        return Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 7.0,
-                              ),
-                              child: const Icon(
-                                Icons.people,
-                              ),
-                            ),
-                            Text(
-                              '主催' + widget.simpleEvent.companyName,
-                              style: const TextStyle(fontSize: 13),
-                            ),
-                          ],
-                        );
-                      }
-                      return const CircularProgressIndicator();
-                    }),
+                //         return Row(
+                //           children: [
+                //             Container(
+                //               padding: const EdgeInsets.symmetric(
+                //                 horizontal: 7.0,
+                //               ),
+                //               child: const Icon(
+                //                 Icons.people,
+                //               ),
+                //             ),
+                //             Text(
+                //               '主催' + widget.event.companyName,
+                //               style: const TextStyle(fontSize: 13),
+                //             ),
+                //           ],
+                //         );
+                //       }
+                //       return const CircularProgressIndicator();
+                //     }),
                 Text(
                   '締切' +
                       ':' +
-                      formatDate(widget.simpleEvent.deadline as DateTime,
+                      formatDate(widget.event.deadline as DateTime,
                           [yyyy, '年', mm, '月', dd, '日']),
                   style: const TextStyle(
                     color: Colors.red,
                   ),
                 ),
                 Text(
-                  widget.simpleEvent.eventTitle,
+                  widget.event.eventTitle,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
@@ -125,13 +126,13 @@ class _EventTileState extends State<EventTile> {
                     Text(
                       '開始日程' +
                           ':' +
-                          formatDate(widget.simpleEvent.dateStart as DateTime,
+                          formatDate(widget.event.dateStart as DateTime,
                               [yyyy, '年', mm, '月', dd, '日']),
                     ),
                     Text(
                       '終了日程' +
                           ':' +
-                          formatDate(widget.simpleEvent.dateEnd as DateTime,
+                          formatDate(widget.event.dateEnd as DateTime,
                               [yyyy, '年', mm, '月', dd, '日']),
                     ),
                     //Text(widget.simpleEvent.dateStart.toString()),
