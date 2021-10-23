@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/helper/firebase_helper.dart';
 import 'package:hackathon_supporterz/models/simple_post.dart';
+import 'package:hackathon_supporterz/screens/404/not_found.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
 import 'package:hackathon_supporterz/widgets/tiles/post_tile.dart';
@@ -20,6 +21,13 @@ class SearchResultKeyword extends StatefulWidget {
 class _SearchResultKeywordState extends State<SearchResultKeyword> {
   @override
   Widget build(BuildContext context) {
+    if (widget.keyword == '') {
+      return Scaffold(
+        appBar: myAppBar(context),
+        body: NotFoundScreen(),
+      );
+    }
+
     return Scaffold(
       appBar: myAppBar(context),
       body: SingleChildScrollView(

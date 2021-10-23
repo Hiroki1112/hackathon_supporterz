@@ -27,7 +27,6 @@ class _DetailBodyCard extends State<DetailBodyCard> {
     late WebViewXController _webviewController;
     // TODO テキストの長さによってウィジェットの高さを可変にしたい
     return Container(
-      height: MediaQuery.of(context).size.height * 0.7,
       width: webWidth,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
