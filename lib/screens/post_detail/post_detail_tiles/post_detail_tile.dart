@@ -38,7 +38,7 @@ class _PostDetailTileState extends State<PostDetailTile> {
               AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               //Post _post = Post();
-              if (snapshot.data == ERROR_CODE.postNotFound) {
+              if (snapshot.data == CODE.postNotFound) {
                 return NotFoundScreen();
               }
               _post = Post();
