@@ -38,7 +38,7 @@ class _PostTileState extends State<PostTile> {
       child: ConstrainedBox(
         constraints: const BoxConstraints(
           minWidth: 200,
-          maxWidth: 450,
+          maxWidth: 380,
           minHeight: 160,
         ),
         child: Container(
@@ -131,15 +131,19 @@ class _PostTileState extends State<PostTile> {
                             child: Row(
                           children: widget.simplePost.techTag.isNotEmpty
                               ? widget.simplePost.techTag.map((tag) {
-                                  return Text('#' + tag + ', ');
+                                  return Text(
+                                    '#' + tag + ', ',
+                                    overflow: TextOverflow.ellipsis,
+                                  );
                                 }).toList()
                               : const [Text('# タグなし')],
                         )),
+                        /*
                         const Icon(
                           Icons.thumb_up,
                         ),
                         const SizedBox(width: 5),
-                        Text(widget.simplePost.good.toString())
+                        Text(widget.simplePost.good.toString())*/
                       ],
                     ),
                   ],

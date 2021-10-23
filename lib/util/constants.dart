@@ -37,5 +37,5 @@ List<String> allTechTag = [
   'Python',
 ];
 
-const double breakPoint = 720;
-const double webWidth = 750;
+const double breakPoint = 850;
+const double webWidth = 800;
