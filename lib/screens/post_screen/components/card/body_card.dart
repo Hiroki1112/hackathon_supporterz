@@ -35,7 +35,7 @@ class _BodyCardState extends State<BodyCard> {
       ),
       child: Container(
         // TextFormFirldは一行あたり25らしい
-        height: 250,
+        height: 500,
         padding: const EdgeInsets.all(10),
         child: WebView(
           javascriptMode: JavascriptMode.unrestricted,

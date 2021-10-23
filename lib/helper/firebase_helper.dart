@@ -10,7 +10,7 @@ import 'package:hackathon_supporterz/models/user.dart';
 import 'package:uuid/uuid.dart';
 
 // エラーを伝えるためぶ使用する
-enum CODE { userNotFound, postNotFound, tagAlreadyExists, success }
+enum CODE { userNotFound, postNotFound, tagAlreadyExists, success, failed }
 
 class FirebaseHelper {
   static String generateUniqueId() {
@@ -221,5 +221,24 @@ class FirebaseHelper {
         .doc(tag.toLowerCase())
         .set(json);
     return CODE.success;
+  }
+
+  /// firebase storageに画像を保存し、URIを返却する関数
+  static Future<dynamic> saveAndGetURL(Uint8List? image) async {
+    fbStorage.Reference ref = fbStorage.FirebaseStorage.instance.ref();
+    String _fileName = generateUniqueId();
+    if (image == null) {
+      return CODE.failed;
+    }
+
+    try {
+      // 画像を保存する
+      // 画像をfirebase storageに保存してURLを取得する
+      var snapshot =
+          await ref.child('postImage/' + _fileName + '.png').putData(image);
+      return await snapshot.ref.getDownloadURL();
+    } catch (e) {
+      return CODE.failed;
+    }
   }
 }

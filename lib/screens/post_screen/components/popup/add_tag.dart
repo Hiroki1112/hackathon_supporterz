@@ -1,17 +1,9 @@
-import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:hackathon_supporterz/helper/app_helper.dart';
-import 'package:universal_platform/universal_platform.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:hackathon_supporterz/helper/firebase_helper.dart';
-import 'package:hackathon_supporterz/widgets/dialog/dialog.dart';
-import 'package:firebase_storage/firebase_storage.dart' as FBstorage;
 
 /// 新しいタグを追加する際に使用するポップアップ
 Future<dynamic> addTagPopup(BuildContext context) async {

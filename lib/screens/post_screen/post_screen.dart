@@ -19,7 +19,7 @@ class PostScreen extends StatelessWidget {
         if (Config.deviceWidth(context) > breakPoint) {
           return const Center(
             child: SizedBox(
-              width: 650,
+              width: webWidth,
               child: PostBody(),
             ),
           );
