@@ -7,6 +7,7 @@ import 'package:hackathon_supporterz/screens/post_detail/cards/body_card.dart';
 import 'package:hackathon_supporterz/screens/post_detail/cards/plan_text.dart';
 import 'package:hackathon_supporterz/screens/post_detail/cards/user_card.dart';
 import 'package:hackathon_supporterz/screens/post_detail/title/title.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class PostDetailTile extends StatefulWidget {
   const PostDetailTile({
@@ -42,6 +43,7 @@ class _PostDetailTileState extends State<PostDetailTile> {
               }
               _post = Post();
               _post.fromJson(snapshot.data!.data() ?? {});
+              Color _containerColor = Colors.white;
 
               return SingleChildScrollView(
                 child: Column(
@@ -53,16 +55,20 @@ class _PostDetailTileState extends State<PostDetailTile> {
                         Expanded(
                           flex: 1,
                           child: GestureDetector(
-                            onTap: () {
+                            onTap: () async {
                               setState(() {
+                                _containerColor = Colors.black.withOpacity(0.4);
                                 _selectedIndex = 0;
                               });
                             },
                             child: Container(
                               decoration: BoxDecoration(
                                 border: Border.all(),
+                                color: _containerColor,
+                                //color: Colors.black.withOpacity(0.4)
+                                //color: Color(#00000000000),
                               ),
-                              child: const Text('企画'),
+                              child: Center(child: const Text('企画')),
                             ),
                           ),
                         ),
@@ -71,14 +77,16 @@ class _PostDetailTileState extends State<PostDetailTile> {
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
+                                _containerColor = Colors.black.withOpacity(0.4);
                                 _selectedIndex = 1;
                               });
                             },
                             child: Container(
                               decoration: BoxDecoration(
                                 border: Border.all(),
+                                color: _containerColor,
                               ),
-                              child: const Text('開発'),
+                              child: Center(child: const Text('開発')),
                             ),
                           ),
                         ),
@@ -87,14 +95,16 @@ class _PostDetailTileState extends State<PostDetailTile> {
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
+                                _containerColor = Colors.black.withOpacity(0.4);
                                 _selectedIndex = 2;
                               });
                             },
                             child: Container(
                               decoration: BoxDecoration(
                                 border: Border.all(),
+                                color: _containerColor,
                               ),
-                              child: const Text('制作物'),
+                              child: const Center(child: Text('制作物')),
                             ),
                           ),
                         ),
@@ -104,6 +114,7 @@ class _PostDetailTileState extends State<PostDetailTile> {
                     Column(
                       children: [
                         //DetailTitle(title: _post.title),
+                        const SizedBox(height: 15),
                         _selectedIndex == 0
                             ? DetailPlanText(planeText: _post.planText)
                             : _selectedIndex == 1

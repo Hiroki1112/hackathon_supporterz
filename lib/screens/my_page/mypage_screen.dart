@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/screens/404/not_found.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile/user_profile.dart';
+import 'package:hackathon_supporterz/screens/my_page/user_posts/user_post_web.dart';
 import 'package:hackathon_supporterz/screens/my_page/user_posts/user_posts.dart';
 import 'package:hackathon_supporterz/util/config.dart';
 import 'package:hackathon_supporterz/util/constants.dart';
@@ -31,10 +33,11 @@ class _MyPageScreenState extends State<MyPageScreen> {
     return Scaffold(
       appBar: myAppBar(context),
       body: LayoutBuilder(builder: (context, snapshot) {
-        if (Config.deviceWidth(context) > breakPoint) {
+        //if (Config.deviceWidth(context) > breakPoint) {
+        if (kIsWeb) {
           return Center(
             child: Container(
-              width: 650,
+              width: 720,
               child: ListView(
                 // 無駄な読み込みを減らすためにキャッシュ領域を広げる
                 cacheExtent: 250.0 * 3.0,
@@ -43,7 +46,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
                   const Divider(
                     thickness: 3,
                   ),
-                  UserPosts(uid: widget.userId ?? ''),
+                  UserPostWeb(uid: widget.userId ?? ''),
                 ],
               ),
             ),

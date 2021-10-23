@@ -1,21 +1,24 @@
+import 'package:async/async.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/helper/firebase_helper.dart';
 import 'package:hackathon_supporterz/models/simple_post.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/widgets/tiles/post_tile.dart';
 
-class UserPosts extends StatefulWidget {
-  const UserPosts({
+class UserPostWeb extends StatefulWidget {
+  const UserPostWeb({
     Key? key,
     required this.uid,
   }) : super(key: key);
   final String uid;
 
   @override
-  _UserPostsState createState() => _UserPostsState();
+  _UserPostWebState createState() => _UserPostWebState();
 }
 
-class _UserPostsState extends State<UserPosts> {
+class _UserPostWebState extends State<UserPostWeb> {
+  AsyncMemoizer<List<SimplePost>> memo = AsyncMemoizer();
   @override
   Widget build(BuildContext context) {
     //final firebaseUser = context.watch<User?>();
@@ -29,7 +32,9 @@ class _UserPostsState extends State<UserPosts> {
             height: 50,
           ),
           FutureBuilder(
-            future: FirebaseHelper.getUserPosts(widget.uid),
+            //future: FirebaseHelper.getUserPosts(widget.uid),
+            future: memo
+                .runOnce(() async => FirebaseHelper.getUserPosts(widget.uid)),
             builder: (BuildContext context,
                 AsyncSnapshot<List<SimplePost>> snapshot) {
               if (snapshot.hasError) {
@@ -38,7 +43,7 @@ class _UserPostsState extends State<UserPosts> {
 
               if (snapshot.connectionState == ConnectionState.done) {
                 // print(snapshot.data!.length);
-                return Column(
+                return Wrap(
                   children: snapshot.data!
                       .map((post) => PostTile(simplePost: post))
                       .toList(),
