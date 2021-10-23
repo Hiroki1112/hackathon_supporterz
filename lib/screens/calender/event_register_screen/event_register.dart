@@ -1,3 +1,4 @@
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/helper/firebase_helper.dart';
 import 'package:hackathon_supporterz/models/event.dart';
@@ -13,10 +14,12 @@ class EventRegister extends StatefulWidget {
 
 class _EventRegisterState extends State<EventRegister> {
   Event event = Event();
+  List<DateTime> _deadlineDates = [];
   //final firebaseUser = context.watch<Event?>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: Form(
         child: Center(
           child: Container(
@@ -25,6 +28,7 @@ class _EventRegisterState extends State<EventRegister> {
             child: ListView(
               children: [
                 TextFormField(
+                  decoration: InputDecoration(hintText: '社名'),
                   onChanged: (String companyName) {
                     setState(() {
                       // newUser.setUserId = newVal;
@@ -34,6 +38,7 @@ class _EventRegisterState extends State<EventRegister> {
                   //hintText: 'ユーザーIDを入力してください',
                 ),
                 TextFormField(
+                  decoration: InputDecoration(hintText: 'イベントタイトル'),
                   onChanged: (String eventTitle) {
                     setState(() {
                       // newUser.setUserId = newVal;
@@ -43,6 +48,7 @@ class _EventRegisterState extends State<EventRegister> {
                   //hintText: 'ユーザーIDを入力してください',
                 ),
                 TextFormField(
+                  decoration: InputDecoration(hintText: 'イベントリンク'),
                   onChanged: (String eventLink) {
                     setState(() {
                       //newUser.setUserId = newVal;
@@ -51,13 +57,39 @@ class _EventRegisterState extends State<EventRegister> {
                   },
                   //hintText: 'ユーザーIDを入力してください',
                 ),
-                TextFormField(
-                  onChanged: (String eventId) {
-                    setState(() {
-                      //newUser.setUserId = newVal;
-                    });
+                ElevatedButton(
+                  onPressed: () async {},
+                  child: Text('締切'),
+                ),
+                ElevatedButton(
+                  onPressed: () async {},
+                  child: Text('締切'),
+                ),
+                ElevatedButton(
+                  onPressed: () async {},
+                  child: Text('締切'),
+                ),
+                DateTimePicker(
+                  type: DateTimePickerType.dateTimeSeparate,
+                  dateMask: 'dd MMM, yyyy',
+                  initialValue: DateTime.now().toString(),
+                  firstDate: DateTime(2000),
+                  lastDate: DateTime(2100),
+                  icon: const Icon(Icons.event),
+                  dateLabelText: 'Date',
+                  timeLabelText: 'Hour',
+                  selectableDayPredicate: (DateTime date) {
+                    // Disable weekend days to select from the calendar
+                    // if (date.weekday == 6 || date.weekday == 7) {
+                    //   return false;
+                    // }
+                    return true;
                   },
-                  //hintText: 'ユーザーIDを入力してください',
+                  onChanged: (val) => print(val),
+                  validator: (val) {
+                    return null;
+                  },
+                  onSaved: (val) => print(val),
                 ),
                 // TextFormField(
                 //   : (Date newVal) {

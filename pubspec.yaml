@@ -65,6 +65,7 @@ dependencies:
 
   webviewx: ^0.2.1
   flutter_markdown: ^0.6.8
+  date_time_picker: ^2.1.0
   # google_fonts:
   #   git:
   #     https://github.com/Hiroki1112/google-fonts-flutter
