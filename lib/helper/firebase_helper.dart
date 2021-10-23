@@ -1,16 +1,23 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart' as fbStorage;
 import 'package:hackathon_supporterz/helper/app_helper.dart';
-import 'package:hackathon_supporterz/helper/post_helper.dart';
 import 'package:hackathon_supporterz/models/post.dart';
 import 'package:hackathon_supporterz/models/simple_post.dart';
+import 'package:hackathon_supporterz/models/tag.dart';
 import 'package:hackathon_supporterz/models/user.dart';
+import 'package:uuid/uuid.dart';
 
-enum ERROR_CODE {
-  userNotFound,
-  postNotFound,
-}
+// エラーを伝えるためぶ使用する
+enum CODE { userNotFound, postNotFound, tagAlreadyExists, success }
 
 class FirebaseHelper {
+  static String generateUniqueId() {
+    var uuid = const Uuid();
+    return uuid.v4();
+  }
+
   static Future<QuerySnapshot<Map<String, dynamic>>> getKeywordSearchResult(
       String title) async {
     var db = FirebaseFirestore.instance;
@@ -71,7 +78,7 @@ class FirebaseHelper {
     // ignore: prefer_typing_uninitialized_variables
     Query<Map<String, dynamic>> query;
     if (keyword == '') {
-      query = db.collection('api').doc('v1').collection('tags').limit(9);
+      query = db.collection('api').doc('v1').collection('tags').limit(4);
     } else {
       List<String> keyword2gram = AppHelper.get2gram(keyword);
 
@@ -152,6 +159,10 @@ class FirebaseHelper {
     return posts;
   }
 
+  // ================================
+  //  firebaseへ情報を保存する系の関数
+  //
+
   /// 引数で受け取ったPostクラス内の情報を保存する関数
   static Future<void> save2firebase(Post post, String userId) async {
     // firebaseへ投稿する
@@ -168,27 +179,47 @@ class FirebaseHelper {
         );
   }
 
-  ///  タグ追加時に使用する
-  /*
-  static Future<void> addNewTag() async {
+  // タグと画像を保存する
+  static Future<dynamic> addNewTags(Uint8List? image, String tag) async {
     var db = FirebaseFirestore.instance;
+    fbStorage.Reference ref = fbStorage.FirebaseStorage.instance.ref();
+    Map<String, dynamic> json = {};
+    String _fileName = generateUniqueId();
 
-    // 現在のタグを取得する
-    var query = await db.collection('api').doc('v1').collection('tags').get();
+    // nullは弾く
+    if (image == null) {
+      return;
+    }
 
-    Future.forEach(query.docs,
-        (QueryDocumentSnapshot<Map<String, dynamic>> element) async {
-      Map<String, dynamic> newData = element.data();
-      newData['tag2gram'] =
-          AppHelper.get2gramMap(element.data()['tag'].toString().toLowerCase());
-      await db
-          .collection('api')
-          .doc('v1')
-          .collection('tags')
-          .doc(element.id)
-          .update(
-            newData,
-          );
-    });
-  }*/
+    // まずは既に同じタグが保存されていないか確認する
+    var result = await db
+        .collection('api')
+        .doc('v1')
+        .collection('tags')
+        .doc(tag.toLowerCase())
+        .get();
+
+    if (result.data() != null) {
+      // 既にデータがある時には保存しない
+      return CODE.tagAlreadyExists;
+    }
+
+    json['tag'] = tag;
+    json['tag2gram'] = AppHelper.get2gramMap(tag.toLowerCase());
+
+    // 画像をfirebase storageに保存してURLを取得する
+    var snapshot =
+        await ref.child('tagImage/' + _fileName + '.png').putData(image);
+    String downloadUrl = await snapshot.ref.getDownloadURL();
+
+    json['url'] = downloadUrl;
+    // 受け取った情報を保存する
+    await db
+        .collection('api')
+        .doc('v1')
+        .collection('tags')
+        .doc(tag.toLowerCase())
+        .set(json);
+    return CODE.success;
+  }
 }

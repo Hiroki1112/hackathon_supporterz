@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:hackathon_supporterz/helper/firebase_helper.dart';
-import 'package:hackathon_supporterz/helper/post_helper.dart';
+import 'package:hackathon_supporterz/models/tag.dart';
 import 'package:hackathon_supporterz/screens/post_screen/components/popup/add_tag.dart';
 import 'package:hackathon_supporterz/screens/post_screen/components/post_inherited.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
+import 'package:hackathon_supporterz/widgets/dialog/dialog.dart';
+import 'package:hackathon_supporterz/widgets/dialog/success.dart';
 
 class TagSetting extends StatefulWidget {
   const TagSetting({
@@ -30,7 +32,17 @@ class _TagSettingState extends State<TagSetting> {
             ),
             TextButton(
               onPressed: () async {
-                await addTagPopup(context);
+                Map? data = await addTagPopup(context);
+                if (data == null) {
+                  return;
+                }
+                var result =
+                    await FirebaseHelper.addNewTags(data['image'], data['tag']);
+                if (result == CODE.tagAlreadyExists) {
+                  await yesDialog(context, '通知', 'タグは既に存在しています。');
+                } else if (result == CODE.success) {
+                  await successDialog(context, '通知', 'タグの登録に成功しました！');
+                }
               },
               child: const Text('（タグを追加する）'),
             ),
@@ -43,13 +55,30 @@ class _TagSettingState extends State<TagSetting> {
           itemBuilder: (BuildContext context, Tag suggestion) {
             return ListTile(
               leading: suggestion.url != ''
-                  ? Image.network(suggestion.url)
+                  ? Container(
+                      padding: const EdgeInsets.all(8.0),
+                      width: 50,
+                      height: 50,
+                      child: Image.network(
+                        suggestion.url,
+                        width: 50,
+                        height: 50,
+                        fit: BoxFit.fill,
+                      ),
+                    )
                   : const Icon(Icons.add),
               title: Text(suggestion.tag),
             );
           },
           onSuggestionSelected: (Tag suggestion) {
-            if (tags.length < 5 && !tags.contains(suggestion)) {
+            // 同じタグは追加できないようにする。
+            // .contains()ではうまく判定できなかった。
+            for (var tag in tags) {
+              if (tag.tag == suggestion.tag) {
+                return;
+              }
+            }
+            if (tags.length < 5) {
               setState(() {
                 tags.add(suggestion);
                 List<String> tag = tags.map((t) => t.tag).toList();
@@ -115,8 +144,16 @@ class TagIcon extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 )
-              : Image.asset(
-                  tag.url,
+              : Container(
+                  padding: const EdgeInsets.all(10),
+                  width: 50,
+                  height: 50,
+                  child: Image.network(
+                    tag.url,
+                    width: 50,
+                    height: 50,
+                    fit: BoxFit.fill,
+                  ),
                 ),
           Text(tag.tag),
           IconButton(
