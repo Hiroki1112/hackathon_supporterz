@@ -24,23 +24,12 @@ class HomeScreen extends StatelessWidget {
             if (Config.deviceWidth(context) > breakPoint) {
               return Center(
                 //padding: const EdgeInsets.all(15),
-                child: Container(
+                child: SizedBox(
                   width: 990,
-                  decoration: BoxDecoration(color: AppTheme.white),
                   child: Column(
-                    children: [
-                      Text(
-                        'trend',
-                        style: Config.h1,
-                      ),
+                    children: const [
+                      SizedBox(height: 50),
                       TrendList(),
-                      //_rignhtTextButton(() {}, context, 'トレンドを全て見る>'),
-                      Text(
-                        'idea',
-                        style: Config.h1,
-                      ),
-                      // 無駄な読み込みを減らすためにキャッシュ領域を広げる
-                      //cacheExtent: 250.0 * 2.0
                     ],
                   ),
                 ),
@@ -49,19 +38,9 @@ class HomeScreen extends StatelessWidget {
               return Center(
                 //padding: const EdgeInsets.all(15),
                 child: Column(
-                  children: [
-                    Text(
-                      'trend',
-                      style: Config.h1,
-                    ),
+                  children: const [
+                    SizedBox(height: 20),
                     TrendList(),
-                    //_rignhtTextButton(() {}, context, 'トレンドを全て見る>'),
-                    Text(
-                      'idea',
-                      style: Config.h1,
-                    ),
-                    // 無駄な読み込みを減らすためにキャッシュ領域を広げる
-                    //cacheExtent: 250.0 * 2.0
                   ],
                 ),
               );
