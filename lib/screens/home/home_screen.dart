@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/screens/home/trend_list/trend_list.dart';
+import 'package:hackathon_supporterz/screens/home/home_body.dart';
 import 'package:hackathon_supporterz/screens/post_detail/post_detail.dart';
 import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/util/config.dart';
@@ -22,55 +22,21 @@ class HomeScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: LayoutBuilder(builder: (context, snapshot) {
             if (Config.deviceWidth(context) > breakPoint) {
-              return Center(
+              return const Center(
                 //padding: const EdgeInsets.all(15),
                 child: SizedBox(
                   width: 990,
-                  child: Column(
-                    children: const [
-                      SizedBox(height: 50),
-                      TrendList(),
-                    ],
-                  ),
+                  child: HomeBody(),
                 ),
               );
             } else {
-              return Center(
-                //padding: const EdgeInsets.all(15),
-                child: Column(
-                  children: const [
-                    SizedBox(height: 20),
-                    TrendList(),
-                  ],
-                ),
+              return const Center(
+                child: HomeBody(),
               );
             }
           }),
         ),
       ),
-    );
-  }
-
-  Widget rignhtTextButton(
-      Function onPressed, BuildContext context, String text) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, PostDetail.routeName);
-            },
-            child: Text(
-              text,
-              style: const TextStyle(
-                fontSize: 18,
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
