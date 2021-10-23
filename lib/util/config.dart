@@ -37,6 +37,16 @@ class Config {
     fontWeight: FontWeight.w700,
   );
 
+  static const TextStyle h2 = TextStyle(
+    fontSize: 21.0,
+    fontWeight: FontWeight.w600,
+  );
+
+  static const TextStyle h3 = TextStyle(
+    fontSize: 18.0,
+    fontWeight: FontWeight.w500,
+  );
+
   static MaterialColor createMaterialColor(Color color) {
     List strengths = <double>[.05];
     final swatch = <int, Color>{};

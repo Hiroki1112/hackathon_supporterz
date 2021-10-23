@@ -1,35 +1,71 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:hackathon_supporterz/screens/404/not_found.dart';
+import 'package:hackathon_supporterz/screens/my_page/profile/user_profile.dart';
+import 'package:hackathon_supporterz/screens/my_page/user_posts/user_post_web.dart';
+import 'package:hackathon_supporterz/screens/my_page/user_posts/user_posts.dart';
+import 'package:hackathon_supporterz/util/app_theme.dart';
+import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
 
-class MyPageScreen extends StatelessWidget {
-  static String routeName = '/mypage';
+/// URLで渡された文字列をuidとしてfirebaseで検索する
+class MyPageScreen extends StatefulWidget {
   const MyPageScreen({
     Key? key,
-    this.title,
+    this.userId,
   }) : super(key: key);
-  final String? title;
+  final String? userId;
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('My Page'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(title!),
-          ],
-        ),
-      ),
-    );
-  }
+  _MyPageScreenState createState() => _MyPageScreenState();
 }
 
-// 引数が必要なクラスにはこのようなクラスを記述しておく。
-// クラス名は直感的になるように、[対象のクラス]+Argsとする。
-class MyPageScreenArgs {
-  final String title;
-
-  MyPageScreenArgs(this.title);
+class _MyPageScreenState extends State<MyPageScreen> {
+  @override
+  Widget build(BuildContext context) {
+    if (widget.userId == null || widget.userId == '') {
+      debugPrint('MypageScreen class : userId is null or empty.');
+      return Scaffold(
+        backgroundColor: AppTheme.background,
+        appBar: myAppBar(context),
+        body: const NotFoundScreen(),
+      );
+    }
+    return Scaffold(
+      backgroundColor: AppTheme.background,
+      appBar: myAppBar(context),
+      body: LayoutBuilder(builder: (context, snapshot) {
+        //if (Config.deviceWidth(context) > breakPoint) {
+        if (kIsWeb) {
+          return Center(
+            child: Container(
+              width: 720,
+              child: ListView(
+                // 無駄な読み込みを減らすためにキャッシュ領域を広げる
+                cacheExtent: 250.0 * 3.0,
+                children: [
+                  UserProfile(userId: widget.userId ?? ''),
+                  const Divider(
+                    thickness: 3,
+                  ),
+                  UserPostWeb(uid: widget.userId ?? ''),
+                ],
+              ),
+            ),
+          );
+        } else {
+          return ListView(
+            // 無駄な読み込みを減らすためにキャッシュ領域を広げる
+            cacheExtent: 250.0 * 3.0,
+            children: [
+              UserProfile(userId: widget.userId ?? ''),
+              const Divider(
+                thickness: 3,
+              ),
+              UserPosts(uid: widget.userId ?? ''),
+            ],
+          );
+        }
+      }),
+    );
+  }
 }

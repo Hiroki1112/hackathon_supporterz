@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "724524738296",
+    "project_id": "supporterz-dd5a5",
+    "storage_bucket": "supporterz-dd5a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:724524738296:android:ddc14aa89d31a4e7413d0d",
+        "android_client_info": {
+          "package_name": "io.github.supporterzapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "724524738296-5u7rios5k9mplpv0mf21c3mgujjujs90.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyTPNkM11TlbqP7vbYroRehCUoB6tavh0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "724524738296-5u7rios5k9mplpv0mf21c3mgujjujs90.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
