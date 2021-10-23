@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:hackathon_supporterz/helper/app_helper.dart';
+import 'package:hackathon_supporterz/helper/firebase_helper.dart';
 import 'package:hackathon_supporterz/models/simple_post.dart';
 import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/screens/post_detail/post_detail.dart';
@@ -21,13 +22,11 @@ class PostTile extends StatefulWidget {
 }
 
 class _PostTileState extends State<PostTile> {
-  AsyncMemoizer<QuerySnapshot<Map<String, dynamic>>> memo = AsyncMemoizer();
+  AsyncMemoizer<DocumentSnapshot<Map<String, dynamic>>> memo = AsyncMemoizer();
   var db = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
-    var user = db.collection('api').doc('v1').collection('users');
-
     return GestureDetector(
       onTap: () {
         Navigator.of(context).pushNamed(
@@ -84,15 +83,18 @@ class _PostTileState extends State<PostTile> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     FutureBuilder(
-                        future: memo.runOnce(() async => await user.get()),
+                        future: memo.runOnce(() async =>
+                            await FirebaseHelper.getUserInfo(
+                                widget.simplePost.userId)),
                         builder: (BuildContext context,
-                            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                            AsyncSnapshot<
+                                    DocumentSnapshot<Map<String, dynamic>>>
                                 snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.done) {
                             // ユーザーデータを受け取る
                             MyUser _user = MyUser();
-                            _user.fromJson(snapshot.data!.docs.first.data());
+                            _user.fromJson(snapshot.data?.data());
 
                             return Row(
                               children: [
