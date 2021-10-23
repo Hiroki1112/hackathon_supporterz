@@ -4,8 +4,7 @@ import 'package:hackathon_supporterz/screens/404/not_found.dart';
 import 'package:hackathon_supporterz/screens/my_page/profile/user_profile.dart';
 import 'package:hackathon_supporterz/screens/my_page/user_posts/user_post_web.dart';
 import 'package:hackathon_supporterz/screens/my_page/user_posts/user_posts.dart';
-import 'package:hackathon_supporterz/util/config.dart';
-import 'package:hackathon_supporterz/util/constants.dart';
+import 'package:hackathon_supporterz/util/app_theme.dart';
 import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
 
 /// URLで渡された文字列をuidとしてfirebaseで検索する
@@ -26,11 +25,13 @@ class _MyPageScreenState extends State<MyPageScreen> {
     if (widget.userId == null || widget.userId == '') {
       debugPrint('MypageScreen class : userId is null or empty.');
       return Scaffold(
+        backgroundColor: AppTheme.background,
         appBar: myAppBar(context),
         body: const NotFoundScreen(),
       );
     }
     return Scaffold(
+      backgroundColor: AppTheme.background,
       appBar: myAppBar(context),
       body: LayoutBuilder(builder: (context, snapshot) {
         //if (Config.deviceWidth(context) > breakPoint) {
