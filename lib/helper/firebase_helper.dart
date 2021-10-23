@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fbStorage;
+import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/helper/app_helper.dart';
 import 'package:hackathon_supporterz/models/event.dart';
 import 'package:hackathon_supporterz/models/post.dart';
@@ -78,8 +79,8 @@ class FirebaseHelper {
     var db = FirebaseFirestore.instance;
     // ignore: prefer_typing_uninitialized_variables
     Query<Map<String, dynamic>> query;
-    if (keyword == '') {
-      query = db.collection('api').doc('v1').collection('tags').limit(4);
+    if (keyword.length < 2) {
+      query = db.collection('api').doc('v1').collection('tags').limit(16);
     } else {
       List<String> keyword2gram = AppHelper.get2gram(keyword);
 
@@ -104,6 +105,34 @@ class FirebaseHelper {
     }
 
     return recommendTags;
+  }
+
+  static Future<List<Tag>?> getTags() async {
+    var db = FirebaseFirestore.instance;
+    List<Tag> recommendTags = [];
+
+    try {
+      var res = await db
+          .collection('api')
+          .doc('v1')
+          .collection('tags')
+          .limit(16)
+          .get();
+
+      if (res.docs.isNotEmpty) {
+        for (var element in res.docs) {
+          Map data = element.data();
+          recommendTags.add(
+            Tag(tag: element.data()['tag'], url: data['url']),
+          );
+        }
+      }
+
+      return recommendTags;
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
   }
 
   static Future<void> userRegistration(MyUser user) async {
