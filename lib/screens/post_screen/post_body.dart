@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_supporterz/helper/firebase_helper.dart';
@@ -10,6 +12,7 @@ import 'package:hackathon_supporterz/screens/post_screen/components/title.dart';
 import 'package:hackathon_supporterz/screens/post_screen/components/tag_setting.dart';
 import 'package:hackathon_supporterz/widgets/dialog/dialog.dart';
 import 'package:provider/provider.dart';
+import 'components/popup/add_header_image.dart';
 
 // Widgetを分割するにあたって状態管理のためにprovider等を使用する必要がある。
 // しかしながらこの一部分の状態管理のために全体で値を読み込むことができるproviderを用意するのか？
@@ -45,6 +48,14 @@ class _PostBodyState extends State<PostBody> {
               child: ElevatedButton(
                 onPressed: () async {
                   // 必要情報を記入してもらう
+                  // TODO: バリデーション
+
+                  Uint8List? image = await addHeaderImage(context);
+
+                  if (image == null) {
+                    await yesDialog(context, 'エラー', '画像を設定してください');
+                    return;
+                  }
 
                   var res = await yesNoDialog(
                       context, '確認', '記事を公開しますか？', '公開する', '戻る');
@@ -62,6 +73,14 @@ class _PostBodyState extends State<PostBody> {
                     MyUser _user = MyUser();
                     _user.fromJson(userInfo.docs.first.data());
                     // firebaseへ投稿する
+                    print('hoge');
+
+                    var url = await FirebaseHelper.saveAndGetURL(image);
+                    if (url == CODE.failed) {
+                      await yesDialog(context, 'エラー', '画像の登録に失敗しました');
+                      return;
+                    }
+                    _post.setHeaderImageURL = url;
 
                     await FirebaseHelper.save2firebase(_post, _user.userId);
 
