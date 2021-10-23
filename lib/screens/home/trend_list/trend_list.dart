@@ -31,19 +31,16 @@ class _TrendListState extends State<TrendList> {
         if (snapshot.connectionState == ConnectionState.done) {
           // データの取得ができたらリスト表示する
           if (Config.deviceWidth(context) > breakPoint) {
-            return Container(
-              //decoration: BoxDecoration(color: Colors.red),
-              child: Wrap(
-                direction: Axis.horizontal,
-                children: List.generate(
-                  snapshot.data!.size,
-                  (index) {
-                    SimplePost post =
-                        SimplePost.fromJson(snapshot.data!.docs[index].data());
+            return Wrap(
+              direction: Axis.horizontal,
+              children: List.generate(
+                snapshot.data!.size,
+                (index) {
+                  SimplePost post =
+                      SimplePost.fromJson(snapshot.data!.docs[index].data());
 
-                    return Container(child: PostTile(simplePost: post));
-                  },
-                ),
+                  return PostTile(simplePost: post);
+                },
               ),
             );
           } else {

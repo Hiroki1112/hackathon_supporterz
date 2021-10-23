@@ -61,14 +61,14 @@ class MyUser {
 
 //firebaseからの情報の受け取り
 // factoryで書き換え予定
-  void fromJson(Map<String, dynamic> json) {
-    setUserName = json['userName'] ?? '';
-    setSelfIntroduction = json['selfIntroduction'] ?? '';
-    setTwitterLink = json['twitterLink'] ?? '';
-    setGithubAccount = json['githubAccount'] ?? '';
-    setPictureURL = json['pictureURL'] ?? '';
-    setUserId = json['userId'] ?? '';
-    setFirebaseId = json['firebaseId'] ?? '';
+  void fromJson(Map<String, dynamic>? json) {
+    setUserName = json?['userName'] ?? '';
+    setSelfIntroduction = json?['selfIntroduction'] ?? '';
+    setTwitterLink = json?['twitterLink'] ?? '';
+    setGithubAccount = json?['githubAccount'] ?? '';
+    setPictureURL = json?['pictureURL'] ?? '';
+    setUserId = json?['userId'] ?? '';
+    setFirebaseId = json?['firebaseId'] ?? '';
   }
 
   Map<String, dynamic> toJson() {

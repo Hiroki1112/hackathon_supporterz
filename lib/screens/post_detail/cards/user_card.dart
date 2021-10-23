@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hackathon_supporterz/helper/firebase_helper.dart';
 import 'package:hackathon_supporterz/models/user.dart';
+import 'package:hackathon_supporterz/util/app_theme.dart';
+import 'package:hackathon_supporterz/util/config.dart';
 
 class UserCard extends StatefulWidget {
   const UserCard({
@@ -17,11 +20,22 @@ class _UserCardState extends State<UserCard> {
   var db = FirebaseFirestore.instance;
   @override
   Widget build(BuildContext context) {
-    var user =
-        db.collection('api').doc('v1').collection('users').doc(widget.userId);
-    return Card(
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      decoration: BoxDecoration(
+        color: AppTheme.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: AppTheme.darkShadow,
+            spreadRadius: 1.0,
+            blurRadius: 3.0,
+            offset: const Offset(1, 2),
+          ),
+        ],
+      ),
       child: FutureBuilder(
-          future: user.get(),
+          future: FirebaseHelper.getUserInfo(widget.userId),
           builder: (BuildContext context,
               AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
@@ -32,21 +46,31 @@ class _UserCardState extends State<UserCard> {
                 return const Text('データの取得に失敗しました');
               }
 
-              _user.fromJson(snapshot.data!.data() ?? {});
+              _user.fromJson(snapshot.data?.data() ?? {});
 
               return Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 7.0,
-                    ),
-                    child: const Icon(
-                      Icons.people,
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    width: 100,
+                    height: 100,
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(_user.pictureURL),
                     ),
                   ),
-                  Text(
-                    _user.useName,
-                    style: const TextStyle(fontSize: 13),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Text(
+                          _user.useName,
+                          style: Config.h3,
+                        ),
+                      ),
+                      Text(
+                        _user.selfIntroduction,
+                      )
+                    ],
                   ),
                 ],
               );

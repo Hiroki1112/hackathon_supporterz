@@ -169,13 +169,6 @@ class MyApp extends StatelessWidget {
                   return SearchRouter(keyword: queryParameters['keyword']);
                 },
               );
-            } else if (queryParameters.containsKey('tag')) {
-              return MaterialPageRoute(
-                settings: setting,
-                builder: (BuildContext context) {
-                  return SearchRouter(tag: queryParameters['tag']);
-                },
-              );
             }
 
             // クエリなしの場合
