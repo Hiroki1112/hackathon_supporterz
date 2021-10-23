@@ -1,7 +1,9 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:hackathon_supporterz/helper/firebase_helper.dart';
 import 'package:hackathon_supporterz/screens/post_screen/components/card/preview_card.dart';
 import 'package:hackathon_supporterz/screens/post_screen/components/card/text_field_card.dart';
 import 'package:hackathon_supporterz/screens/post_screen/components/popup/url_embedded.dart';
@@ -21,6 +23,7 @@ class BodyTextField extends StatefulWidget {
 class _BodyTextFieldState extends State<BodyTextField> {
   bool isPreview = false;
   TextEditingController controller = TextEditingController();
+  Uint8List? uploadFile;
 
   @override
   Widget build(BuildContext context) {
@@ -56,9 +59,14 @@ class _BodyTextFieldState extends State<BodyTextField> {
                   size: 20,
                 ),
                 onPressed: () async {
-                  String result = await _upload();
+                  var result = await upload();
+
+                  if (result == CODE.failed) {
+                    result = 'failed';
+                  }
+
                   // 取得できた場合は文章中に埋め込む
-                  final _newValue = controller.text + '![$result]($result)';
+                  final _newValue = controller.text + '![ ]($result)';
                   controller.value = TextEditingValue(
                     text: _newValue,
                     selection: TextSelection.fromPosition(
@@ -112,25 +120,17 @@ class _BodyTextFieldState extends State<BodyTextField> {
     );
   }
 
-  Future<String> _upload() async {
-    // ファイルを選択する
+  Future<dynamic> upload() async {
     FilePickerResult? result = await FilePicker.platform
         .pickFiles(type: FileType.image, withData: true);
 
     if (result != null) {
-      // fileを選択する
-      File file = File(result.files.single.path!);
-
       try {
-        var task = await firebase_storage.FirebaseStorage.instance
-            .ref('postImage/hgoe.png')
-            .putFile(file);
-
-        return task.ref.fullPath;
-      } on firebase_storage.FirebaseException catch (e) {
-        debugPrint(e.message);
+        uploadFile = result.files.single.bytes;
+        return await FirebaseHelper.saveAndGetURL(uploadFile);
+      } catch (e) {
+        debugPrint(e.toString());
       }
     }
-    return 'failed';
   }
 }
