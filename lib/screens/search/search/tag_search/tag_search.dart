@@ -38,10 +38,12 @@ class _TagSearchState extends State<TagSearch> {
                   );
                 }
                 // タグを返却する
-                return Wrap(
-                  children: List.generate(snapshot.data!.length, (index) {
-                    return TagCard(tag: snapshot.data![index]);
-                  }),
+                return Center(
+                  child: Wrap(
+                    children: List.generate(snapshot.data!.length, (index) {
+                      return TagCard(tag: snapshot.data![index]);
+                    }),
+                  ),
                 );
               }
 
