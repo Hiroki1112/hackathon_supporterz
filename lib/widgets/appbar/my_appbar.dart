@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:hackathon_supporterz/models/user.dart';
 import 'package:hackathon_supporterz/provider/auth_provider.dart';
 import 'package:hackathon_supporterz/screens/calender/calender_screen.dart';
+import 'package:hackathon_supporterz/screens/home/home_screen.dart';
 import 'package:hackathon_supporterz/screens/post_screen/post_screen.dart';
 import 'package:hackathon_supporterz/screens/registration/registration_screen.dart';
 import 'package:hackathon_supporterz/screens/search/search/search.dart';
@@ -19,12 +20,19 @@ AppBar myAppBar(BuildContext context, {String title = 'Supporterz'}) {
   return AppBar(
     // モバイルの場合は表示(true)にする
     automaticallyImplyLeading: !kIsWeb,
-    title: Text(
-      title,
-      style: const TextStyle(
-        color: Colors.white,
+    title: TextButton(
+      onPressed: () {
+        //print("home");
+        Navigator.of(context).pushNamed(HomeScreen.routeName);
+      },
+      child: Text(
+        title,
+        style: const TextStyle(
+          color: Colors.white,
+        ),
       ),
     ),
+
     actions: [
       IconButton(
         onPressed: () {

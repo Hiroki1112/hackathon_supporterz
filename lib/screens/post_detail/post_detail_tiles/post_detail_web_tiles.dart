@@ -6,6 +6,7 @@ import 'package:hackathon_supporterz/screens/404/not_found.dart';
 import 'package:hackathon_supporterz/screens/post_detail/cards/body_card.dart';
 import 'package:hackathon_supporterz/screens/post_detail/cards/plan_text.dart';
 import 'package:hackathon_supporterz/screens/post_detail/cards/user_card.dart';
+import 'package:hackathon_supporterz/screens/post_detail/post_detail_tiles/post_edits_tile.dart';
 import 'package:hackathon_supporterz/screens/post_detail/title/title.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -42,7 +43,14 @@ class _PostDetailWebTileState extends State<PostDetailWebTile> {
             return SingleChildScrollView(
               child: Column(
                 children: [
-                  DetailTitle(title: _post.title),
+                  const SizedBox(height: 15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      DetailTitle(title: _post.title),
+                      PostEditsTile(userId: widget.userId ?? ''),
+                    ],
+                  ),
                   const SizedBox(height: 30),
                   DetailPlanText(planeText: _post.planText),
                   const SizedBox(height: 30),

@@ -6,6 +6,7 @@ import 'package:hackathon_supporterz/screens/404/not_found.dart';
 import 'package:hackathon_supporterz/screens/post_detail/cards/body_card.dart';
 import 'package:hackathon_supporterz/screens/post_detail/cards/plan_text.dart';
 import 'package:hackathon_supporterz/screens/post_detail/cards/user_card.dart';
+import 'package:hackathon_supporterz/screens/post_detail/post_detail_tiles/post_edits_tile.dart';
 import 'package:hackathon_supporterz/screens/post_detail/title/title.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -48,7 +49,13 @@ class _PostDetailTileState extends State<PostDetailTile> {
               return SingleChildScrollView(
                 child: Column(
                   children: [
-                    DetailTitle(title: _post.title),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        DetailTitle(title: _post.title),
+                        PostEditsTile(userId: widget.userId ?? ''),
+                      ],
+                    ),
 
                     Row(
                       children: [
@@ -90,24 +97,24 @@ class _PostDetailTileState extends State<PostDetailTile> {
                             ),
                           ),
                         ),
-                        Expanded(
-                          flex: 1,
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _containerColor = Colors.black.withOpacity(0.4);
-                                _selectedIndex = 2;
-                              });
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(),
-                                color: _containerColor,
-                              ),
-                              child: const Center(child: Text('制作物')),
-                            ),
-                          ),
-                        ),
+                        // Expanded(
+                        //   flex: 1,
+                        //   child: GestureDetector(
+                        //     onTap: () {
+                        //       setState(() {
+                        //         _containerColor = Colors.black.withOpacity(0.4);
+                        //         _selectedIndex = 2;
+                        //       });
+                        //     },
+                        //     child: Container(
+                        //       decoration: BoxDecoration(
+                        //         border: Border.all(),
+                        //         color: _containerColor,
+                        //       ),
+                        //       child: const Center(child: Text('制作物')),
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                     //_page[_selectedIndex],
@@ -119,9 +126,7 @@ class _PostDetailTileState extends State<PostDetailTile> {
                             ? DetailPlanText(planeText: _post.planText)
                             : _selectedIndex == 1
                                 ? DetailBodyCard(bodyText: _post.bodyText)
-                                : _selectedIndex == 2
-                                    ? UserCard(userId: _post.userId)
-                                    : const SizedBox(height: 15),
+                                : const SizedBox(height: 15),
                         UserCard(userId: _post.userId),
                       ],
                     ),
