@@ -37,28 +37,31 @@ class _PostDetailState extends State<PostDetail> {
   Widget build(BuildContext context) {
     debugPrint(widget.postId);
     return Scaffold(
-      backgroundColor: AppTheme.background,
-      appBar: myAppBar(context),
-      body: LayoutBuilder(builder: (context, snapshot) {
-        if (kIsWeb) {
-          return
-              // width: webWidth,
-              Center(
-            child: Container(
-              width: webWidth,
-              child: PostDetailWebTile(
-                postId: widget.postId,
-                userId: widget.userId,
-              ),
-            ),
-          );
-        } else {
-          return PostDetailTile(
-            postId: widget.postId,
-            userId: widget.userId,
-          );
-        }
-      }),
-    );
+        backgroundColor: AppTheme.background,
+        appBar: myAppBar(context),
+        body: ListView(
+          children: [
+            LayoutBuilder(builder: (context, constraints) {
+              if (kIsWeb) {
+                return
+                    // width: webWidth,
+                    Center(
+                  child: Container(
+                    width: webWidth,
+                    child: PostDetailWebTile(
+                      postId: widget.postId,
+                      userId: widget.userId,
+                    ),
+                  ),
+                );
+              } else {
+                return PostDetailTile(
+                  postId: widget.postId,
+                  userId: widget.userId,
+                );
+              }
+            }),
+          ],
+        ));
   }
 }
