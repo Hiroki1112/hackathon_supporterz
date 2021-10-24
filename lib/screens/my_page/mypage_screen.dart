@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/screens/404/not_found.dart';
-import 'package:hackathon_supporterz/screens/my_page/profile/user_profile.dart';
-import 'package:hackathon_supporterz/screens/my_page/user_posts/user_post_web.dart';
-import 'package:hackathon_supporterz/screens/my_page/user_posts/user_posts.dart';
-import 'package:hackathon_supporterz/util/app_theme.dart';
-import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
+import 'package:jiffy/screens/404/not_found.dart';
+import 'package:jiffy/screens/my_page/profile/user_profile.dart';
+import 'package:jiffy/screens/my_page/user_posts/user_post_web.dart';
+import 'package:jiffy/screens/my_page/user_posts/user_posts.dart';
+import 'package:jiffy/util/app_theme.dart';
+import 'package:jiffy/widgets/appbar/my_appbar.dart';
 
 /// URLで渡された文字列をuidとしてfirebaseで検索する
 class MyPageScreen extends StatefulWidget {
@@ -38,7 +38,6 @@ class _MyPageScreenState extends State<MyPageScreen> {
         if (kIsWeb) {
           return Center(
             child: Container(
-              width: 720,
               child: ListView(
                 // 無駄な読み込みを減らすためにキャッシュ領域を広げる
                 cacheExtent: 250.0 * 3.0,

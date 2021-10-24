@@ -1,7 +1,7 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/helper/firebase_helper.dart';
-import 'package:hackathon_supporterz/models/event.dart';
+import 'package:jiffy/helper/firebase_helper.dart';
+import 'package:jiffy/models/event.dart';
 import 'package:provider/src/provider.dart';
 
 class EventRegister extends StatefulWidget {

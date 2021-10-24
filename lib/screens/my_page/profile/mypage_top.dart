@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/helper/app_helper.dart';
+import 'package:jiffy/helper/app_helper.dart';
 
 class MypageTop extends StatefulWidget {
   const MypageTop({

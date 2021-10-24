@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.github.supporterzapp">
    <application
-        android:label="hackathon_supporterz"
+        android:label="jiffy"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

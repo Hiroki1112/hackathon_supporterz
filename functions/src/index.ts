@@ -26,6 +26,7 @@ exports.makeSimplePosts = functions.region("asia-northeast1").firestore
         goodCount: snap.data().goodCount,
         timeCreated: snap.data().timeCreated,
         timeUpdated: snap.data().timeUpdated,
+        title2gram: snap.data().title2gram
       };
 
       // 三箇所に書き込む
@@ -57,7 +58,8 @@ exports.deleteSimplePosts = functions.region("asia-northeast1").firestore
           .then(async (result)=>{
             if (!result.empty) {
               result.docs.forEach(async (doc)=> {
-                await snap.ref.collection("simplePosts").doc(doc.id).delete();
+                await snap.ref.parent?.parent?.collection("simplePosts")
+                .doc(doc.id).delete();
               });
             }
           })

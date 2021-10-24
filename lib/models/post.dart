@@ -1,4 +1,4 @@
-import 'package:hackathon_supporterz/util/constants.dart';
+import 'package:jiffy/util/constants.dart';
 import 'package:uuid/uuid.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:core';
@@ -41,6 +41,8 @@ class Post {
   int get goodCount => _goodCount;
 
   String get userId => _userId;
+
+  String get headerImageURL => _headerImageURL;
 
   // == setterの定義 ================
 

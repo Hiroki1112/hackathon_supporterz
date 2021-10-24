@@ -1,4 +1,4 @@
-import 'package:hackathon_supporterz/models/tag.dart';
+import 'package:jiffy/models/tag.dart';
 
 class PostHelper {
   /// 渡された単語に近い単語群を返すメソッド

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_signin_button/button_list.dart';
 import 'package:flutter_signin_button/button_view.dart';
-import 'package:hackathon_supporterz/provider/auth_provider.dart';
+import 'package:jiffy/provider/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 // サインインに使用するダイアログ

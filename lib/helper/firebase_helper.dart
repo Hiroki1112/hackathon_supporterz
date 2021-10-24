@@ -2,12 +2,13 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fbStorage;
-import 'package:hackathon_supporterz/helper/app_helper.dart';
-import 'package:hackathon_supporterz/models/event.dart';
-import 'package:hackathon_supporterz/models/post.dart';
-import 'package:hackathon_supporterz/models/simple_post.dart';
-import 'package:hackathon_supporterz/models/tag.dart';
-import 'package:hackathon_supporterz/models/user.dart';
+import 'package:flutter/material.dart';
+import 'package:jiffy/helper/app_helper.dart';
+import 'package:jiffy/models/event.dart';
+import 'package:jiffy/models/post.dart';
+import 'package:jiffy/models/simple_post.dart';
+import 'package:jiffy/models/tag.dart';
+import 'package:jiffy/models/user.dart';
 import 'package:uuid/uuid.dart';
 
 // エラーを伝えるためぶ使用する
@@ -26,14 +27,14 @@ class FirebaseHelper {
     List<String> title2gram = AppHelper.get2gram(title);
 
     // 変換したものを元にタイトルを検索するクエリを実装
-    var query = db.collection('api').doc('v1').collection('posts').limit(20);
+    var query = db.collection('api').doc('v1').collection('allPosts').limit(20);
     for (var key in title2gram) {
       query = query.where('title2gram.' + key, isEqualTo: true);
     }
 
     // 取得したデータをList<Map<String, dynamic>>型に変換する
-
-    return await query.get();
+    var res = await query.get();
+    return res;
   }
 
   static Future<QuerySnapshot<Map<String, dynamic>>> getTagSearchResult(
@@ -44,7 +45,7 @@ class FirebaseHelper {
     var query = db
         .collection('api')
         .doc('v1')
-        .collection('posts')
+        .collection('allPosts')
         .limit(20)
         .where('techTag', arrayContains: tag);
 
@@ -78,8 +79,8 @@ class FirebaseHelper {
     var db = FirebaseFirestore.instance;
     // ignore: prefer_typing_uninitialized_variables
     Query<Map<String, dynamic>> query;
-    if (keyword == '') {
-      query = db.collection('api').doc('v1').collection('tags').limit(4);
+    if (keyword.length < 2) {
+      query = db.collection('api').doc('v1').collection('tags').limit(16);
     } else {
       List<String> keyword2gram = AppHelper.get2gram(keyword);
 
@@ -104,6 +105,34 @@ class FirebaseHelper {
     }
 
     return recommendTags;
+  }
+
+  static Future<List<Tag>?> getTags() async {
+    var db = FirebaseFirestore.instance;
+    List<Tag> recommendTags = [];
+
+    try {
+      var res = await db
+          .collection('api')
+          .doc('v1')
+          .collection('tags')
+          .limit(16)
+          .get();
+
+      if (res.docs.isNotEmpty) {
+        for (var element in res.docs) {
+          Map data = element.data();
+          recommendTags.add(
+            Tag(tag: element.data()['tag'], url: data['url']),
+          );
+        }
+      }
+
+      return recommendTags;
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
   }
 
   static Future<void> userRegistration(MyUser user) async {

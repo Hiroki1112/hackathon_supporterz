@@ -1,11 +1,11 @@
 {
-    "name": "hackathon_supporterz",
-    "short_name": "hackathon_supporterz",
+    "name": "Jiffy",
+    "short_name": "Jiffy",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "Jiffyはハッカソンなどで開発した開発物を投稿・閲覧することのできるプラットフォームです。",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

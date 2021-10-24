@@ -23,6 +23,7 @@ exports.makeSimplePosts = functions.region("asia-northeast1").firestore
         goodCount: snap.data().goodCount,
         timeCreated: snap.data().timeCreated,
         timeUpdated: snap.data().timeUpdated,
+        title2gram: snap.data().title2gram
     };
     // 三箇所に書き込む
     await (v1CollectionRef === null || v1CollectionRef === void 0 ? void 0 : v1CollectionRef.collection("allPosts").add(simplePost));
@@ -48,7 +49,8 @@ exports.deleteSimplePosts = functions.region("asia-northeast1").firestore
         .then(async (result) => {
         if (!result.empty) {
             result.docs.forEach(async (doc) => {
-                await snap.ref.collection("simplePosts").doc(doc.id).delete();
+                var _a, _b;
+                await ((_b = (_a = snap.ref.parent) === null || _a === void 0 ? void 0 : _a.parent) === null || _b === void 0 ? void 0 : _b.collection("simplePosts").doc(doc.id).delete());
             });
         }
     });

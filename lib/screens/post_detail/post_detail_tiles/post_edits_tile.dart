@@ -2,10 +2,10 @@ import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/helper/firebase_helper.dart';
-import 'package:hackathon_supporterz/models/user.dart';
-import 'package:hackathon_supporterz/screens/404/not_found.dart';
-import 'package:hackathon_supporterz/screens/my_page/profile_edit.dart';
+import 'package:jiffy/helper/firebase_helper.dart';
+import 'package:jiffy/models/user.dart';
+import 'package:jiffy/screens/404/not_found.dart';
+import 'package:jiffy/screens/my_page/profile_edit.dart';
 import 'package:provider/src/provider.dart';
 
 class PostEditsTile extends StatefulWidget {

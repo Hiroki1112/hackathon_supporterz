@@ -4,11 +4,11 @@ import 'package:async/async.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:hackathon_supporterz/helper/firebase_helper.dart';
-import 'package:hackathon_supporterz/models/user.dart';
-import 'package:hackathon_supporterz/screens/404/not_found.dart';
-import 'package:hackathon_supporterz/util/app_theme.dart';
-import 'package:hackathon_supporterz/util/constants.dart';
+import 'package:jiffy/helper/firebase_helper.dart';
+import 'package:jiffy/models/user.dart';
+import 'package:jiffy/screens/404/not_found.dart';
+import 'package:jiffy/util/app_theme.dart';
+import 'package:jiffy/util/constants.dart';
 // ignore: implementation_imports
 import 'package:provider/src/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

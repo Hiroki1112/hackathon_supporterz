@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/screens/search/search/search.dart';
-import 'package:hackathon_supporterz/screens/search/search_result/search_result_keyword.dart';
-import 'package:hackathon_supporterz/screens/search/search_result/search_result_tag.dart';
+import 'package:jiffy/screens/search/search/search.dart';
+import 'package:jiffy/screens/search/search_result/search_result_keyword.dart';
+import 'package:jiffy/screens/search/search_result/search_result_tag.dart';
 
 class SearchRouter extends StatefulWidget {
   static String routeName = '/Search';

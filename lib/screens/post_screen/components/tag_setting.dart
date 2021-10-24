@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:hackathon_supporterz/helper/firebase_helper.dart';
-import 'package:hackathon_supporterz/models/tag.dart';
-import 'package:hackathon_supporterz/screens/post_screen/components/popup/add_tag.dart';
-import 'package:hackathon_supporterz/screens/post_screen/components/post_inherited.dart';
-import 'package:hackathon_supporterz/util/app_theme.dart';
-import 'package:hackathon_supporterz/widgets/dialog/dialog.dart';
-import 'package:hackathon_supporterz/widgets/dialog/success.dart';
+import 'package:jiffy/helper/firebase_helper.dart';
+import 'package:jiffy/models/tag.dart';
+import 'package:jiffy/screens/post_screen/components/popup/add_tag.dart';
+import 'package:jiffy/screens/post_screen/components/post_inherited.dart';
+import 'package:jiffy/util/app_theme.dart';
+import 'package:jiffy/widgets/dialog/dialog.dart';
+import 'package:jiffy/widgets/dialog/success.dart';
 
 class TagSetting extends StatefulWidget {
   const TagSetting({

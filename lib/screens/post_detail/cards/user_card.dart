@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/helper/firebase_helper.dart';
-import 'package:hackathon_supporterz/models/user.dart';
-import 'package:hackathon_supporterz/util/app_theme.dart';
-import 'package:hackathon_supporterz/util/config.dart';
+import 'package:jiffy/helper/firebase_helper.dart';
+import 'package:jiffy/models/user.dart';
+import 'package:jiffy/util/app_theme.dart';
+import 'package:jiffy/util/config.dart';
 
 class UserCard extends StatefulWidget {
   const UserCard({

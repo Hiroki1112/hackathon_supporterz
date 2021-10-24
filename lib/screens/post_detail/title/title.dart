@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/util/config.dart';
+import 'package:jiffy/util/config.dart';
 
 class DetailTitle extends StatelessWidget {
   const DetailTitle({
@@ -10,11 +10,17 @@ class DetailTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-      child: Text(
-        title,
-        style: Config.h2,
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+        child: Text(
+          title,
+          maxLines: 2,
+          style: const TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     );
   }

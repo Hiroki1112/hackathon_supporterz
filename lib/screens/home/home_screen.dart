@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/screens/home/home_body.dart';
-import 'package:hackathon_supporterz/screens/post_detail/post_detail.dart';
-import 'package:hackathon_supporterz/util/app_theme.dart';
-import 'package:hackathon_supporterz/util/config.dart';
-import 'package:hackathon_supporterz/util/constants.dart';
-import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
+import 'package:jiffy/screens/home/home_body.dart';
+import 'package:jiffy/screens/post_detail/post_detail.dart';
+import 'package:jiffy/util/app_theme.dart';
+import 'package:jiffy/util/config.dart';
+import 'package:jiffy/util/constants.dart';
+import 'package:jiffy/widgets/appbar/my_appbar.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/';
@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
               return const Center(
                 //padding: const EdgeInsets.all(15),
                 child: SizedBox(
-                  width: 990,
+                  width: webWidth,
                   child: HomeBody(),
                 ),
               );

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/helper/firebase_helper.dart';
-import 'package:hackathon_supporterz/models/simple_post.dart';
-import 'package:hackathon_supporterz/util/app_theme.dart';
-import 'package:hackathon_supporterz/widgets/tiles/post_tile.dart';
+import 'package:jiffy/helper/firebase_helper.dart';
+import 'package:jiffy/models/simple_post.dart';
+import 'package:jiffy/util/app_theme.dart';
+import 'package:jiffy/widgets/tiles/post_tile.dart';
 
 class UserPosts extends StatefulWidget {
   const UserPosts({

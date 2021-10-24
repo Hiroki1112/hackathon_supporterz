@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hackathon_supporterz/models/post.dart';
+import 'package:jiffy/models/post.dart';
 
 void main() {
   final Post myPost = Post();

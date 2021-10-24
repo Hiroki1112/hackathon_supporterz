@@ -8,4 +8,10 @@ export interface SimplePost {
   timeUpdated: Date,
   userId: string,
   goodCount: number,
+  title2gram: Grams
+}
+
+export interface Grams {
+  title:string,
+  bo:boolean,
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/screens/home/trend_list/trend_list.dart';
-import 'package:hackathon_supporterz/util/config.dart';
+import 'package:jiffy/screens/home/tag_list/tag_list.dart';
+import 'package:jiffy/screens/home/trend_list/trend_list.dart';
+import 'package:jiffy/util/config.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({Key? key}) : super(key: key);
@@ -10,7 +11,7 @@ class HomeBody extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: const [
-        SizedBox(height: 50),
+        SizedBox(height: 15),
         Padding(
           padding: EdgeInsets.all(8.0),
           child: Text(
@@ -19,6 +20,14 @@ class HomeBody extends StatelessWidget {
           ),
         ),
         TrendList(),
+        Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text(
+            'おすすめのタグ',
+            style: Config.h2,
+          ),
+        ),
+        TagList(),
       ],
     );
   }

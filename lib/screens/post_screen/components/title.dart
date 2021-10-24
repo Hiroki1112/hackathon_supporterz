@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/screens/post_screen/components/post_inherited.dart';
+import 'package:jiffy/screens/post_screen/components/post_inherited.dart';
 
 class InputTitle extends StatefulWidget {
   const InputTitle({Key? key}) : super(key: key);
