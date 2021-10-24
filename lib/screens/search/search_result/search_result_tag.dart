@@ -54,15 +54,17 @@ class _SearchResultTagState extends State<SearchResultTag> {
                         ),
                       );
                     }
-                    return Column(
-                      children: List.generate(
-                        snapshot.data!.size,
-                        (index) {
-                          SimplePost post = SimplePost.fromJson(
-                              snapshot.data!.docs[index].data());
+                    return Center(
+                      child: Column(
+                        children: List.generate(
+                          snapshot.data!.size,
+                          (index) {
+                            SimplePost post = SimplePost.fromJson(
+                                snapshot.data!.docs[index].data());
 
-                          return PostTile(simplePost: post);
-                        },
+                            return PostTile(simplePost: post);
+                          },
+                        ),
                       ),
                     );
                   }
