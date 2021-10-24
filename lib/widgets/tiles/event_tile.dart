@@ -1,16 +1,16 @@
 import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/helper/app_helper.dart';
-import 'package:hackathon_supporterz/models/event.dart';
-import 'package:hackathon_supporterz/models/event.dart';
-import 'package:hackathon_supporterz/models/simple_post.dart';
-import 'package:hackathon_supporterz/models/user.dart';
-import 'package:hackathon_supporterz/models/event.dart';
-import 'package:hackathon_supporterz/util/app_theme.dart';
-import 'package:hackathon_supporterz/util/config.dart';
+import 'package:jiffy/helper/app_helper.dart';
+import 'package:jiffy/models/event.dart';
+import 'package:jiffy/models/event.dart';
+import 'package:jiffy/models/simple_post.dart';
+import 'package:jiffy/models/user.dart';
+import 'package:jiffy/models/event.dart';
+import 'package:jiffy/util/app_theme.dart';
+import 'package:jiffy/util/config.dart';
 import 'package:date_format/date_format.dart';
-import 'package:hackathon_supporterz/util/constants.dart';
+import 'package:jiffy/util/constants.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EventTile extends StatefulWidget {

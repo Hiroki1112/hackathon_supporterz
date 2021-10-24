@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/screens/home/home_screen.dart';
-import 'package:hackathon_supporterz/util/config.dart';
+import 'package:jiffy/screens/home/home_screen.dart';
+import 'package:jiffy/util/config.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 /// アクセスしたページが見つからなかった時に返却するクラス

@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neat_and_clean_calendar/flutter_neat_and_clean_calendar.dart';
-import 'package:hackathon_supporterz/helper/firebase_helper.dart';
-import 'package:hackathon_supporterz/models/event.dart';
-import 'package:hackathon_supporterz/screens/calender/event_register_screen/event_register.dart';
-import 'package:hackathon_supporterz/util/app_theme.dart';
-import 'package:hackathon_supporterz/util/config.dart';
-import 'package:hackathon_supporterz/util/constants.dart';
-import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
-import 'package:hackathon_supporterz/widgets/tiles/event_tile.dart';
+import 'package:jiffy/helper/firebase_helper.dart';
+import 'package:jiffy/models/event.dart';
+import 'package:jiffy/screens/calender/event_register_screen/event_register.dart';
+import 'package:jiffy/util/app_theme.dart';
+import 'package:jiffy/util/config.dart';
+import 'package:jiffy/util/constants.dart';
+import 'package:jiffy/widgets/appbar/my_appbar.dart';
+import 'package:jiffy/widgets/tiles/event_tile.dart';
 import 'package:async/async.dart';
 
 class CalenderScreen extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:hackathon_supporterz/util/constants.dart';
+import 'package:jiffy/util/constants.dart';
 
 /// アプリケーション内の各所で必要になる関数などをまとめたクラス
 class AppHelper {

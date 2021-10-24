@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/util/config.dart';
+import 'package:jiffy/util/config.dart';
 
 class DetailTitle extends StatelessWidget {
   const DetailTitle({

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/helper/app_helper.dart';
-import 'package:hackathon_supporterz/models/tag.dart';
-import 'package:hackathon_supporterz/screens/search/search_result/search_result_tag.dart';
-import 'package:hackathon_supporterz/util/app_theme.dart';
+import 'package:jiffy/helper/app_helper.dart';
+import 'package:jiffy/models/tag.dart';
+import 'package:jiffy/screens/search/search_result/search_result_tag.dart';
+import 'package:jiffy/util/app_theme.dart';
 
 class TagCard extends StatelessWidget {
   const TagCard({

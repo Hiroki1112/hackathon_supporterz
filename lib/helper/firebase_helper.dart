@@ -3,12 +3,12 @@ import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart' as fbStorage;
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/helper/app_helper.dart';
-import 'package:hackathon_supporterz/models/event.dart';
-import 'package:hackathon_supporterz/models/post.dart';
-import 'package:hackathon_supporterz/models/simple_post.dart';
-import 'package:hackathon_supporterz/models/tag.dart';
-import 'package:hackathon_supporterz/models/user.dart';
+import 'package:jiffy/helper/app_helper.dart';
+import 'package:jiffy/models/event.dart';
+import 'package:jiffy/models/post.dart';
+import 'package:jiffy/models/simple_post.dart';
+import 'package:jiffy/models/tag.dart';
+import 'package:jiffy/models/user.dart';
 import 'package:uuid/uuid.dart';
 
 // エラーを伝えるためぶ使用する

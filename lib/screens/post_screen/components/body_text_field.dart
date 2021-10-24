@@ -3,12 +3,12 @@ import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/helper/firebase_helper.dart';
-import 'package:hackathon_supporterz/screens/post_screen/components/card/preview_card.dart';
-import 'package:hackathon_supporterz/screens/post_screen/components/card/text_field_card.dart';
-import 'package:hackathon_supporterz/screens/post_screen/components/popup/url_embedded.dart';
-import 'package:hackathon_supporterz/screens/post_screen/components/post_inherited.dart';
-import 'package:hackathon_supporterz/util/config.dart';
+import 'package:jiffy/helper/firebase_helper.dart';
+import 'package:jiffy/screens/post_screen/components/card/preview_card.dart';
+import 'package:jiffy/screens/post_screen/components/card/text_field_card.dart';
+import 'package:jiffy/screens/post_screen/components/popup/url_embedded.dart';
+import 'package:jiffy/screens/post_screen/components/post_inherited.dart';
+import 'package:jiffy/util/config.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class BodyTextField extends StatefulWidget {

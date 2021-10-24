@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/helper/firebase_helper.dart';
-import 'package:hackathon_supporterz/models/tag.dart';
-import 'package:hackathon_supporterz/screens/search/search/tag_search/tag_card.dart';
+import 'package:jiffy/helper/firebase_helper.dart';
+import 'package:jiffy/models/tag.dart';
+import 'package:jiffy/screens/search/search/tag_search/tag_card.dart';
 
 class TagList extends StatelessWidget {
   const TagList({Key? key}) : super(key: key);

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/screens/search/search/tag_search/tag_search.dart';
-import 'package:hackathon_supporterz/util/app_theme.dart';
-import 'package:hackathon_supporterz/util/config.dart';
-import 'package:hackathon_supporterz/util/constants.dart';
-import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
+import 'package:jiffy/screens/search/search/tag_search/tag_search.dart';
+import 'package:jiffy/util/app_theme.dart';
+import 'package:jiffy/util/config.dart';
+import 'package:jiffy/util/constants.dart';
+import 'package:jiffy/widgets/appbar/my_appbar.dart';
 
 /// クエリパラメターがない場合の遷移先
 class Search extends StatefulWidget {

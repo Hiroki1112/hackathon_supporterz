@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hackathon_supporterz/util/app_theme.dart';
+import 'package:jiffy/util/app_theme.dart';
 
 class TextFieldCard extends StatelessWidget {
   const TextFieldCard({

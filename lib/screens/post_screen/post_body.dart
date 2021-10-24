@@ -2,15 +2,15 @@ import 'dart:typed_data';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/helper/firebase_helper.dart';
-import 'package:hackathon_supporterz/models/post.dart';
-import 'package:hackathon_supporterz/models/user.dart';
-import 'package:hackathon_supporterz/screens/post_screen/components/body_text_field.dart';
-import 'package:hackathon_supporterz/screens/post_screen/components/plan_text_field.dart';
-import 'package:hackathon_supporterz/screens/post_screen/components/post_inherited.dart';
-import 'package:hackathon_supporterz/screens/post_screen/components/title.dart';
-import 'package:hackathon_supporterz/screens/post_screen/components/tag_setting.dart';
-import 'package:hackathon_supporterz/widgets/dialog/dialog.dart';
+import 'package:jiffy/helper/firebase_helper.dart';
+import 'package:jiffy/models/post.dart';
+import 'package:jiffy/models/user.dart';
+import 'package:jiffy/screens/post_screen/components/body_text_field.dart';
+import 'package:jiffy/screens/post_screen/components/plan_text_field.dart';
+import 'package:jiffy/screens/post_screen/components/post_inherited.dart';
+import 'package:jiffy/screens/post_screen/components/title.dart';
+import 'package:jiffy/screens/post_screen/components/tag_setting.dart';
+import 'package:jiffy/widgets/dialog/dialog.dart';
 import 'package:provider/provider.dart';
 import 'components/popup/add_header_image.dart';
 

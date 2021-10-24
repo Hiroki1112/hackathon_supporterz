@@ -1,15 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'package:hackathon_supporterz/models/user.dart';
-import 'package:hackathon_supporterz/provider/auth_provider.dart';
-import 'package:hackathon_supporterz/screens/calender/calender_screen.dart';
-import 'package:hackathon_supporterz/screens/home/home_screen.dart';
-import 'package:hackathon_supporterz/screens/post_screen/post_screen.dart';
-import 'package:hackathon_supporterz/screens/registration/registration_screen.dart';
-import 'package:hackathon_supporterz/screens/search/search/search.dart';
-import 'package:hackathon_supporterz/widgets/dialog/dialog.dart';
-import 'package:hackathon_supporterz/widgets/dialog/sign_in.dart';
+import 'package:jiffy/models/user.dart';
+import 'package:jiffy/provider/auth_provider.dart';
+import 'package:jiffy/screens/calender/calender_screen.dart';
+import 'package:jiffy/screens/home/home_screen.dart';
+import 'package:jiffy/screens/post_screen/post_screen.dart';
+import 'package:jiffy/screens/registration/registration_screen.dart';
+import 'package:jiffy/screens/search/search/search.dart';
+import 'package:jiffy/widgets/dialog/dialog.dart';
+import 'package:jiffy/widgets/dialog/sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

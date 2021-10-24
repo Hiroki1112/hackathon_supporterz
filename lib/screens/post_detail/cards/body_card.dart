@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/models/post.dart';
-import 'package:hackathon_supporterz/util/app_theme.dart';
-import 'package:hackathon_supporterz/util/constants.dart';
+import 'package:jiffy/models/post.dart';
+import 'package:jiffy/util/app_theme.dart';
+import 'package:jiffy/util/constants.dart';
 //import 'package:webview_flutter/webview_flutter.dart';
 import 'package:markdown/markdown.dart' as md;
 import 'package:webviewx/webviewx.dart';

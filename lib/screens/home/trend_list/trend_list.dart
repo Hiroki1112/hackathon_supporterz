@@ -1,10 +1,10 @@
 import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/models/simple_post.dart';
-import 'package:hackathon_supporterz/util/config.dart';
-import 'package:hackathon_supporterz/util/constants.dart';
-import 'package:hackathon_supporterz/widgets/tiles/post_tile.dart';
+import 'package:jiffy/models/simple_post.dart';
+import 'package:jiffy/util/config.dart';
+import 'package:jiffy/util/constants.dart';
+import 'package:jiffy/widgets/tiles/post_tile.dart';
 
 class TrendList extends StatefulWidget {
   const TrendList({Key? key}) : super(key: key);

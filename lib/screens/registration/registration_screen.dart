@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:hackathon_supporterz/helper/firebase_helper.dart';
-import 'package:hackathon_supporterz/models/user.dart';
-import 'package:hackathon_supporterz/screens/registration/registration_field/registration_field.dart';
-import 'package:hackathon_supporterz/util/app_theme.dart';
-import 'package:hackathon_supporterz/util/config.dart';
-import 'package:hackathon_supporterz/util/constants.dart';
-import 'package:hackathon_supporterz/widgets/appbar/my_appbar.dart';
+import 'package:jiffy/helper/firebase_helper.dart';
+import 'package:jiffy/models/user.dart';
+import 'package:jiffy/screens/registration/registration_field/registration_field.dart';
+import 'package:jiffy/util/app_theme.dart';
+import 'package:jiffy/util/config.dart';
+import 'package:jiffy/util/constants.dart';
+import 'package:jiffy/widgets/appbar/my_appbar.dart';
 // ignore: implementation_imports
 import 'package:provider/src/provider.dart';
 import 'package:validators/validators.dart';
