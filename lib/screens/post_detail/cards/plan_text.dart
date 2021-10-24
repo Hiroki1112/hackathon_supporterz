@@ -19,32 +19,39 @@ class DetailPlanText extends StatelessWidget {
   Widget build(BuildContext context) {
     WebViewController _controller;
 
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.7,
-      width: webWidth,
-      decoration: BoxDecoration(
-        color: AppTheme.white,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: AppTheme.darkShadow,
-            spreadRadius: 1.0,
-            blurRadius: 3.0,
-            offset: const Offset(1, 2),
-          ),
-        ],
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        maxWidth: webWidth,
       ),
       child: Container(
-        padding: const EdgeInsets.all(10),
-        child: MarkdownBody(
-          data: planeText,
-          selectable: true,
-          onTapLink: (val, val2, val3) {
-            launch(val2 ?? '');
-          },
+        decoration: BoxDecoration(
+          color: AppTheme.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: AppTheme.darkShadow,
+              spreadRadius: 1.0,
+              blurRadius: 3.0,
+              offset: const Offset(1, 2),
+            ),
+          ],
         ),
+        child: Container(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            children: [
+              MarkdownBody(
+                data: planeText,
+                selectable: true,
+                onTapLink: (val, val2, val3) {
+                  launch(val2 ?? '');
+                },
+              ),
+            ],
+          ),
+        ),
+        // Container(padding: const EdgeInsets.all(10), child: Text(planeText)),
       ),
-      // Container(padding: const EdgeInsets.all(10), child: Text(planeText)),
     );
   }
 

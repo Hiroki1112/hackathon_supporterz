@@ -18,7 +18,7 @@ class _TrendListState extends State<TrendList> {
   @override
   Widget build(BuildContext context) {
     var db = FirebaseFirestore.instance;
-    var trend = db.collection('api').doc('v1').collection('allPosts').limit(5);
+    var trend = db.collection('api').doc('v1').collection('allPosts').limit(6);
     return FutureBuilder(
       future: memo.runOnce(() async => await trend.get()),
       builder: (BuildContext context, AsyncSnapshot snapshot) {

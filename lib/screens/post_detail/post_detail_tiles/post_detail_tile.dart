@@ -9,6 +9,7 @@ import 'package:jiffy/screens/post_detail/cards/user_card.dart';
 import 'package:jiffy/screens/post_detail/post_detail_tiles/post_edits_tile.dart';
 import 'package:jiffy/screens/post_detail/title/title.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:jiffy/util/config.dart';
 
 class PostDetailTile extends StatefulWidget {
   const PostDetailTile({
@@ -27,7 +28,7 @@ class PostDetailTile extends StatefulWidget {
 
 class _PostDetailTileState extends State<PostDetailTile> {
   Post _post = Post();
-  int _selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -44,94 +45,41 @@ class _PostDetailTileState extends State<PostDetailTile> {
               }
               _post = Post();
               _post.fromJson(snapshot.data!.data() ?? {});
-              Color _containerColor = Colors.white;
 
-              return SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        DetailTitle(title: _post.title),
-                        PostEditsTile(userId: widget.userId ?? ''),
-                      ],
+              return ListView(
+                children: [
+                  DetailTitle(title: _post.title),
+                  Center(
+                    child: Container(
+                      height: 50,
+                      child: Image.network(
+                        _post.headerImageURL,
+                      ),
                     ),
-
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: GestureDetector(
-                            onTap: () async {
-                              setState(() {
-                                _containerColor = Colors.black.withOpacity(0.4);
-                                _selectedIndex = 0;
-                              });
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(),
-                                color: _containerColor,
-                                //color: Colors.black.withOpacity(0.4)
-                                //color: Color(#00000000000),
-                              ),
-                              child: Center(child: const Text('企画')),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                _containerColor = Colors.black.withOpacity(0.4);
-                                _selectedIndex = 1;
-                              });
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(),
-                                color: _containerColor,
-                              ),
-                              child: Center(child: const Text('開発')),
-                            ),
-                          ),
-                        ),
-                        // Expanded(
-                        //   flex: 1,
-                        //   child: GestureDetector(
-                        //     onTap: () {
-                        //       setState(() {
-                        //         _containerColor = Colors.black.withOpacity(0.4);
-                        //         _selectedIndex = 2;
-                        //       });
-                        //     },
-                        //     child: Container(
-                        //       decoration: BoxDecoration(
-                        //         border: Border.all(),
-                        //         color: _containerColor,
-                        //       ),
-                        //       child: const Center(child: Text('制作物')),
-                        //     ),
-                        //   ),
-                        // ),
-                      ],
+                  ),
+                  PostEditsTile(userId: widget.userId ?? ''),
+                  const SizedBox(height: 25),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      '# 企画・構想',
+                      style: Config.h3,
                     ),
-                    //_page[_selectedIndex],
-                    Column(
-                      children: [
-                        //DetailTitle(title: _post.title),
-                        const SizedBox(height: 15),
-                        _selectedIndex == 0
-                            ? DetailPlanText(planeText: _post.planText)
-                            : _selectedIndex == 1
-                                ? DetailBodyCard(bodyText: _post.bodyText)
-                                : const SizedBox(height: 15),
-                        UserCard(userId: _post.userId),
-                      ],
+                  ),
+                  DetailPlanText(planeText: _post.planText),
+                  const SizedBox(height: 25),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      '# 本文',
+                      style: Config.h3,
                     ),
-                  ],
-                ),
+                  ),
+                  DetailBodyCard(bodyText: _post.bodyText),
+                  const SizedBox(height: 25),
+                  UserCard(userId: _post.userId),
+                  const SizedBox(height: 60),
+                ],
               );
             }
 

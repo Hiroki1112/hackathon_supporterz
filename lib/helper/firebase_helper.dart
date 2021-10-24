@@ -27,14 +27,14 @@ class FirebaseHelper {
     List<String> title2gram = AppHelper.get2gram(title);
 
     // 変換したものを元にタイトルを検索するクエリを実装
-    var query = db.collection('api').doc('v1').collection('posts').limit(20);
+    var query = db.collection('api').doc('v1').collection('allPosts').limit(20);
     for (var key in title2gram) {
       query = query.where('title2gram.' + key, isEqualTo: true);
     }
 
     // 取得したデータをList<Map<String, dynamic>>型に変換する
-
-    return await query.get();
+    var res = await query.get();
+    return res;
   }
 
   static Future<QuerySnapshot<Map<String, dynamic>>> getTagSearchResult(
@@ -45,7 +45,7 @@ class FirebaseHelper {
     var query = db
         .collection('api')
         .doc('v1')
-        .collection('posts')
+        .collection('allPosts')
         .limit(20)
         .where('techTag', arrayContains: tag);
 

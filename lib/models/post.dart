@@ -42,6 +42,8 @@ class Post {
 
   String get userId => _userId;
 
+  String get headerImageURL => _headerImageURL;
+
   // == setterの定義 ================
 
   /// 文字数が40文字以内である時のみ値をセットする。
