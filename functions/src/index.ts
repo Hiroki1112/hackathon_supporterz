@@ -26,6 +26,7 @@ exports.makeSimplePosts = functions.region("asia-northeast1").firestore
         goodCount: snap.data().goodCount,
         timeCreated: snap.data().timeCreated,
         timeUpdated: snap.data().timeUpdated,
+        title2gram: snap.data().title2gram
       };
 
       // 三箇所に書き込む
