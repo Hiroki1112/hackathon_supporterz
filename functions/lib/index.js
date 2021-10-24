@@ -48,7 +48,8 @@ exports.deleteSimplePosts = functions.region("asia-northeast1").firestore
         .then(async (result) => {
         if (!result.empty) {
             result.docs.forEach(async (doc) => {
-                await snap.ref.collection("simplePosts").doc(doc.id).delete();
+                var _a, _b;
+                await ((_b = (_a = snap.ref.parent) === null || _a === void 0 ? void 0 : _a.parent) === null || _b === void 0 ? void 0 : _b.collection("simplePosts").doc(doc.id).delete());
             });
         }
     });
