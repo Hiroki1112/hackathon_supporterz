@@ -117,7 +117,10 @@ class _EventTileState extends State<EventTile> {
                     ),
                   ),
                   Text(
-                    widget.event.eventTitle,
+                    widget.event.eventTitle +
+                        '(主催:' +
+                        widget.event.companyName +
+                        ')',
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(

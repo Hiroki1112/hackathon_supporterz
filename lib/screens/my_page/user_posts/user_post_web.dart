@@ -29,7 +29,7 @@ class _UserPostWebState extends State<UserPostWeb> {
       child: Column(
         children: [
           const SizedBox(
-            height: 50,
+            height: 10,
           ),
           FutureBuilder(
             //future: FirebaseHelper.getUserPosts(widget.uid),

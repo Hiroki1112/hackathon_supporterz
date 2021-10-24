@@ -38,7 +38,6 @@ class _MyPageScreenState extends State<MyPageScreen> {
         if (kIsWeb) {
           return Center(
             child: Container(
-              width: 720,
               child: ListView(
                 // 無駄な読み込みを減らすためにキャッシュ領域を広げる
                 cacheExtent: 250.0 * 3.0,

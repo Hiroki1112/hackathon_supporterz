@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
               return const Center(
                 //padding: const EdgeInsets.all(15),
                 child: SizedBox(
-                  width: 990,
+                  width: webWidth,
                   child: HomeBody(),
                 ),
               );
