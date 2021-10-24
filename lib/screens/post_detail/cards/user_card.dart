@@ -48,31 +48,38 @@ class _UserCardState extends State<UserCard> {
 
               _user.fromJson(snapshot.data?.data() ?? {});
 
-              return Row(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 10),
-                    width: 100,
-                    height: 100,
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(_user.pictureURL),
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Text(
-                          _user.useName,
-                          style: Config.h3,
-                        ),
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pushNamed(
+                    '/' + _user.userId,
+                  );
+                },
+                child: Row(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                      width: 100,
+                      height: 100,
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(_user.pictureURL),
                       ),
-                      Text(
-                        _user.selfIntroduction,
-                      )
-                    ],
-                  ),
-                ],
+                    ),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Text(
+                            _user.useName,
+                            style: Config.h3,
+                          ),
+                        ),
+                        Text(
+                          _user.selfIntroduction,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               );
             }
             return const CircularProgressIndicator();
