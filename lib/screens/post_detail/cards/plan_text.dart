@@ -22,6 +22,7 @@ class DetailPlanText extends StatelessWidget {
     return ConstrainedBox(
       constraints: const BoxConstraints(
         maxWidth: webWidth,
+        minHeight: 400,
       ),
       child: Container(
         decoration: BoxDecoration(

@@ -40,6 +40,32 @@ AppBar myAppBar(BuildContext context, {String title = 'Jiffy'}) {
         },
         icon: const Icon(Icons.search),
       ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: OutlinedButton(
+          onPressed: () {
+            Navigator.of(context).pushNamed(CalenderScreen.routeName);
+          },
+          style: OutlinedButton.styleFrom(
+            primary: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            side: const BorderSide(
+              color: Colors.white,
+            ),
+          ),
+          child: const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            child: Text(
+              'イベント日程',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ),
 
       /// ユーザーのログイン状態に応じてウィジェットを変更する
       firebaseUser == null

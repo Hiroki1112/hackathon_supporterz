@@ -51,13 +51,13 @@ class _PostDetailTileState extends State<PostDetailTile> {
                   DetailTitle(title: _post.title),
                   Center(
                     child: Container(
-                      height: 50,
+                      height: 100,
                       child: Image.network(
                         _post.headerImageURL,
                       ),
                     ),
                   ),
-                  PostEditsTile(userId: widget.userId ?? ''),
+                  //PostEditsTile(userId: widget.userId ?? ''),
                   const SizedBox(height: 25),
                   const Padding(
                     padding: EdgeInsets.all(8.0),

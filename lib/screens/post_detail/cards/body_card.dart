@@ -24,7 +24,10 @@ class _DetailBodyCard extends State<DetailBodyCard> {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: const BoxConstraints(maxWidth: webWidth),
+      constraints: const BoxConstraints(
+        maxWidth: webWidth,
+        minHeight: 400,
+      ),
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(

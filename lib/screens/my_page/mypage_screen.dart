@@ -5,6 +5,7 @@ import 'package:jiffy/screens/my_page/profile/user_profile.dart';
 import 'package:jiffy/screens/my_page/user_posts/user_post_web.dart';
 import 'package:jiffy/screens/my_page/user_posts/user_posts.dart';
 import 'package:jiffy/util/app_theme.dart';
+import 'package:jiffy/util/constants.dart';
 import 'package:jiffy/widgets/appbar/my_appbar.dart';
 
 /// URLで渡された文字列をuidとしてfirebaseで検索する
@@ -35,9 +36,10 @@ class _MyPageScreenState extends State<MyPageScreen> {
       appBar: myAppBar(context),
       body: LayoutBuilder(builder: (context, snapshot) {
         //if (Config.deviceWidth(context) > breakPoint) {
-        if (kIsWeb) {
+        if (snapshot.maxWidth > breakPoint) {
           return Center(
             child: Container(
+              width: webWidth,
               child: ListView(
                 // 無駄な読み込みを減らすためにキャッシュ領域を広げる
                 cacheExtent: 250.0 * 3.0,
