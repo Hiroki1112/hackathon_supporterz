@@ -15,7 +15,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 /// ログインボタンを表示する基本的なappBar
 /// ログイン済みの時にはアイコンが表示される
-AppBar myAppBar(BuildContext context, {String title = 'Supporterz'}) {
+AppBar myAppBar(BuildContext context, {String title = 'Jiffy'}) {
   final firebaseUser = context.watch<User?>();
   return AppBar(
     // モバイルの場合は表示(true)にする
